@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState, useEffect } from 'react'
 
-function App() {
+import styles from './App.module.css'
+
+import { Tank } from './typesStuff/Tank'
+import { AddTank } from './AddTank'
+import { TanksList } from './TanksList'
+
+const App:FC = () => {
+
+  const [ tanks, setTanks ] = useState<Tank[]>([])
+  /**
+   * The wotc-vehicles file contains data from public Wargaming sources
+   * The formatting is per WG's formatting, and the bits we're interested in
+   * are described & typed in typesStuff/Tank
+   */
+  useEffect(() => {
+      fetch('/wotc-vehicles.json')
+          .then(res => res.json())
+          .then(json => {
+              setTanks(json)
+          })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={styles.wrap}>
+      <header className={styles.header}>
+        WoTStars' Tank Compare
+        <img src="/TankyMcPewPew-TC.png" alt="site logo" className={styles.headerLogo}></img>
       </header>
+      <div className={styles.appBody}>
+        {/* TODO: A loading spinner for while we wait for our vehicles data */}
+        { !tanks && <div>Loading tank schematics!...</div> }
+        { tanks && <AddTank tanks={tanks} /> }
+        <TanksList tanks={tanks} />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export { App }
