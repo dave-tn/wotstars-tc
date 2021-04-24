@@ -10,10 +10,10 @@ type TypesTuple = [
 type VehicleTypes = TypesTuple[]
 
 const VEHICLE_TYPES: VehicleTypes = [
-    [ 'lightTank', 'Light tank' ],
-    [ 'mediumTank', 'Medium tank' ],
-    [ 'heavyTank', 'Heavy tank' ],
-    [ 'AT-SPG', 'Tank destroyer' ],
+    [ 'lightTank', 'Light Tank' ],
+    [ 'mediumTank', 'Medium Tank' ],
+    [ 'heavyTank', 'Heavy Tank' ],
+    [ 'AT-SPG', 'Tank Destroyer' ],
     [ 'SPG', 'Artillery']
 ]
 
