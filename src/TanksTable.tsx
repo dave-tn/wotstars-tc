@@ -4,6 +4,7 @@ import { Tank } from './typesStuff/Tank'
 
 import { useTankState } from './hooks/useTankState'
 import { HeaderRow } from './RowComponents/HeaderRow'
+import { FirepowerRow } from './RowComponents/FirepowerRow'
 
 export const TanksTable:FC<{ tanks: Tank[] }> = ({ tanks }) => {
 
@@ -15,6 +16,7 @@ export const TanksTable:FC<{ tanks: Tank[] }> = ({ tanks }) => {
             <table>
                 <tbody>
                     <HeaderRow data={tankCompData} />
+                    <FirepowerRow data={tankCompData} />
                 </tbody>
             </table>
 
