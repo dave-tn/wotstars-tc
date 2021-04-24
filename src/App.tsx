@@ -4,7 +4,7 @@ import styles from './App.module.css'
 
 import { Tank } from './typesStuff/Tank'
 import { AddTank } from './AddTank'
-import { TanksList } from './TanksList'
+import { TanksTable } from './TanksTable'
 
 const App:FC = () => {
 
@@ -32,7 +32,7 @@ const App:FC = () => {
         {/* TODO: A loading spinner for while we wait for our vehicles data */}
         { !tanks && <div>Loading tank schematics!...</div> }
         { tanks && <AddTank tanks={tanks} /> }
-        <TanksList tanks={tanks} />
+        <TanksTable tanks={tanks} />
       </div>
     </div>
   )
