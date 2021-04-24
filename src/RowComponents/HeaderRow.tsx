@@ -13,10 +13,10 @@ const HeaderRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <tr>
             <td></td> { /* No title/header for the row */ }
             { data.map(td => {
-                if (!td.rawData) return <td>Missing tank data<br/> for this config</td>
+                if (!td.rawData) return <td key={td.uid}>Missing tank data<br/> for this config</td>
 
                 return (
-                    <td>
+                    <td key={td.uid}>
                         <div className={styles.cell}>
 
                             <img
