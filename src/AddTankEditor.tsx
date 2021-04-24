@@ -2,9 +2,9 @@ import { FC, useState, useMemo } from 'react'
 // import TanksList from './TanksList'
 
 import { Tank, TankModule, Chassis, Engine, Turret, Gun } from './typesStuff/Tank'
-import { useHistory } from './HistoryProvider'
 
 import { generateTankFingerprint } from './utils/comparisonConfigUtils/generateTankFingerprint'
+import { useAddTank } from './hooks/useTankState'
 import { toNation } from './utils/tankNations'
 import { toRoman } from './utils/tankTiers'
 import { toType } from './utils/tankTypes'
@@ -18,7 +18,7 @@ interface ModulesList {
 
 export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
 
-    const history = useHistory()
+    const addTankToState = useAddTank()
 
     const modulesList: ModulesList = useMemo(() => {
         /** Module indexes seem to be based on when a module is unlocked; so as defaults we want the 'best' module first in the lists */
@@ -55,26 +55,17 @@ export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
 
     const theAmmo = Object.values(theGun.shots).sort((a, b) => a.index > b.index ? -1 : 1)[0]
 
-    /**
-     * We want to add this tank (configuration) to the list of tanks to be compared
-     */
     const addTank = () => {
-
-        const tankFingerprint = generateTankFingerprint(
-            tank.info.id,
-            selectedChassis,
-            selectedEngine,
-            selectedTurret,
-            selectedGun,
-            theAmmo.index
+        addTankToState(
+            generateTankFingerprint(
+                tank.info.id,
+                selectedChassis,
+                selectedEngine,
+                selectedTurret,
+                selectedGun,
+                theAmmo.index
+            )
         )
-
-        const curSearch = history.location.search ? history.location.search + ',' : '?c='
-        const newSearch = curSearch + tankFingerprint
-        history.push({
-            pathname: history.location.pathname,
-            search: newSearch
-        })
     }
 
     return (

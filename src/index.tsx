@@ -4,13 +4,9 @@ import './index.css'
 import { App } from './App'
 import reportWebVitals from './reportWebVitals'
 
-import { HistoryProvider } from './HistoryProvider'
-
 ReactDOM.render(
   <React.StrictMode>
-    <HistoryProvider>
       <App />
-    </HistoryProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
