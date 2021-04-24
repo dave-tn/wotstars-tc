@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { AddTankEditor } from './AddTankEditor'
 import { Tank } from './typesStuff/Tank'
 
-import { ROMAN_LEGEND, toRoman } from './utils/romans'
+import { ROMAN_LEGEND, toRoman } from './utils/tankTiers'
 
 export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
 
