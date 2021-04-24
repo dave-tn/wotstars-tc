@@ -47,6 +47,8 @@ export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
     const theTurret = modulesList.turrets.find(m => m.index === selectedTurret) ?? modulesList.turrets[0]
     const theGun = modulesList.guns.find(m => m.index === selectedGun) ?? modulesList.guns[0]
 
+    const theAmmo = Object.values(theGun.shots).sort((a, b) => a.index > b.index ? -1 : 1)[0]
+
     /**
      * We want to add this tank to the list of tanks to be compared
      */
