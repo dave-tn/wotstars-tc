@@ -1,5 +1,5 @@
 
-import { Tank } from './../../typesStuff/Tank'
+import { Tank, Chassis, Engine, Turret, Gun, Shot } from './../../typesStuff/Tank'
 
 export type Fingerprint = `${number}:${number}:${number}:${number}:${number}:${number}:${number}`
 
@@ -15,21 +15,36 @@ export interface TankConfig {
     /** Selected gun index */
     gunIndex: number
     /** Selected ammo index */
-    ammoIndex: number,
+    ammoIndex: number
     /** Unique ID */
     uid: number
+    selectedChassis: Chassis | undefined
+    selectedEngine: Engine | undefined
+    selectedTurret: Turret | undefined
+    selectedGun: Gun | undefined
+    selectedAmmo: Shot | undefined
 }
 
 function getTankConfig(tankFingerprint: Fingerprint, tanks: Tank[]) {
     const splitTfp = tankFingerprint.split(':').map(s => parseInt(s))
+
+    const theTank = tanks.find(t => t.info.id === splitTfp[0])
+    const theTurret = Object.values(theTank?.data.turrets ?? {}).find(c => c.index === splitTfp[3])
+    const theGun = Object.values(theTurret?.guns ?? {}).find(c => c.index === splitTfp[4])
+    const theAmmo = Object.values(theGun?.shots ?? {}).find(c => c.index === splitTfp[5])
     const tankCompData: TankConfig = {
-        rawData: tanks.find(t => t.info.id === splitTfp[0]),
+        rawData: theTank,
         chassisIndex: splitTfp[1],
         engineIndex: splitTfp[2],
         turretIndex: splitTfp[3],
         gunIndex: splitTfp[4],
         ammoIndex: splitTfp[5],
-        uid: splitTfp[6]
+        uid: splitTfp[6],
+        selectedChassis: Object.values(theTank?.data.chassis ?? {}).find(c => c.index === splitTfp[1]),
+        selectedEngine: Object.values(theTank?.data.engines ?? {}).find(c => c.index === splitTfp[2]),
+        selectedTurret: theTurret,
+        selectedGun: theGun,
+        selectedAmmo: theAmmo
     }
     return tankCompData
 }
