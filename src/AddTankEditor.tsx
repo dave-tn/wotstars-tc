@@ -2,8 +2,12 @@ import { FC, useState, useMemo } from 'react'
 // import TanksList from './TanksList'
 
 import { Tank, TankModule, Chassis, Engine, Turret, Gun } from './typesStuff/Tank'
-import { toRoman } from './utils/romans'
-import { fromTypeSlug } from './utils/tankTypes'
+import { useHistory } from './HistoryProvider'
+
+import { generateTankFingerprint } from './utils/comparisonConfigUtils/generateTankFingerprint'
+import { toNation } from './utils/tankNations'
+import { toRoman } from './utils/tankTiers'
+import { toType } from './utils/tankTypes'
 
 interface ModulesList {
     engines: Engine[]
@@ -13,6 +17,8 @@ interface ModulesList {
 }
 
 export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
+
+    const history = useHistory()
 
     const modulesList: ModulesList = useMemo(() => {
         /** Module indexes seem to be based on when a module is unlocked; so as defaults we want the 'best' module first in the lists */
@@ -50,18 +56,31 @@ export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
     const theAmmo = Object.values(theGun.shots).sort((a, b) => a.index > b.index ? -1 : 1)[0]
 
     /**
-     * We want to add this tank to the list of tanks to be compared
+     * We want to add this tank (configuration) to the list of tanks to be compared
      */
     const addTank = () => {
-        console.log('The data for the tank to be viewed could be seen as:')
-        console.log(`Tank ID: ${tank.info.id}, chassis: ${selectedChassis}, engine: ${selectedEngine}, turret: ${selectedTurret}, gun: ${selectedGun}`)
-        console.log(`${tank.info.id}:${selectedChassis}:${selectedEngine}:${selectedTurret}:${selectedGun}`)
+
+        const tankFingerprint = generateTankFingerprint(
+            tank.info.id,
+            selectedChassis,
+            selectedEngine,
+            selectedTurret,
+            selectedGun,
+            theAmmo.index
+        )
+
+        const curSearch = history.location.search ? history.location.search + ',' : '?c='
+        const newSearch = curSearch + tankFingerprint
+        history.push({
+            pathname: history.location.pathname,
+            search: newSearch
+        })
     }
 
     return (
         <div style={{ border: '1px solid grey', borderRadius: '5px', padding: '1em' }}>
             <p>{ tank.info.user_string }</p>
-            <p>{ fromTypeSlug(tank.info.type_slug) } { toRoman(tank.info.level) } { tank.info.nation }</p>
+            <p>{ toType(tank.info.type_slug) } { toRoman(tank.info.level) } { toNation(tank.info.nation) }</p>
             <img src={tank.info.image_preview_url} alt={`the ${tank.info.user_string}`}/>
             { tank.info.is_premium &&
                 <p>Premium Tank</p>
