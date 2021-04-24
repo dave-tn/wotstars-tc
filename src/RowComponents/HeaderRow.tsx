@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import styles from './HeaderRow.module.css'
 
-import { TankConfig } from '../TanksTable'
+import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
 import { toRoman } from '../utils/tankTiers'
 import { toNation } from './../utils/tankNations'
 import { toType } from './../utils/tankTypes'
