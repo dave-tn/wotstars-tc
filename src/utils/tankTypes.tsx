@@ -17,10 +17,10 @@ const VEHICLE_TYPES: VehicleTypes = [
     [ 'SPG', 'Artillery']
 ]
 
-function fromTypeSlug(slug: TankTypeSlug): string {
+function toType(slug: TankTypeSlug): string {
     return VEHICLE_TYPES.find(t => t[0] === slug)?.[1] ?? 'unknown type'
 }
 
 export {
-    fromTypeSlug
+    toType
 }
