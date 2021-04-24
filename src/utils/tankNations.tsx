@@ -7,10 +7,10 @@ const NATIONS: { [key: string]: string } = {
     usa: 'U.S.A.', germany: 'Germany', uk: 'U.K.', ussr: 'U.S.S.R.', france: 'France', japan: 'Japan', china: 'China', czech: 'Czechoslovakia', sweden: 'Sweden', poland: 'Poland', italy: 'Italy', merc: 'Mercenaries'
 }
 
-function toNationString(slug: string): string {
+function toNation(slug: string): string {
     return NATIONS[slug] ?? 'unknown nation'
 }
 
 export {
-    toNationString
+    toNation
 }
