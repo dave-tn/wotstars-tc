@@ -1,0 +1,23 @@
+
+.cell {
+    position: relative;
+}
+
+.tankImage {
+    max-height: 7.5em;
+}
+
+.textWrap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: .75em;
+}
+.name {
+    font-size: 1.15em;
+    color: white;
+}
+
+.textWrap span {
+    display: block;
+}
