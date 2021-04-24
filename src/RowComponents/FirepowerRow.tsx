@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import styles from './FirepowerRow.module.css'
+import styles from './RowComponentStyles.module.css'
 
 import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
 // import { MakeCell } from './_MakeCell'
