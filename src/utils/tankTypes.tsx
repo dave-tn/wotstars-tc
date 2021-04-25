@@ -21,5 +21,6 @@ function toType(slug: TankTypeSlug): string {
 }
 
 export {
-    toType
+    toType,
+    VEHICLE_TYPES
 }

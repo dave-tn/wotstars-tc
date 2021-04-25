@@ -12,5 +12,6 @@ function toNation(slug: string): string {
 }
 
 export {
-    toNation
+    toNation,
+    NATIONS
 }
