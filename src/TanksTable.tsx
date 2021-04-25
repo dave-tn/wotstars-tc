@@ -6,6 +6,7 @@ import { useTankState } from './hooks/useTankState'
 import { HeaderRow } from './RowComponents/HeaderRow'
 import { FirepowerRow } from './RowComponents/FirepowerRow'
 import { WeaponHandlingRow } from './RowComponents/WeaponHandlingRow'
+import { MovementRow } from './RowComponents/MovementRow'
 
 export const TanksTable:FC<{ tanks: Tank[] }> = ({ tanks }) => {
 
@@ -19,6 +20,7 @@ export const TanksTable:FC<{ tanks: Tank[] }> = ({ tanks }) => {
                     <HeaderRow data={tankCompData} />
                     <FirepowerRow data={tankCompData} />
                     <WeaponHandlingRow data={tankCompData} />
+                    <MovementRow data={tankCompData} />
                 </tbody>
             </table>
 
