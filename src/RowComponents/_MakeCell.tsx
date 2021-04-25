@@ -4,7 +4,7 @@ import { rounder } from './../utils/rounder'
 const MakeCell:FC<{ val?: number, compVal?: number, roundTo?: number}> = ({ val, compVal, roundTo }) => {
     let compStyle
 
-    if (!val) return <td></td>
+    if (!val) return <div></div>
     if (compVal) {
         const diff = val / compVal
         if (diff > 1) {
@@ -16,9 +16,9 @@ const MakeCell:FC<{ val?: number, compVal?: number, roundTo?: number}> = ({ val,
     }
 
     return (
-        <td style={compStyle}>
+        <div style={compStyle}>
             { roundTo ? rounder(val, roundTo) : val }
-        </td>
+        </div>
     )
 }
 
