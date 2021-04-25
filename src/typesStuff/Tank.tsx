@@ -93,7 +93,12 @@ interface Chassis extends TankModule {
     rotation_speed: number //33
     armory: number[] // Array<number>
     max_load: number // 31400
-    terrain_resistance: Array<Number> // terrain_resistance: [ 1.2, 1.6, 2.3 ],
+    // terrain_resistance: number[] // terrain_resistance: [ 1.2, 1.6, 2.3 ],
+    terrain_resistance: [
+        number,
+        number,
+        number
+    ] // terrain_resistance: [ 1.2, 1.6, 2.3 ],
 }
 interface Turret extends TankModule {
     rotation_speed: number
