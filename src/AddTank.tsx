@@ -1,24 +1,29 @@
 import { FC, useState } from 'react'
 import { AddTankEditor } from './AddTankEditor'
-import { Tank } from './typesStuff/Tank'
+import { Tank, TankTypeSlug } from './typesStuff/Tank'
 
 import { ROMAN_LEGEND, toRoman } from './utils/tankTiers'
+import { toType, VEHICLE_TYPES } from './utils/tankTypes'
+import { toNation, NATIONS } from './utils/tankNations'
 
 export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
 
-    const listOfNations = tanks.reduce<string[]>((list, tank) => {
-        if (list.indexOf(tank.info.nation) === -1) list.push(tank.info.nation)
-        return list
-    }, []).sort()
-
-    const listOfTypes = tanks.reduce<string[]>((list, tank) => {
-        if (list.indexOf(tank.info.type_slug) === -1) list.push(tank.info.type_slug)
-        return list
-    }, []).sort()
-
+    const listOfNations = Object.keys(NATIONS)
+        .sort()
     const [ selectedNation, setSelectedNation ] = useState(listOfNations[0])
+
+    // Available vehicle types for the selected nation
+    const listOfTypes = VEHICLE_TYPES
+        .map(tt => tt[0])
+        .filter(typeSlug => !!tanks.find(t => t.info.nation === selectedNation && t.info.type_slug === typeSlug))
     const [ selectedType, setSelectedType ] = useState(listOfTypes[0])
-    const [ selectedTier, setSelectedTier ] = useState<number|undefined>()
+
+    // Available tiers for the selected nation & selected vehicle type
+    const listOfTiers = ROMAN_LEGEND
+        .map(tup => tup[0])
+        .filter(num => !!tanks.find(t => t.info.nation === selectedNation && t.info.type_slug === selectedType && t.info.level === num))
+    const [ selectedTier, setSelectedTier ] = useState(0)
+
 
     const filteredTanks = tanks
         .filter(t => t.info.nation === selectedNation)
@@ -38,22 +43,22 @@ export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
             <h2>Select a tank</h2>
             <select value={selectedNation} onChange={e => setSelectedNation(e.target.value)}>
                 { listOfNations.map(nationKey => (
-                    <option key={nationKey} value={nationKey}>{ nationKey }</option>
+                    <option key={nationKey} value={nationKey}>{ toNation(nationKey) }</option>
                 ))}
             </select>
-            <select value={selectedType} onChange={e => setSelectedType(e.target.value)}>
+            <select value={selectedType} onChange={e => setSelectedType(e.target.value as TankTypeSlug)}>
                 { listOfTypes.map(typeSlug => (
-                    <option key={typeSlug} value={typeSlug}>{ typeSlug }</option>
+                    <option key={typeSlug} value={typeSlug}>{ toType(typeSlug) }</option>
                 ))}
             </select>
             <select value={selectedTier} onChange={e => setSelectedTier(parseInt(e.target.value))}>
                 <option value="0">tier (optional)</option>
-                { ROMAN_LEGEND.map(([ara, rom]) => (
-                    <option key={rom} value={ara}>{ rom }</option>
+                { listOfTiers.map(num => (
+                    <option key={toRoman(num)} value={num}>{ toRoman(num) }</option>
                 ))}
             </select>
 
-            <select value={selectedTank} onChange={e => setSelectedTank(e.target.value)}>
+            <select value={selectedTank} onChange={e => setSelectedTank(e.target.value)} disabled={filteredTanks.length === 0}>
                 <option value="0">-- select tank --</option>
                 { filteredTanks.map(tank => {
                     return (
