@@ -83,4 +83,22 @@ describe('returns a config based on a fingerprint', () => {
         expect(config.rawData).toBe(undefined)
     })
 
+    /**
+     * Handle bad fingerprints as expected by the UI (no crashes etc, just undefined modules)
+     */
+    it('returns a config with undefined set for selected modules that do not exist on the tank though are in fingerprint', () => {
+        const fingerprintForNoneExistantTank: Fingerprint = '1:2:2:2:1:1:0'
+        const config = getTankConfig(fingerprintForNoneExistantTank, tanks)
+        expect(config.chassisIndex).toBe(2)
+        expect(config.selectedChassis).toBe(undefined)
+        expect(config.turretIndex).toBe(2)
+        expect(config.selectedTurret).toBe(undefined)
+        // Valid gun index for the wrong turret, should result in undefined gun
+        expect(config.gunIndex).toBe(1)
+        expect(config.selectedGun).toBe(undefined)
+        // Valid ammo index but for a gun that doesn't exist, should result in undefined
+        expect(config.ammoIndex).toBe(1)
+        expect(config.selectedAmmo).toBe(undefined)
+    })
+
 })
