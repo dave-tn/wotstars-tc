@@ -76,7 +76,7 @@ describe('returns a config based on a fingerprint', () => {
      * is visited with query params state but that tank is no longer in Wargaming's data.
      * If that's the case, we probably just want to show a warning to that end
      */
-    it(`doesn't crash but returns shell if no tank ID match`, () => {
+    it(`doesn't crash but returns shell obj if no tank ID match`, () => {
         const fingerprintForNoneExistantTank: Fingerprint = '2:1:2:2:1:2:0'
         const config = getTankConfig(fingerprintForNoneExistantTank, tanks)
         expect(config).not.toBe(undefined)
