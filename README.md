@@ -2,7 +2,7 @@
 ### Might one day be...
 # A Tank Comparator Web App for WoT: Console
 
-This may end up as something along the lines of [BlitzStars](https://www.blitzstars.com)' [Tank Compare](https://tank-compare.blitzstars.com) web app.
+Something along the lines of [BlitzStars](https://www.blitzstars.com)' [Tank Compare](https://tank-compare.blitzstars.com) web app.
 
 This is an in development web-app to handle vehicle comparisons for World of Tanks: Console, as an accompaniment to [WoTStars.com](https://www.wotstars.com)
 
