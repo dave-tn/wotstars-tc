@@ -64,7 +64,7 @@ interface TankData {
     turrets: {
         [key: string]: Turret
     }
-    primary_armor: Array<number>
+    primary_armor: number[] // Array<number>
 }
 
 interface TankModule {
@@ -91,7 +91,7 @@ interface Radio extends TankModule {
 }
 interface Chassis extends TankModule {
     rotation_speed: number //33
-    armory: [number] // Array<number>
+    armory: number[] // Array<number>
     max_load: number // 31400
     terrain_resistance: Array<Number> // terrain_resistance: [ 1.2, 1.6, 2.3 ],
 }

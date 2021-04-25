@@ -7,9 +7,8 @@ type TypesTuple = [
     /** The friendly user string for the vehicle type */
     string
 ]
-type VehicleTypes = TypesTuple[]
 
-const VEHICLE_TYPES: VehicleTypes = [
+const VEHICLE_TYPES: TypesTuple[] = [
     [ 'lightTank', 'Light Tank' ],
     [ 'mediumTank', 'Medium Tank' ],
     [ 'heavyTank', 'Heavy Tank' ],
