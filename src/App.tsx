@@ -20,6 +20,7 @@ const App:FC = () => {
           .then(json => {
               setTanks(json)
           })
+          // TODO: Catch load fails, show error message and allow retrying
   }, [])
 
   return (
