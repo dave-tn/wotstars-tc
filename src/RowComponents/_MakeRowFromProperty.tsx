@@ -14,7 +14,8 @@ const MakeRowFromProperty:FC<{
     roundTo?: number 
 }> = ({ title, data, para, roundTo }) => (
     <tr>
-        <td>{ title }</td> { /* Title/header for the row */ }
+        <td>{ title }</td>{ /* Title/header for the row */ }
+        {/* TODO: FIXME: Key these properly... */}
         { data.map(f => <td><MakeCell val={f[para]} compVal={data[0][para]} roundTo={roundTo} key={Date.now() + Math.random()} /></td> )}
     </tr>
 )
