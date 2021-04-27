@@ -7,7 +7,7 @@ import { Fingerprint, TankConfig, getTankConfigs } from './../utils/comparisonCo
 import { HistoryContext, useHistory } from './../HistoryProvider'
 
 
-export function useTankState(tanks: Tank[]): [ TankConfig[], (fp: Fingerprint) => void] {
+export function useTankState(tanks: Tank[]): [ TankConfig[] ] {
 
     const history = useContext(HistoryContext)
     const [ tankCompData, setTankCompData ] = useState<TankConfig[]>([])
@@ -32,21 +32,13 @@ export function useTankState(tanks: Tank[]): [ TankConfig[], (fp: Fingerprint) =
         return () => unlisten()
     }, [ history, tanks ])
 
-    function addTankFromFingerprint(fingerprint: Fingerprint) {
-        const curSearch = history.location.search ? history.location.search + ',' : '?c='
-        const newSearch = curSearch + fingerprint
-        history.push({
-            pathname: history.location.pathname,
-            search: newSearch
-        })
-    }
-
-    return [ tankCompData, addTankFromFingerprint ]
+    return [ tankCompData ]
 }
 
 
 export function useAddTank() {
     const history = useHistory()
+
     function addTank(fp: Fingerprint) {
         const curSearch = history.location.search ? history.location.search + ',' : '?c='
         const newSearch = curSearch + fp
