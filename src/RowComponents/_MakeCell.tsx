@@ -5,7 +5,7 @@ const MakeCell:FC<{ val?: number, compVal?: number, roundTo?: number}> = ({ val,
     let compStyle
 
     if (val === undefined) return <div data-testid="empty"></div>
-    if (compVal) {
+    if (compVal !== undefined) {
         const diff = val / compVal
         if (diff > 1) {
             compStyle = { backgroundColor: `rgba(90,200,70,${Math.min(.75, diff-1)})`}
