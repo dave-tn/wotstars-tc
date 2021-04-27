@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 
 describe('renders a table cell', () => {
 
+    it('renders an empty element if undefined value passed to it', () => {
+        render(<MakeCell val={undefined} />)
+        const cell = screen.getByTestId('empty')
+        expect(cell).toBeInTheDocument()
+    })
+
     it('renders plainly the number passed to it', () => {
         render(<MakeCell val={1} />)
         const cell = screen.getByText(/1/i)
