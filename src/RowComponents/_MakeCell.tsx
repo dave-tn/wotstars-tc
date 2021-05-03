@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { rounder } from './../utils/rounder'
 
-const MakeCell:FC<{ val?: number, compVal?: number, roundTo?: number}> = ({ val, compVal, roundTo }) => {
+const MakeCell:FC<{ val?: number, compVal?: number, suffix?: string, roundTo?: number}> = ({ val, compVal, suffix, roundTo }) => {
     let compStyle
 
     if (val === undefined) return <div data-testid="empty"></div>
@@ -17,7 +17,7 @@ const MakeCell:FC<{ val?: number, compVal?: number, roundTo?: number}> = ({ val,
 
     return (
         <div style={compStyle}>
-            { roundTo ? rounder(val, roundTo) : val }
+            { roundTo ? rounder(val, roundTo) : val }{ suffix }
         </div>
     )
 }

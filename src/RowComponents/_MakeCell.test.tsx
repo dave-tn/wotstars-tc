@@ -20,6 +20,10 @@ describe('renders a table cell', () => {
         render(<MakeCell val={1.991} roundTo={2} />)
         expect(screen.getByText(/1.99/i)).toBeInTheDocument()
     })
+    it('adds the suffix if passed', () => {
+        render(<MakeCell val={1.999} roundTo={2} suffix="@£%" />)
+        expect(screen.getByText(/@£%/i)).toBeInTheDocument()
+    })
     it('adds background colour hinting if val and compVal are different', () => {
         render(<MakeCell val={2} compVal={3} />)
         const cell = screen.getByText(/2/i)
