@@ -7,22 +7,28 @@ import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface Movement {
     uid: number
-    [key: string]: number | undefined
+    [key: string]: number | (number|undefined)[] | undefined
 }
 
 const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
 
     const movementData: Movement[] = data.map(tc => {
-        if (!tc.selectedChassis || !tc.selectedEngine || !tc.rawData) return { uid: tc.uid }
+        if (!tc.selectedChassis || !tc.selectedEngine || !tc.selectedTurret || !tc.selectedGun || !tc.rawData) return { uid: tc.uid }
+        const { data } = tc.rawData
+
+        const hullRotation = tc.selectedChassis.rotation_speed
+        const turretRotation = tc.selectedTurret.rotation_speed
+
+        const totalWeight = tc.selectedChassis.weight + tc.selectedEngine.weight + tc.selectedTurret.weight + tc.selectedGun.weight
+        const hpPer = tc.selectedEngine.power / (totalWeight / 1000)
+
         return {
             uid: tc.uid,
-            speedForward: tc.rawData.data.speed.forward,
-            speedBackward: tc.rawData.data.speed.backward,
-            rotationSpeed: tc.selectedChassis.rotation_speed,
-            enginePower: tc.selectedEngine.power,
-            terrainResistance: tc.selectedChassis.terrain_resistance[0],
-            camoStill: tc.rawData.data.invisibility.still,
-            camoMoving: tc.rawData.data.invisibility.moving
+            speed: [ data.speed.forward, data.speed.backward ],
+            rotations: [ hullRotation, turretRotation ],
+            power: [ tc.selectedEngine.power, hpPer ],
+            terrainResistance: tc.selectedChassis.terrain_resistance,
+            camo: [tc.rawData.data.invisibility.still, tc.rawData.data.invisibility.moving]
         }
     })
 
@@ -31,13 +37,11 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <tr>
             <td className={styles.header} colSpan={9}>Movement / Mobility</td>
         </tr>
-        <MakeRowFromProperty title="Speed Forward" data={movementData} para="speedForward" />
-        <MakeRowFromProperty title="Speed Backward" data={movementData} para="speedBackward" />
-        <MakeRowFromProperty title="Rotation / Traverse" data={movementData} para="rotationSpeed" />
-        <MakeRowFromProperty title="Engine Power" data={movementData} para="enginePower" />
-        <MakeRowFromProperty title="Terrain Resistance" data={movementData} para="terrainResistance" biggerIsBetter={false} />
-        <MakeRowFromProperty title="Camo (still)" data={movementData} para="camoStill" />
-        <MakeRowFromProperty title="Camo (moving)" data={movementData} para="camoMoving" />
+        <MakeRowFromProperty title="Speed [forward/reverse]" data={movementData} para="speed" suffix="kph" />
+        <MakeRowFromProperty title="Traverse [hull/turret]" data={movementData} para="rotations" suffix="°/s" />
+        <MakeRowFromProperty title="Engine Power / per tonne" data={movementData} para="power" suffix="hp" roundTo={0} />
+        <MakeRowFromProperty title="Terrain [hard/med/soft]" data={movementData} para="terrainResistance" biggerIsBetter={false} />
+        <MakeRowFromProperty title="Camo [still/moving]" data={movementData} para="camo" />
         </>
     )
 }

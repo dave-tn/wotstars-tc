@@ -7,7 +7,7 @@ import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface WeaponHandling {
     uid: number
-    [key: string]: number | undefined
+    [key: string]: number | number[] | undefined
 }
 
 const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
@@ -18,10 +18,8 @@ const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
             uid: tc.uid,
             aimingTime: tc.selectedGun.aiming_time,
             dispersion: tc.selectedGun.shot_dispersion_radius,
-            // other dispersion vals??
-            depression: tc.selectedGun.depression,
-            elevation: tc.selectedGun.elevation,
-            turretRotation: tc.selectedTurret.rotation_speed
+            // can we find more dispersion values? eg. stationary, on move, on turret rotation
+            eleDep: [tc.selectedGun.elevation, tc.selectedGun.depression ]
         }
     })
 
@@ -30,11 +28,9 @@ const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <tr>
             <td className={styles.header} colSpan={9}>Weapon Handling</td>
         </tr>
-        <MakeRowFromProperty title="Aim Time" data={weaponHandlingData} para="aimingTime" biggerIsBetter={false} />
+        <MakeRowFromProperty title="Aim Time" data={weaponHandlingData} para="aimingTime" biggerIsBetter={false} suffix="s" />
         <MakeRowFromProperty title="Dispersion" data={weaponHandlingData} para="dispersion" biggerIsBetter={false} />
-        <MakeRowFromProperty title="Elevation" data={weaponHandlingData} para="elevation" />
-        <MakeRowFromProperty title="Depression" data={weaponHandlingData} para="depression" />
-        <MakeRowFromProperty title="Turret Rotation" data={weaponHandlingData} para="turretRotation" />
+        <MakeRowFromProperty title="Elevation / Depression" data={weaponHandlingData} para="eleDep" suffix="°" />
         </>
     )
 }
