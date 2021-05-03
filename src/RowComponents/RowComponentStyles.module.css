@@ -3,3 +3,13 @@
     margin: .5em .25em;
 
 }
+
+.cellRowsTitle {
+    padding-right: 1.5em;
+}
+.cellWrap {
+    display: flex;
+}
+.cell {
+    flex-grow: 1;
+}

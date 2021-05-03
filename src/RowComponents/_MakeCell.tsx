@@ -1,6 +1,8 @@
 import { FC } from 'react'
 import { rounder } from './../utils/rounder'
 
+import styles from './RowComponentStyles.module.css'
+
 const MakeCell:FC<{
     val?: number
     compVal?: number
@@ -29,7 +31,7 @@ const MakeCell:FC<{
     }
 
     return (
-        <div style={compStyle}>
+        <div style={compStyle} className={styles.cell}>
             { roundTo !== undefined ? rounder(val, roundTo) : val }{ suffix }
         </div>
     )
