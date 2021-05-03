@@ -20,7 +20,9 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
             speedBackward: tc.rawData.data.speed.backward,
             rotationSpeed: tc.selectedChassis.rotation_speed,
             enginePower: tc.selectedEngine.power,
-            terrainResistance: tc.selectedChassis.terrain_resistance[0]
+            terrainResistance: tc.selectedChassis.terrain_resistance[0],
+            camoStill: tc.rawData.data.invisibility.still,
+            camoMoving: tc.rawData.data.invisibility.moving
         }
     })
 
@@ -34,6 +36,8 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Rotation / Traverse" data={movementData} para="rotationSpeed" />
         <MakeRowFromProperty title="Engine Power" data={movementData} para="enginePower" />
         <MakeRowFromProperty title="Terrain Resistance" data={movementData} para="terrainResistance" />
+        <MakeRowFromProperty title="Camo (still)" data={movementData} para="camoStill" />
+        <MakeRowFromProperty title="Camo (moving)" data={movementData} para="camoMoving" />
         </>
     )
 }
