@@ -115,6 +115,7 @@ interface Gun extends TankModule {
     aiming_time: number
     shot_dispersion_radius: number
     max_ammo: number
+    shots_per_clip: number
     elevation: number
     depression: number
     rotation_speed: number
