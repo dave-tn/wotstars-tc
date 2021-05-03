@@ -3,7 +3,6 @@ import { FC } from 'react'
 import styles from './RowComponentStyles.module.css'
 
 import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
-// import { MakeCell } from './_MakeCell'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface Movement {

@@ -3,7 +3,6 @@ import { FC } from 'react'
 import styles from './RowComponentStyles.module.css'
 
 import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
-// import { MakeCell } from './_MakeCell'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface WeaponHandling {
@@ -23,7 +22,7 @@ const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
             depression: tc.selectedGun.depression,
             elevation: tc.selectedGun.elevation,
             turretRotation: tc.selectedTurret.rotation_speed
-        }// as WeaponHandling
+        }
     })
 
     return (
@@ -36,7 +35,6 @@ const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Elevation" data={weaponHandlingData} para="elevation" />
         <MakeRowFromProperty title="Depression" data={weaponHandlingData} para="depression" />
         <MakeRowFromProperty title="Turret Rotation" data={weaponHandlingData} para="turretRotation" />
-        {/* <MakeRowFromProperty title="Calibre" data={weaponHandlingData} para="calibre" /> */}
         </>
     )
 }
