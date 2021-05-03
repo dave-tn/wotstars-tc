@@ -16,11 +16,13 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
             uid: tc.uid,
-            dpm: tc.selectedAmmo.damage * (60 / tc.selectedGun.reload_time),
+            dpm: tc.selectedAmmo.damage * tc.selectedGun.reload_time, // this is messed up because of WG's naming, see below...
             penetration: tc.selectedAmmo.piercing_power,
             alpha: tc.selectedAmmo.damage,
-            rateOfFire: 60 / tc.selectedGun.reload_time,
-            reload: tc.selectedGun.reload_time,
+
+            // Wargaming has these values messed up in their data?!
+            rateOfFire: tc.selectedGun.reload_time,
+            reload: 60 / tc.selectedGun.reload_time,
             calibre: tc.selectedAmmo.caliber
         }
     })
