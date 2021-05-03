@@ -30,7 +30,7 @@ const MakeCell:FC<{
 
     return (
         <div style={compStyle}>
-            { roundTo ? rounder(val, roundTo) : val }{ suffix }
+            { roundTo !== undefined ? rounder(val, roundTo) : val }{ suffix }
         </div>
     )
 }
