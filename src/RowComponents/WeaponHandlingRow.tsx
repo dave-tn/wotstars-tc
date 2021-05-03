@@ -7,21 +7,23 @@ import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface WeaponHandling {
-    [key: string]: number
+    uid: number
+    [key: string]: number | undefined
 }
 
 const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
 
     const weaponHandlingData: WeaponHandling[] = data.map(tc => {
-        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return {} as WeaponHandling
+        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
+            uid: tc.uid,
             aimingTime: tc.selectedGun.aiming_time,
             dispersion: tc.selectedGun.shot_dispersion_radius,
             // other dispersion vals??
             depression: tc.selectedGun.depression,
             elevation: tc.selectedGun.elevation,
             turretRotation: tc.selectedTurret.rotation_speed
-        } as WeaponHandling
+        }// as WeaponHandling
     })
 
     return (

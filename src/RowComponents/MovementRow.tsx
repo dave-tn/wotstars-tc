@@ -7,20 +7,22 @@ import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface Movement {
-    [key: string]: number
+    uid: number
+    [key: string]: number | undefined
 }
 
 const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
 
     const movementData: Movement[] = data.map(tc => {
-        if (!tc.selectedChassis || !tc.selectedEngine || !tc.rawData) return {} as Movement
+        if (!tc.selectedChassis || !tc.selectedEngine || !tc.rawData) return { uid: tc.uid }
         return {
+            uid: tc.uid,
             speedForward: tc.rawData.data.speed.forward,
             speedBackward: tc.rawData.data.speed.backward,
             rotationSpeed: tc.selectedChassis.rotation_speed,
             enginePower: tc.selectedEngine.power,
             terrainResistance: tc.selectedChassis.terrain_resistance[0]
-        } as Movement
+        }
     })
 
     return (

@@ -4,6 +4,7 @@ import { MakeCell } from './_MakeCell'
 
 
 interface MakeRow {
+    uid: number
     [key: string]: number | undefined
 }
 
@@ -16,8 +17,7 @@ const MakeRowFromProperty:FC<{
 }> = ({ title, data, para, roundTo, suffix }) => (
     <tr>
         <td>{ title }</td>{ /* Title/header for the row */ }
-        {/* TODO: FIXME: Key these properly... */}
-        { data.map(f => <td key={Date.now() + Math.random()}><MakeCell val={f[para]} compVal={data[0][para]} suffix={suffix} roundTo={roundTo} /></td> )}
+        { data.map(f => <td key={f.uid}><MakeCell val={f[para]} compVal={data[0][para]} suffix={suffix} roundTo={roundTo} /></td> )}
     </tr>
 )
 

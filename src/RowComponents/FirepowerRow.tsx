@@ -7,27 +7,23 @@ import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface Firepower {
-    [key: string]: number
-    dpm: number
-    penetration: number
-    alpha: number
-    rateOfFire: number
-    reload: number
-    calibre: number
+    uid: number
+    [key: string]: number | undefined
 }
 
 const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
 
     const firepowerData: Firepower[] = data.map(tc => {
-        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return {} as Firepower
+        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
+            uid: tc.uid,
             dpm: tc.selectedAmmo.damage * (60 / tc.selectedGun.reload_time),
             penetration: tc.selectedAmmo.piercing_power,
             alpha: tc.selectedAmmo.damage,
             rateOfFire: 60 / tc.selectedGun.reload_time,
             reload: tc.selectedGun.reload_time,
             calibre: tc.selectedAmmo.caliber
-        } as Firepower
+        }
     })
 
     return (
