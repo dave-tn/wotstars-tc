@@ -32,7 +32,7 @@ interface TankData {
     weight: number
     silver_bonus?: number // eg. 0.35
     xp_bonus?: number // eg. 0.2
-    /** WG data seems to have this as a string for whatever reason... */
+    /** Free xp bonus. WG data seems to have this as a string for whatever reason... */
     free_xp_bonus?: string // eg. "0.05"
     /** Crew xp bonus */
     crew_bonus?: number // eg. 0.05 = 5%
