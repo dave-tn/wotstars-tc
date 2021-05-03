@@ -35,7 +35,7 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Speed Backward" data={movementData} para="speedBackward" />
         <MakeRowFromProperty title="Rotation / Traverse" data={movementData} para="rotationSpeed" />
         <MakeRowFromProperty title="Engine Power" data={movementData} para="enginePower" />
-        <MakeRowFromProperty title="Terrain Resistance" data={movementData} para="terrainResistance" />
+        <MakeRowFromProperty title="Terrain Resistance" data={movementData} para="terrainResistance" biggerIsBetter={false} />
         <MakeRowFromProperty title="Camo (still)" data={movementData} para="camoStill" />
         <MakeRowFromProperty title="Camo (moving)" data={movementData} para="camoMoving" />
         </>

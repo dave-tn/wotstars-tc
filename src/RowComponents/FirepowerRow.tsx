@@ -34,7 +34,7 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Penetration" data={firepowerData} para="penetration" />
         <MakeRowFromProperty title="Alpha" data={firepowerData} para="alpha" />
         <MakeRowFromProperty title="Rate of Fire" data={firepowerData} para="rateOfFire" />
-        <MakeRowFromProperty title="Reload" data={firepowerData} para="reload" roundTo={2} />
+        <MakeRowFromProperty title="Reload" data={firepowerData} para="reload" roundTo={2} biggerIsBetter={false} />
         <MakeRowFromProperty title="Calibre" data={firepowerData} para="calibre" />
         </>
     )
