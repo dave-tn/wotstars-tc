@@ -1,12 +1,13 @@
 
 import { Fingerprint } from './getTankConfig'
 
-// TODO: FIXME: When we arrive with state (tank configs in query params), there are already UIDs present and so can duplicate...
 /**
- * Generates a list of unique sequential IDs
+ * Generates a list of unique ascending IDs
+ * (Fairly horribly... we use the date in seconds to ensure that if a person uses
+ * a link already containing state we do not generate a conflicting ID)
  */
  function* idGenerator() {
-    let id = 0
+    let id = Math.round(Date.now() / 1000)
     while (true) {
         yield id
         id++
