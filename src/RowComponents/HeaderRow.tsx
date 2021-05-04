@@ -1,13 +1,10 @@
 import { FC } from 'react'
 
-import styles from './HeaderRow.module.css'
-
+import styles from './RowComponentStyles.module.css'
 import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
-import { toRoman } from '../utils/tankTiers'
-import { toNation } from './../utils/tankNations'
-import { toType } from './../utils/tankTypes'
+import { TankIntro } from '../Components/TankIntro'
 
-const HeaderRow: FC<{ data: TankConfig[] }> = ({ data }) => {
+const HeaderRow: FC<{ data: TankConfig[], showTankEditor: React.Dispatch<React.SetStateAction<boolean>> }> = ({ data, showTankEditor }) => {
 
     return (
         <tr>
@@ -17,29 +14,17 @@ const HeaderRow: FC<{ data: TankConfig[] }> = ({ data }) => {
 
                 return (
                     <td key={td.uid}>
-                        <div className={styles.cell}>
-
-                            <img
-                                className={styles.tankImage}
-                                src={td.rawData.info.image_preview_url}
-                                alt={`${td.rawData.info.user_string} preview`}
-                            />
-
-                            <div className={styles.textWrap}>
-                                <span className={styles.name}>{td.rawData.info.user_string}</span>
-                                <span>{toType(td.rawData.info.type_slug)}</span>
-                                <span>{toNation(td.rawData.info.nation)} | {toRoman(td.rawData.info.level)}</span>
-
-
-                            </div>
-
-                        </div>
+                        <TankIntro tank={td.rawData.info} />
                     </td>
                 )
             })}
+            <td>
+                <div className={styles.headerAddTankButton} onClick={() => showTankEditor(true)}>
+                    ADD TANK
+                </div>
+            </td>
         </tr>
     )
-
 }
 export {
     HeaderRow

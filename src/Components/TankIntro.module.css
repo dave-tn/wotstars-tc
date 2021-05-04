@@ -21,3 +21,7 @@
 .textWrap span {
     display: block;
 }
+
+.premiumTextColour {
+    color: var(--premium-gold);
+}

@@ -3,11 +3,11 @@ import { FC, useState, useMemo } from 'react'
 
 import { Tank, TankModule, Chassis, Engine, Turret, Gun } from './typesStuff/Tank'
 
+import styles from './AddTank.module.css'
+
 import { generateTankFingerprint } from './utils/comparisonConfigUtils/generateTankFingerprint'
 import { useAddTank } from './hooks/useTankState'
-import { toNation } from './utils/tankNations'
-import { toRoman } from './utils/tankTiers'
-import { toType } from './utils/tankTypes'
+import { TankIntro } from './Components/TankIntro'
 
 interface ModulesList {
     engines: Engine[]
@@ -16,7 +16,10 @@ interface ModulesList {
     guns: Gun[]
 }
 
-export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
+export const AddTankEditor: FC<{ tank: Tank, setShow: React.Dispatch<React.SetStateAction<boolean>> }> = ({
+    tank,
+    setShow
+}) => {
 
     const addTankToState = useAddTank()
 
@@ -39,10 +42,10 @@ export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
      * We use the module indexes here so we can potentially reference them when creating a URL for sharing with
      * a particular set of tanks (& their modules) to compare
      */
-    const [ selectedEngine, setSelectedEngine ] = useState(modulesList.engines[0].index)
-    const [ selectedChassis, setSelectedChassis ] = useState(modulesList.chassis[0].index)
-    const [ selectedTurret, setSelectedTurret ] = useState(modulesList.turrets[0].index)
-    const [ selectedGun, setSelectedGun ] = useState(modulesList.guns[0].index)
+    const [selectedEngine, setSelectedEngine] = useState(modulesList.engines[0].index)
+    const [selectedChassis, setSelectedChassis] = useState(modulesList.chassis[0].index)
+    const [selectedTurret, setSelectedTurret] = useState(modulesList.turrets[0].index)
+    const [selectedGun, setSelectedGun] = useState(modulesList.guns[0].index)
 
 
     /**
@@ -69,36 +72,31 @@ export const AddTankEditor:FC<{ tank: Tank }> = ({ tank }) => {
     }
 
     return (
-        <div style={{ border: '1px solid grey', borderRadius: '5px', padding: '1em' }}>
-            <p>{ tank.info.user_string }</p>
-            <p>{ toType(tank.info.type_slug) } { toRoman(tank.info.level) } { toNation(tank.info.nation) }</p>
-            <img src={tank.info.image_preview_url} alt={`the ${tank.info.user_string}`}/>
-            { tank.info.is_premium &&
-                <p>Premium Tank</p>
-            }
+        <div className={styles.tankPreviewWrap}>
+            <TankIntro tank={tank.info} />
 
-            <button onClick={addTank}>Add tank</button>
+            <button onClick={addTank} className={styles.addTankButton}>Add tank</button>
 
             <div>
                 <ModuleSelector value={selectedChassis} modules={modulesList.chassis} setter={setSelectedChassis} />
-                <p>Chassis: { theChassis &&
-                    <span>{ theChassis.user_string } Rotation speed: { theChassis.rotation_speed} Terrain resistance [hard/medium/soft]: { theChassis.terrain_resistance.toString() }</span>
+                <p>Chassis: {theChassis &&
+                    <span>{theChassis.user_string} Rotation speed: {theChassis.rotation_speed} Terrain resistance [hard/medium/soft]: {theChassis.terrain_resistance.toString()}</span>
                 }</p>
                 <ModuleSelector value={selectedEngine} modules={modulesList.engines} setter={setSelectedEngine} />
-                <p>Engine: { theEngine &&
-                    <span>{ theEngine.user_string } HP: { theEngine.power } Fire chance: { theEngine.fire_chance }</span>
+                <p>Engine: {theEngine &&
+                    <span>{theEngine.user_string} HP: {theEngine.power} Fire chance: {theEngine.fire_chance}</span>
                 }</p>
                 <ModuleSelector value={selectedTurret} modules={modulesList.turrets} setter={setSelectedTurret} />
-                <p>Turret: { theTurret &&
-                    <span>Turret: { theTurret.user_string } View range: { theTurret.vision_radius } Rotation speed: { theTurret.rotation_speed }</span>
+                <p>Turret: {theTurret &&
+                    <span>Turret: {theTurret.user_string} View range: {theTurret.vision_radius} Rotation speed: {theTurret.rotation_speed}</span>
                 }</p>
                 <ModuleSelector value={selectedGun} modules={modulesList.guns} setter={setSelectedGun} />
-                <p>Gun: { theGun &&
-                    <span>Reload: { theGun.reload_time } Aim: { theGun.aiming_time } Dispersion: { theGun.shot_dispersion_radius } Ele/Dep: { theGun.elevation }/{ theGun.depression }</span>
+                <p>Gun: {theGun &&
+                    <span>Reload: {theGun.reload_time} Aim: {theGun.aiming_time} Dispersion: {theGun.shot_dispersion_radius} Ele/Dep: {theGun.elevation}/{theGun.depression}</span>
                 }</p>
                 {/* Do we care enough about Radios to even mention them?... */}
             </div>
-        
+
         </div>
     )
 }
@@ -113,18 +111,18 @@ interface ModuleSelectorProps {
     setter: (tankModule: number) => void
 }
 
-const ModuleSelector:FC<ModuleSelectorProps> = ({ value, modules, setter }) => {
+const ModuleSelector: FC<ModuleSelectorProps> = ({ value, modules, setter }) => {
     const valueAsString = value.toString()
     return (
         <div>
             <select value={valueAsString} onChange={e => setter?.(parseInt(e.target.value))}>
-            { modules
-                .map(module => (
-                    <option key={module.index} value={module.index}>
-                        { module.user_string } idx:{ module.index } tier:{ module.level }
-                    </option>
-                ))
-            }
+                {modules
+                    .map(module => (
+                        <option key={module.index} value={module.index}>
+                            { module.user_string} idx:{ module.index} tier:{ module.level}
+                        </option>
+                    ))
+                }
             </select>
         </div>
     )

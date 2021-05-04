@@ -9,6 +9,9 @@ import { TanksTable } from './TanksTable'
 const App:FC = () => {
 
   const [ tanks, setTanks ] = useState<Tank[]>([])
+
+  const [ showTankEditor, setShowTankEditor ] = useState(false)
+
   /**
    * The wotc-vehicles file contains data from public Wargaming sources
    * The formatting is per WG's formatting, and the bits we're interested in
@@ -32,8 +35,8 @@ const App:FC = () => {
       <div className={styles.appBody}>
         {/* TODO: A loading spinner for while we wait for our vehicles data */}
         { !tanks && <div>Loading tank schematics!...</div> }
-        { tanks && <AddTank tanks={tanks} /> }
-        <TanksTable tanks={tanks} />
+        { tanks && showTankEditor && <AddTank tanks={tanks} setShow={setShowTankEditor} /> }
+        <TanksTable tanks={tanks} showTankEditor={setShowTankEditor} />
       </div>
     </div>
   )

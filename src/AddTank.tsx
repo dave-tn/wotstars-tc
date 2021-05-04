@@ -6,7 +6,9 @@ import { ROMAN_LEGEND, toRoman } from './utils/tankTiers'
 import { toType, VEHICLE_TYPES } from './utils/tankTypes'
 import { toNation, NATIONS } from './utils/tankNations'
 
-export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
+import styles from './AddTank.module.css'
+
+export const AddTank:FC<{ tanks: Tank[], setShow: React.Dispatch<React.SetStateAction<boolean>> }> = ({ tanks, setShow }) => {
 
     const listOfNations = Object.keys(NATIONS)
         .sort()
@@ -39,8 +41,12 @@ export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
     const tank: Tank | undefined = filteredTanks.find(t => t.info.name === selectedTank)
 
     return (
-        <div>
-            <h2>Select a tank</h2>
+        <div className={styles.mainWrap}>
+            <div className={styles.closeButton} onClick={() => setShow(false)}>
+                X
+            </div>
+            <h2 className={styles.header}>Select a Tank</h2>
+            <p className={styles.subHeader}>& the modules</p>
             <select value={selectedNation} onChange={e => setSelectedNation(e.target.value)}>
                 { listOfNations.map(nationKey => (
                     <option key={nationKey} value={nationKey}>{ toNation(nationKey) }</option>
@@ -72,7 +78,7 @@ export const AddTank:FC<{ tanks: Tank[] }> = ({ tanks }) => {
             </select>
 
             { tank &&
-            <AddTankEditor tank={tank} />
+            <AddTankEditor tank={tank} setShow={setShow} />
             }
 
         </div>
