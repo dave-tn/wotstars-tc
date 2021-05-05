@@ -30,7 +30,7 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
     return (
         <>
         <tr>
-            <td className={styles.header} colSpan={9}>Firepower</td>
+            <th className={styles.header} colSpan={9}>Firepower</th>
         </tr>
         <MakeRowFromProperty title="DPM" data={firepowerData} para="dpm" roundTo={0} />
         <MakeRowFromProperty title="Penetration" data={firepowerData} para="penetration" suffix="mm" />

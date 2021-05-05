@@ -35,7 +35,7 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
     return (
         <>
         <tr>
-            <td className={styles.header} colSpan={9}>Movement / Mobility</td>
+            <th className={styles.header} colSpan={9}>Movement / Mobility</th>
         </tr>
         <MakeRowFromProperty title="Speed [forward/reverse]" data={movementData} para="speed" suffix="kph" />
         <MakeRowFromProperty title="Traverse [hull/turret]" data={movementData} para="rotations" suffix="°/s" />

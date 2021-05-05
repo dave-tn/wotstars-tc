@@ -13,7 +13,7 @@ const HeaderRow: FC<{
 
     return (
         <tr>
-            <td></td>{ /* No title/header for the row */}
+            <th></th>{ /* No title/header for the row */}
             { data.map(td => {
                 if (!td.rawData) return <td key={td.uid}>Missing tank data<br /> for this config</td>
 

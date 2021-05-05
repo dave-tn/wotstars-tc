@@ -29,7 +29,7 @@ const BonusesRow:FC<{ data: TankConfig[] }> = ({ data }) => {
     return (
         <>
         <tr>
-            <td className={styles.header} colSpan={9}>Bonuses</td>
+            <th className={styles.header} colSpan={9}>Bonuses</th>
         </tr>
         <MakeRowFromProperty title="Silver / Base XP" data={bonusesData} para="silverAndXp" suffix="%" />
         <MakeRowFromProperty title="Free XP / Crew XP" data={bonusesData} para="freeAndCrewXp" suffix="%" />

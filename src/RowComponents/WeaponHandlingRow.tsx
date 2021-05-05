@@ -26,7 +26,7 @@ const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
     return (
         <>
         <tr>
-            <td className={styles.header} colSpan={9}>Weapon Handling</td>
+            <th className={styles.header} colSpan={9}>Weapon Handling</th>
         </tr>
         <MakeRowFromProperty title="Aim Time" data={weaponHandlingData} para="aimingTime" biggerIsBetter={false} suffix="s" />
         <MakeRowFromProperty title="Dispersion" data={weaponHandlingData} para="dispersion" biggerIsBetter={false} />
