@@ -40,12 +40,51 @@ export function useAddTank() {
     const history = useHistory()
 
     function addTank(fp: Fingerprint) {
-        const curSearch = history.location.search ? history.location.search + ',' : '?c='
-        const newSearch = curSearch + fp
+        const searchParams = new URLSearchParams(history.location.search)
+        const currentState = searchParams.get('c')
+        if (currentState) searchParams.set('c', currentState + ',' + fp)
+        else searchParams.set('c', fp)
         history.push({
             pathname: history.location.pathname,
-            search: newSearch
+            search: '?' + searchParams.toString()
         })
     }
     return addTank
+}
+
+export function useRemoveTank() {
+    const history = useHistory()
+
+    /**
+     * Remove a particular tank from the state / comparison
+     * @param uid A tankConfig's UID
+     */
+    function removeTank(uid: number) {
+        const searchParams = new URLSearchParams(history.location.search)
+        const tanksString = searchParams.get('c')
+        if (!tanksString) {
+            console.warn(`useRemoveTank: Call to remove a tank but there are none... ${uid}`)
+            return
+        }
+
+        const tankFingerprints = tanksString.split(',') as Fingerprint[]
+        const tankUids = tankFingerprints.map(fp => {
+            const parts = fp.split(':').map(p => parseInt(p))
+            return parts[parts.length - 1]
+        })
+        const matchingFingerprintIndex = tankUids.findIndex(f => f === uid)
+        if (matchingFingerprintIndex < 0) {
+            console.warn(`useRemoveTank: Call to remove a tank that doesn't seem to exists... ${uid}`)
+            return
+        }
+        tankFingerprints.splice(matchingFingerprintIndex, 1)
+        searchParams.set('c', tankFingerprints.join(','))
+        history.push({
+            pathname: history.location.pathname,
+            search: '?' + searchParams.toString()
+        })
+
+    }
+
+    return removeTank
 }
