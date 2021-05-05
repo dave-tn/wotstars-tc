@@ -6,7 +6,7 @@ import { MakeCell } from './_MakeCell'
 
 interface MakeRow {
     uid: number
-    [key: string]: number | (number|undefined)[] | undefined
+    [key: string]: number | number[] | undefined
 }
 
 const MakeRowFromProperty: FC<{
@@ -21,31 +21,37 @@ const MakeRowFromProperty: FC<{
     return (
         <tr>
             <td className={styles.cellRowsTitle}>{title}</td>
-            { data.map(f => {
+            { data.map(rowData => {
 
-                if (f[para] === undefined) return <td key={f.uid}>🤷‍♂️</td>
+                if (rowData[para] === undefined) return <td key={rowData.uid}>🤷‍♂️</td>
 
-                /**
-                 * TODO: FIXME: Is this really the way to do this in TS?...
-                 */
                 let cellPrimaryData: number[] = []
-                let cellCompData: number[] = []
-                if (typeof f[para] === 'number') {
-                    cellPrimaryData = [ f[para] as number ]
-                    cellCompData = [ data[0][para] as number ]
-                } else if (Array.isArray(f[para])) {
-                    cellPrimaryData = f[para] as number[]
-                    if (Array.isArray(data[0][para])) cellCompData = data[0][para] as number[]
+                let cellComparisonData: (number|undefined)[] = []
+
+                const rowDataVal = rowData[para]
+                const comparisonDataVal = data[0][para]
+
+                if (typeof rowDataVal === 'number') {
+                    cellPrimaryData.push(rowDataVal)
+                    // the types of the main data and the comparison data should always match;
+                    // however if for some strange reason they don't, we can leave the empty array
+                    // and the cell comp will be passed undefined when checking the index and
+                    // that's ok; no comparison will happen is all
+                    if (typeof comparisonDataVal === 'number' || !comparisonDataVal)
+                        cellComparisonData.push(comparisonDataVal)
+                } else if (Array.isArray(rowDataVal)) {
+                    cellPrimaryData = rowDataVal
+                    if (Array.isArray(comparisonDataVal)) cellComparisonData = comparisonDataVal
                 }
 
                 return (
-                    <td key={f.uid}>
+                    <td key={rowData.uid}>
                         <div className={styles.cellWrap}>
                         { cellPrimaryData.map((val, idx) => (
                                 <MakeCell
-                                    key={`${f.uid}${idx}`}
+                                    key={`${rowData.uid}${idx}`}
                                     val={val}
-                                    compVal={cellCompData[idx]}
+                                    compVal={cellComparisonData[idx]}
                                     suffix={suffix}
                                     roundTo={roundTo}
                                     biggerIsBetter={biggerIsBetter}

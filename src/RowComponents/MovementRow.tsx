@@ -7,7 +7,7 @@ import { MakeRowFromProperty } from './_MakeRowFromProperty'
 
 interface Movement {
     uid: number
-    [key: string]: number | (number|undefined)[] | undefined
+    [key: string]: number | number[] | undefined
 }
 
 const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
