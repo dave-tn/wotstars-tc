@@ -6,6 +6,7 @@
 
 .cellRowsTitle {
     padding-right: 1.5em;
+    white-space: nowrap;
 }
 .cellWrap {
     display: flex;
