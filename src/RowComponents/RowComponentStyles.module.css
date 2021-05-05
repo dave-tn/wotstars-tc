@@ -33,3 +33,21 @@
 .headerAddTankButton:hover {
     color: white;
 }
+
+.headerRemoveTankButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    user-select: none;
+
+    background-color: rgba(255, 0, 0, .2);
+    padding: .1em .55em;
+    z-index: 1;
+
+    will-change: background-color;
+    transition: background-color 200ms ease-out;
+}
+.headerRemoveTankButton:hover {
+    background-color: rgba(255, 0, 0, .5);
+}
