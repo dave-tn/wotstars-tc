@@ -69,6 +69,7 @@ export const AddTankEditor: FC<{ tank: Tank, setShow: React.Dispatch<React.SetSt
                 theAmmo.index
             )
         )
+        setShow(false)
     }
 
     return (
