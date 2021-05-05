@@ -40,11 +40,13 @@ export function useAddTank() {
     const history = useHistory()
 
     function addTank(fp: Fingerprint) {
-        const curSearch = history.location.search ? history.location.search + ',' : '?c='
-        const newSearch = curSearch + fp
+        const searchParams = new URLSearchParams(history.location.search)
+        const currentState = searchParams.get('c')
+        if (currentState) searchParams.set('c', currentState + ',' + fp)
+        else searchParams.set('c', fp)
         history.push({
             pathname: history.location.pathname,
-            search: newSearch
+            search: '?' + searchParams.toString()
         })
     }
     return addTank
