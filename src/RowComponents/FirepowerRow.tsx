@@ -23,6 +23,7 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
             // Wargaming has these values messed up in their data?!
             rateOfFire: tc.selectedGun.reload_time,
             reload: 60 / tc.selectedGun.reload_time,
+            clip: tc.selectedGun.shots_per_clip ?? '-',
             calibre: tc.selectedAmmo.caliber
         }
     })
@@ -37,6 +38,7 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Alpha" data={firepowerData} para="alpha" />
         <MakeRowFromProperty title="Rate of Fire" data={firepowerData} para="rateOfFire" roundTo={2} suffix="/min" />
         <MakeRowFromProperty title="Reload" data={firepowerData} para="reload" roundTo={2} biggerIsBetter={false} suffix="s" />
+        <MakeRowFromProperty title="Clip" data={firepowerData} para="clip" biggerIsBetter={true} />
         <MakeRowFromProperty title="Calibre" data={firepowerData} para="calibre" suffix="mm" />
         </>
     )
