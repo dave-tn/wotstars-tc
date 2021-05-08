@@ -56,7 +56,8 @@ export const AddTankEditor: FC<{ tank: Tank, setShow: React.Dispatch<React.SetSt
     const theTurret = modulesList.turrets.find(m => m.index === selectedTurret) ?? modulesList.turrets[0]
     const theGun = modulesList.guns.find(m => m.index === selectedGun) ?? modulesList.guns[0]
 
-    const theAmmo = Object.values(theGun.shots).sort((a, b) => a.index > b.index ? -1 : 1)[0]
+    // the indexing of ammo is kinda the opposite of the other modules/items, and standard is 0, gold is 1, and 3rd/aux (HE or w/e) is 2
+    const theAmmo = Object.values(theGun.shots).sort((a, b) => a.index > b.index ? 1 : -1)[0]
 
     const addTank = () => {
         addTankToState(
