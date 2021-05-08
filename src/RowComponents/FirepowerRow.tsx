@@ -16,7 +16,7 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
             uid: tc.uid,
-            dpm: tc.selectedAmmo.damage * tc.selectedGun.reload_time, // this is messed up because of WG's naming, see below...
+            dpm: (tc.selectedAmmo.damage * (tc.selectedGun.shots_per_clip ?? 1)) * tc.selectedGun.reload_time, // this is messed up because of WG's naming, see below...
             penetration: tc.selectedAmmo.piercing_power,
             alpha: tc.selectedAmmo.damage,
 
