@@ -26,7 +26,7 @@ const MakeRowFromProperty: FC<{
                 if (rowData[para] === undefined) return <td key={rowData.uid}>🤷‍♂️</td>
 
                 let cellPrimaryData: number[] = []
-                let cellComparisonData: (number|undefined)[] = []
+                let cellComparisonData: number[] = []
 
                 const rowDataVal = rowData[para]
                 const comparisonDataVal = data[0][para]
@@ -37,7 +37,7 @@ const MakeRowFromProperty: FC<{
                     // however if for some strange reason they don't, we can leave the empty array
                     // and the cell comp will be passed undefined when checking the index and
                     // that's ok; no comparison will happen is all
-                    if (typeof comparisonDataVal === 'number' || !comparisonDataVal)
+                    if (typeof comparisonDataVal === 'number')
                         cellComparisonData.push(comparisonDataVal)
                 } else if (Array.isArray(rowDataVal)) {
                     cellPrimaryData = rowDataVal
