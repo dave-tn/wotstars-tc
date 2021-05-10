@@ -40,7 +40,7 @@ describe('returns a config based on a fingerprint', () => {
         } as unknown as Tank
     ]
 
-    const fp: Fingerprint = '1:1:1:1:1:0:7'
+    const fp: Fingerprint = '1.1.1.1.1.0.7'
     const tankConfig = getTankConfig(fp, tanks)
     it('selects the correct tank based on the tank ID', () => {
         expect(tankConfig.rawData).toBe(tanks[0])
@@ -77,7 +77,7 @@ describe('returns a config based on a fingerprint', () => {
      * If that's the case, we probably just want to show a warning to that end
      */
     it(`doesn't crash but returns shell obj if no tank ID match`, () => {
-        const fingerprintForNoneExistantTank: Fingerprint = '2:1:2:2:1:2:0'
+        const fingerprintForNoneExistantTank: Fingerprint = '2.1.2.2.1.2.0'
         const config = getTankConfig(fingerprintForNoneExistantTank, tanks)
         expect(config).not.toBe(undefined)
         expect(config.rawData).toBe(undefined)
@@ -87,7 +87,7 @@ describe('returns a config based on a fingerprint', () => {
      * Handle bad fingerprints as expected by the UI (no crashes etc, just undefined modules)
      */
     it('returns a config with undefined set for selected modules that do not exist on the tank though are in fingerprint', () => {
-        const fingerprintForNoneExistantTank: Fingerprint = '1:2:2:2:1:1:0'
+        const fingerprintForNoneExistantTank: Fingerprint = '1.2.2.2.1.1.0'
         const config = getTankConfig(fingerprintForNoneExistantTank, tanks)
         expect(config.chassisIndex).toBe(2)
         expect(config.selectedChassis).toBe(undefined)

@@ -27,7 +27,7 @@ function generateTankFingerprint(tankId: number, chassisIndex: number, engineInd
     // Use a unique ID so our fingerprint is ensured unique, meaning we can then have
     // the same vehicle configuration showing, if someone would want to do that... (maybe 
     // for comparing ammo or whatever)    
-    const tankFingerprint = `${tankId}:${chassisIndex}:${engineIndex}:${turretIndex}:${gunIndex}:${ammoIndex}:${getUniqueIdString()}` as Fingerprint
+    const tankFingerprint = `${tankId}.${chassisIndex}.${engineIndex}.${turretIndex}.${gunIndex}.${ammoIndex}.${getUniqueIdString()}` as Fingerprint
     return tankFingerprint
 }
 

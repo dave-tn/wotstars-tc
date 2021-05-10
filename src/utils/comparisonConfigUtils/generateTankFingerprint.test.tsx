@@ -3,7 +3,7 @@ import { generateTankFingerprint } from './generateTankFingerprint'
 
 it('turns a list of numbers in to a colon separated string of 7 numbers', () => {
     const fp = generateTankFingerprint(1,2,3,4,5,6)
-    expect(fp.split(':').length).toBe(7)
+    expect(fp.split('.').length).toBe(7)
 })
 
 it('creates unique ID even if tank configuration is the same', () => {

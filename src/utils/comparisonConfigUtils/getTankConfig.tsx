@@ -1,7 +1,7 @@
 
 import { Tank, Chassis, Engine, Turret, Gun, Shot } from './../../typesStuff/Tank'
 
-export type Fingerprint = `${number}:${number}:${number}:${number}:${number}:${number}:${number}`
+export type Fingerprint = `${number}.${number}.${number}.${number}.${number}.${number}.${number}`
 
 export interface TankConfig {
     /** The tank's raw WG data */
@@ -26,7 +26,8 @@ export interface TankConfig {
 }
 
 function getTankConfig(tankFingerprint: Fingerprint, tanks: Tank[]) {
-    const splitTfp = tankFingerprint.split(':').map(s => parseInt(s))
+    // FIXME: TODO: This code shouldn't need to know how the fingerprints are formatted
+    const splitTfp = tankFingerprint.split('.').map(s => parseInt(s))
 
     const theTank = tanks.find(t => t.info.id === splitTfp[0])
     const theTurret = Object.values(theTank?.data.turrets ?? {}).find(c => c.index === splitTfp[3])
