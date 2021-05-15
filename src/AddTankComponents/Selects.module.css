@@ -1,0 +1,17 @@
+
+.button {
+    padding: 0 .25em;
+    user-select: none;
+    cursor: pointer;
+    background-color: inherit;
+}
+
+.buttonDisabled {
+    background-color: blue;
+    cursor: default;
+}
+
+.buttonToggledOff {
+    background-color: red;
+}
+
