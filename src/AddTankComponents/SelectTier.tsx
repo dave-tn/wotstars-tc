@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { toRoman, ROMAN_LEGEND } from './../utils/tankTiers'
+import { toRoman, KNOWN_TIERS } from './../utils/tankTiers'
 import { TankTypeSlug } from './../typesStuff/Tank'
 
 import styles from './Selects.module.css'
@@ -41,7 +41,7 @@ export const SelectTier:FC<{
     // if (loading) return <div>Loading list of nations data...</div>
     if (error) return <div>There was an error loading the list of nations data. Maybe try refreshing 🤷‍♂️</div>
     
-    const tiers = ROMAN_LEGEND.map(([tier]) => tier)
+    const tiers = KNOWN_TIERS
 
     function updateDisabledTiers(tierToToggle: number) {
         setDisabledTiers(curDisabledTiers => {
