@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { AddTankEditor } from './AddTankEditor'
 import { Tank, TankTypeSlug } from './typesStuff/Tank'
 
-import { ROMAN_LEGEND, toRoman } from './utils/tankTiers'
+import { toRoman, KNOWN_TIERS } from './utils/tankTiers'
 import { toType, VEHICLE_TYPES } from './utils/tankTypes'
 import { toNation, NATIONS } from './utils/tankNations'
 
@@ -21,8 +21,7 @@ export const AddTank:FC<{ tanks: Tank[], setShow: React.Dispatch<React.SetStateA
     const [ selectedType, setSelectedType ] = useState(listOfTypes[0])
 
     // Available tiers for the selected nation & selected vehicle type
-    const listOfTiers = ROMAN_LEGEND
-        .map(tup => tup[0])
+    const listOfTiers = KNOWN_TIERS
         .filter(num => !!tanks.find(t => t.info.nation === selectedNation && t.info.type_slug === selectedType && t.info.level === num))
     const [ selectedTier, setSelectedTier ] = useState(0)
 
