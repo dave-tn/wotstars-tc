@@ -20,7 +20,7 @@ const HeaderRow: FC<{
                 return (
                     <td key={td.uid} style={{ position: 'relative' }}>
                         <div className={styles.headerRemoveTankButton} onClick={() => removeTank(td.uid)}>-</div>
-                        <TankIntro tank={td.rawData.info} />
+                        {/* <TankIntro tank={td.rawData.info} /> */}
                     </td>
                 )
             })}

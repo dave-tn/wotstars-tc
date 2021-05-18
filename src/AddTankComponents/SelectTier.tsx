@@ -70,7 +70,7 @@ export const SelectTier:FC<{
 
 
                 return (
-                    <div className={classes} onClick={() => updateDisabledTiers(t)}>
+                    <div key={t} className={classes} onClick={() => updateDisabledTiers(t)}>
                         { toRoman(t) }
                     </div>
                 )
