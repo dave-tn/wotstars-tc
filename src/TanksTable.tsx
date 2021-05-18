@@ -9,7 +9,10 @@ import { FirepowerRow } from './RowComponents/FirepowerRow'
 import { WeaponHandlingRow } from './RowComponents/WeaponHandlingRow'
 import { MovementRow } from './RowComponents/MovementRow'
 
-export const TanksTable:FC<{ tanks: Tank[], showTankEditor: React.Dispatch<React.SetStateAction<boolean>> }> = ({ tanks, showTankEditor }) => {
+export const TanksTable:FC<{
+    tanks: Tank[]
+    showTankEditor: React.Dispatch<React.SetStateAction<boolean>>
+}> = ({ tanks, showTankEditor }) => {
 
     const [ tankCompData ] = useTankState(tanks)
 
