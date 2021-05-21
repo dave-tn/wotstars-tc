@@ -2,25 +2,25 @@ import { FC } from 'react'
 
 import styles from './RowComponentStyles.module.css'
 
-import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
+import { GQLTank } from '../AddTankComponents/SelectTankList'
 
 interface Bonuses {
-    uid: number
-    [key: string]: number | number[] | undefined
+    fingerprint: string
+    [key: string]: number | number[] | string | undefined
 }
 
-const BonusesRow:FC<{ data: TankConfig[] }> = ({ data }) => {
+const BonusesRow:FC<{ data: GQLTank[] }> = ({ data }) => {
 
     const bonusesData: Bonuses[] = data.map(tc => {
-        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
+        // if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.fingerprint }
 
-        const silver = (tc.rawData?.data.silver_bonus ?? 0) * 100
-        const xp = (tc.rawData?.data.xp_bonus ?? 0) * 100
-        const freeXp = Number((tc.rawData?.data.free_xp_bonus ?? 0)) * 100
-        const crewXp = (tc.rawData?.data.crew_bonus ?? 0) * 100
+        const silver = (tc.silver_bonus ?? 0) * 100
+        const xp = (tc.xp_bonus ?? 0) * 100
+        const freeXp = (tc.free_xp_bonus ?? 0) * 100
+        const crewXp = (tc.crew_bonus ?? 0) * 100
         return {
-            uid: tc.uid,
+            fingerprint: tc.fingerprint,
             silverAndXp: [ silver, xp ],
             freeAndCrewXp: [ freeXp, crewXp ]
         }

@@ -2,24 +2,24 @@ import { FC } from 'react'
 
 import styles from './RowComponentStyles.module.css'
 
-import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
+import { GQLTank } from '../AddTankComponents/SelectTankList'
 
 interface WeaponHandling {
-    uid: number
-    [key: string]: number | number[] | undefined
+    fingerprint: string
+    [key: string]: number | number[] | string | undefined
 }
 
-const WeaponHandlingRow:FC<{ data: TankConfig[] }> = ({ data }) => {
+const WeaponHandlingRow:FC<{ data: GQLTank[] }> = ({ data }) => {
 
     const weaponHandlingData: WeaponHandling[] = data.map(tc => {
-        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
+        // if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
-            uid: tc.uid,
-            aimingTime: tc.selectedGun.aiming_time,
-            dispersion: tc.selectedGun.shot_dispersion_radius,
+            fingerprint: tc.fingerprint,
+            aimingTime: tc.turret.gun.aiming_time,
+            dispersion: tc.turret.gun.shot_dispersion_radius,
             // can we find more dispersion values? eg. stationary, on move, on turret rotation
-            eleDep: [tc.selectedGun.elevation, tc.selectedGun.depression ]
+            eleDep: [tc.turret.gun.elevation, tc.turret.gun.depression ]
         }
     })
 

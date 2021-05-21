@@ -2,29 +2,29 @@ import { FC } from 'react'
 
 import styles from './RowComponentStyles.module.css'
 
-import { TankConfig } from './../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
+import { GQLTank } from '../AddTankComponents/SelectTankList'
 
 interface Firepower {
-    uid: number
-    [key: string]: number | undefined
+    fingerprint: string
+    [key: string]: number | string | undefined
 }
 
-const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
+const FirepowerRow:FC<{ data: GQLTank[] }> = ({ data }) => {
 
     const firepowerData: Firepower[] = data.map(tc => {
-        if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
+        // if (!tc.selectedTurret || !tc.selectedGun || !tc.selectedAmmo) return { uid: tc.uid }
         return {
-            uid: tc.uid,
-            dpm: (tc.selectedAmmo.damage * (tc.selectedGun.shots_per_clip ?? 1)) * tc.selectedGun.reload_time, // this is messed up because of WG's naming, see below...
-            penetration: tc.selectedAmmo.piercing_power,
-            alpha: tc.selectedAmmo.damage,
+            fingerprint: tc.fingerprint,
+            dpm: tc.turret.gun.shot.dpm,
 
-            // Wargaming has these values messed up in their data?!
-            rateOfFire: tc.selectedGun.reload_time,
-            reload: 60 / tc.selectedGun.reload_time,
-            clip: tc.selectedGun.shots_per_clip ?? '-',
-            calibre: tc.selectedAmmo.caliber
+            penetration: tc.turret.gun.shot.piercing_power,
+            damage: tc.turret.gun.shot.damage,
+
+            rof: tc.turret.gun.rate_of_fire,
+            reload: tc.turret.gun.reload_time,
+            clip: tc.turret.gun.shots_per_clip ?? '-',
+            calibre: tc.turret.gun.shot.caliber
         }
     })
 
@@ -35,8 +35,8 @@ const FirepowerRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         </tr>
         <MakeRowFromProperty title="DPM" data={firepowerData} para="dpm" roundTo={0} />
         <MakeRowFromProperty title="Penetration" data={firepowerData} para="penetration" suffix="mm" />
-        <MakeRowFromProperty title="Alpha" data={firepowerData} para="alpha" />
-        <MakeRowFromProperty title="Rate of Fire" data={firepowerData} para="rateOfFire" roundTo={2} suffix="/min" />
+        <MakeRowFromProperty title="Alpha" data={firepowerData} para="damage" />
+        <MakeRowFromProperty title="Rate of Fire" data={firepowerData} para="rof" roundTo={2} suffix="/min" />
         <MakeRowFromProperty title="Reload" data={firepowerData} para="reload" roundTo={2} biggerIsBetter={false} suffix="s" />
         <MakeRowFromProperty title="Clip" data={firepowerData} para="clip" biggerIsBetter={true} />
         <MakeRowFromProperty title="Calibre" data={firepowerData} para="calibre" suffix="mm" />
