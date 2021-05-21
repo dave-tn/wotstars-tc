@@ -22,7 +22,8 @@ const MovementRow:FC<{ data: GQLTank[] }> = ({ data }) => {
             rotations: [ tc.chassi.rotation_speed, tc.turret.rotation_speed ],
             power: [ tc.engine.power, hpPer ],
             terrainResistance: tc.chassi.terrain_resistance,
-            camo: tc.camo
+            camo: tc.camo,
+            viewRange: tc.turret.vision_radius
         }
     })
 
@@ -36,6 +37,7 @@ const MovementRow:FC<{ data: GQLTank[] }> = ({ data }) => {
         <MakeRowFromProperty title="Engine Power / per tonne" data={movementData} para="power" suffix="hp" roundTo={0} />
         <MakeRowFromProperty title="Terrain [hard/med/soft]" data={movementData} para="terrainResistance" biggerIsBetter={false} />
         <MakeRowFromProperty title="Camo [still/moving]" data={movementData} para="camo" />
+        <MakeRowFromProperty title="View range" data={movementData} para="viewRange" suffix="m" />
         </>
     )
 }
