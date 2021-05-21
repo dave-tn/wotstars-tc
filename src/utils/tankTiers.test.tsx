@@ -5,6 +5,8 @@ describe('handle converiting numbers to roman numerals', () => {
     it('returns a roman numeral for a valid number', () => {
         const rom1 = toRoman(1)
         expect(rom1).toBe('I')
+        const rom2 = toRoman(10)
+        expect(rom2).toBe('X')
     })
 
     it('returns a question mark if the passed value is unknown', () => {
