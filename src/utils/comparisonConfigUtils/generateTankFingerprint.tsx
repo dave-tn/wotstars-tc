@@ -31,6 +31,22 @@ function generateTankFingerprint(tankId: number, chassisIndex: number, engineInd
     return tankFingerprint
 }
 
+function objFromFingerprint(fp: Fingerprint) {
+    const split = fp.split('.')
+        .map(part => parseInt(part))
+    
+    return {
+        id: split[0],
+        chassisIndex: split[1],
+        engineIndex: split[2],
+        turretIndex: split[3],
+        gunIndex: split[4],
+        shotIndex: split[5],
+        uuid: split[6]
+    }
+}
+
 export {
-    generateTankFingerprint
+    generateTankFingerprint,
+    objFromFingerprint
 }
