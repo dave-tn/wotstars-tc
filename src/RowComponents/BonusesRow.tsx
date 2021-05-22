@@ -31,7 +31,7 @@ const BonusesRow:FC<{ data: GQLTank[] }> = ({ data }) => {
         <tr>
             <th className={styles.header} colSpan={9}>Bonuses</th>
         </tr>
-        <MakeRowFromProperty title="Silver / Base XP" data={bonusesData} para="silverAndXp" suffix="%" />
+        <MakeRowFromProperty title="Silver / Base XP" data={bonusesData} para="silverAndXp" roundTo={0} suffix="%" />
         <MakeRowFromProperty title="Free XP / Crew XP" data={bonusesData} para="freeAndCrewXp" suffix="%" />
         </>
     )
