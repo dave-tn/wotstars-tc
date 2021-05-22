@@ -22,6 +22,7 @@ export const TanksTable:FC<{
 
             <div style={{
                 display: 'grid',
+                // use this to hackily force our column layout for a vertical table type effect
                 gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto',
                 width: 'max-content',
                 gridAutoFlow: 'column'
