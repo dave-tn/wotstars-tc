@@ -1,76 +1,104 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { Tank } from './typesStuff/Tank'
-
-import { useTankState } from './hooks/useTankState'
-import { HeaderRow } from './RowComponents/HeaderRow'
-import { BonusesRow } from './RowComponents/BonusesRow'
-import { FirepowerRow } from './RowComponents/FirepowerRow'
-import { WeaponHandlingRow } from './RowComponents/WeaponHandlingRow'
-import { MovementRow } from './RowComponents/MovementRow'
-
-import { useQuery, gql } from '@apollo/client'
 import { GQLTank } from './AddTankComponents/SelectTankList'
 
-interface TanksVars {
-    fingerprints: string[]
-}
+import { TankColumn } from './Components/TankColumn'
+import { useTankState } from './hooks/useTankState'
 
-interface GQLData {
-    tanks: GQLTank[]
-}
+import styles from './RowComponents/RowComponentStyles.module.css'
 
-const GET_TANKS_QUERY = gql`
-    query GetTanksByFingerprint($fingerprints: [String]!) {
-        tanksByFingerprint(fingerprints: $fingerprints) {
-            id
-            user_string
-            nation
-            type_slug
-            turret {
-                user_string
-                gun {
-                    user_string
-                    shot {
-                        user_string
-                        damage
-                        piercing_power
-                        dpm
-                    }
-                }
-            }
-        }
-    }
-`
 
 export const TanksTable:FC<{
     tanks: Tank[]
     showTankEditor: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ tanks, showTankEditor }) => {
 
-    const [ tankCompData, fingerprints ] = useTankState(tanks)
-
-    const { data, loading, error } = useQuery<GQLData, TanksVars>(GET_TANKS_QUERY, {
-        variables: { fingerprints },
-        // onCompleted: ({ tankTiers }) => setAvailableTiers(tankTiers)
-    })
-
-    // TODO: FIXME
-    if (loading) return <div>Loading Tanks Data...</div>
-    if (error) return <div>There was an error loading the tanks data. Maybe try refreshing 🤷‍♂️</div>
+    const [ , fingerprints ] = useTankState(tanks)
+    const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
 
     return (
         <div className="xxxxxxMain-grid">
 
-            <table>
-                <tbody>
-                    <HeaderRow data={tankCompData} showTankEditor={showTankEditor} />
-                    <BonusesRow data={tankCompData} />
-                    <FirepowerRow data={tankCompData} />
-                    <WeaponHandlingRow data={tankCompData} />
-                    <MovementRow data={tankCompData} />
-                </tbody>
-            </table>
+            <div style={{
+                display: 'grid',
+                gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto',
+                width: 'max-content',
+                gridAutoFlow: 'column'
+            }}>
+                <div></div>{/* Empty top left grid item */}
+                <div
+                    className={styles.header} 
+                    style={{
+                        gridRow: '2',
+                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
+                        gridColumn: `1/${fingerprints.length + 2}`,
+                    }}
+                >
+                    Bonuses
+                </div>
+                <div>Silver / Base XP</div>
+                <div>Free XP / Crew XP</div>
+
+
+                <div
+                    className={styles.header} 
+                    style={{
+                        gridRow: '5',
+                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
+                        gridColumn: `1/${fingerprints.length + 2}`
+                    }}
+                >
+                    Firepower
+                </div>
+                <div>DPM</div>
+                <div>Penetration</div>
+                <div>Damage</div>
+                <div>Rate of Fire</div>
+                <div>Reload</div>
+                <div>Clip</div>
+                <div>Caliber</div>
+
+
+                <div
+                    className={styles.header} 
+                    style={{
+                        gridRow: '13',
+                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
+                        gridColumn: `1/${fingerprints.length + 2}`
+                    }}
+                >
+                    Weapon Handling
+                </div>
+                <div>Aim Time</div>
+                <div>Dispersion (at 100m)</div>
+                <div>Elevation / Depression</div>
+
+                <div
+                    className={styles.header} 
+                    style={{
+                        gridRow: '17',
+                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
+                        gridColumn: `1/${fingerprints.length + 2}`
+                    }}
+                >
+                    Movement / Mobility
+                </div>
+                <div>Speed [forward/reverse]</div>
+                <div>Traverse [hull/turret]</div>
+                <div>Engine Power / per tonne</div>
+                <div>Terrain [hard/med/soft]</div>
+                <div>Camo [still/moving]</div>
+                <div>View Range</div>
+
+
+                { fingerprints.map((fp, index) => <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} /> )}
+
+                <div className={styles.headerAddTankButton} onClick={() => showTankEditor(true)}>
+                    ADD TANK
+                </div>
+
+            </div>
 
         </div>
     )
