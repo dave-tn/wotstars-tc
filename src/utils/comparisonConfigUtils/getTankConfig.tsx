@@ -1,7 +1,6 @@
 
 import { Tank, Chassis, Engine, Turret, Gun, Shot } from './../../typesStuff/Tank'
-
-export type Fingerprint = `${number}.${number}.${number}.${number}.${number}.${number}.${number}`
+import { Fingerprint } from './generateTankFingerprint'
 
 export interface TankConfig {
     /** The tank's raw WG data */

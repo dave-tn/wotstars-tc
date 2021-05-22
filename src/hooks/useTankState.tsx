@@ -2,7 +2,9 @@
 import { useState, useEffect, useContext } from 'react'
 
 import { Tank } from './../typesStuff/Tank'
-import { Fingerprint, TankConfig, getTankConfigs } from './../utils/comparisonConfigUtils/getTankConfig'
+import { Fingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
+import { TankConfig, getTankConfigs } from './../utils/comparisonConfigUtils/getTankConfig'
+
 
 import { HistoryContext, useHistory } from './../HistoryProvider'
 

@@ -1,6 +1,5 @@
 
-import { generateTankFingerprint, objFromFingerprint } from './generateTankFingerprint'
-import { Fingerprint } from './getTankConfig'
+import { generateTankFingerprint, objFromFingerprint, Fingerprint } from './generateTankFingerprint'
 
 it('turns a list of numbers in to a separated string of 7 numbers', () => {
     const fp = generateTankFingerprint(1,2,3,4,5,6)

@@ -1,5 +1,5 @@
 
-import { Fingerprint } from './getTankConfig'
+export type Fingerprint = `${number}.${number}.${number}.${number}.${number}.${number}.${number}`
 
 /**
  * Generates a list of unique ascending IDs
