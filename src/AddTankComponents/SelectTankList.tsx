@@ -1,14 +1,9 @@
 import { FC } from 'react'
 import { useQuery, gql } from '@apollo/client'
-import { toNation } from '../utils/tankNations'
+
 import { TankTypeSlug } from '../typesStuff/Tank'
 
-// import { AddTankEditor } from './../AddTankEditor'
-import { TankIntro } from '../Components/TankIntro'
-
-import { SelectChassis } from './SelectChassis'
-import { SelectEngine } from './SelectEngine'
-import { SelectTurret } from './SelectTurret'
+import { SelectTankIndividual } from './SelectTankIndividual'
 
 interface Tanks {
     filteredTanks: GQLTank[]
@@ -16,6 +11,7 @@ interface Tanks {
 
 export interface GQLTank {
     id: number
+    fingerprint: string
     user_string: string
     nation: string
     tier: number
@@ -35,6 +31,11 @@ export interface GQLTank {
     battle_level_max: number
     is_fake_turrets: boolean
     primary_armor: number[]
+
+    chassi: GQLChassis
+    engine: GQLEngine
+    turret: GQLTurret
+
     chassis: GQLChassis[]
     engines: GQLEngine[]
     turrets: GQLTurret[]
@@ -60,6 +61,7 @@ export interface GQLChassis extends GQLTankModule {
 export interface GQLTurret extends GQLTankModule {
     rotation_speed: number
     vision_radius: number
+    gun: GQLGun
     guns: GQLGun[]
 }
 interface GQLGun extends GQLTankModule {
@@ -80,11 +82,12 @@ interface GQLGun extends GQLTankModule {
     gun_rate: number
     gun_rate_mod: number
 
-    shots: GQLShots[]
+    shot: GQLShot
+    shots: GQLShot[]
 
 }
 
-interface GQLShots {
+interface GQLShot {
     index: number
     caliber: number
 
@@ -171,25 +174,8 @@ export const SelectTankList: FC<{
     return (
         <div style={{ overflowY: 'scroll' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {data?.filteredTanks?.map(tank => {
-                    console.log('....')
-
-                    return (
-                        <div key={tank.id} style={{ minWidth: '220px' }}>
-                            <TankIntro tank={tank} />
-                            <div>
-                                <SelectChassis chassis={tank.chassis} />
-                                <SelectEngine engines={tank.engines} />
-                                <SelectTurret turrets={tank.turrets} />
-                            </div>
-                            {/* { tank.user_string } */}
-                        </div>
-                    )
-                })}
-
+                { data?.filteredTanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
             </div>
         </div>
     )
-
 }
-
