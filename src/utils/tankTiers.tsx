@@ -3,8 +3,7 @@ const ROMANS = [ 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'X
 type RomanNumeral = typeof ROMANS[number]
 
 const KNOWN_TIERS = ROMANS
-    .slice(1)
-    .map((_r, indexAsTierNumerical) => indexAsTierNumerical)
+    .map((_r, indexAsTierNumerical) => indexAsTierNumerical + 1)
 
 function toRoman(x: number): RomanNumeral | '?' {
     return ROMANS[x-1] ?? '?'
