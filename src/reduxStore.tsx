@@ -30,6 +30,8 @@ function addTankOptionsReducer(state: AddTankOptionsState = addTankOptionsState,
             ...state,
             selectedType: action.payload
         }
+        // we do need this as redux bootstraps the initial state without using one of the actions above
+        default: return state
     }
 
 }
@@ -39,4 +41,3 @@ const store = createStore(addTankOptionsReducer)
 export {
     store
 }
-
