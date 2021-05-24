@@ -1,4 +1,4 @@
-import { FC, useReducer } from 'react'
+import { FC, useReducer, useState } from 'react'
 
 import { GQLTank } from './SelectTankList'
 // import { Fingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
@@ -10,6 +10,8 @@ import { SelectTurret } from './SelectTurret'
 
 import { useAddTank } from '../hooks/useTankState'
 import { generateTankFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
+
+import styles from './Selects.module.css'
 
 interface TankConfig {
     tankId: number
@@ -43,6 +45,7 @@ export const SelectTankIndividual: FC<{
     tank
 }) => {
     const addTank = useAddTank()
+    const [ openEditor, setOpenEditor ] = useState(false)
 
     const [ config, dispatch ] = useReducer(configReducer, {
         tankId: tank.id,
@@ -65,16 +68,26 @@ export const SelectTankIndividual: FC<{
     }
 
     return (
-        <div style={{ minWidth: '220px' }}>
+        <div className={styles.tankSelectionItemWrap} style={{ minWidth: '220px', display: 'flex' }}>
             <TankIntro tank={tank} />
-            <div>
-                <SelectChassis chassis={tank.chassis} />
-                <SelectEngine engines={tank.engines} />
-                <SelectTurret turrets={tank.turrets} />
-                {/* Select Gun */}
-                {/* Select Ammo */}
-                <button onClick={configToFingerprint}>ADD THIS TANK WITH THIS CONFIG</button>
+            <div className={styles.tankSelectionButtonsWrap}>
+                <div className={styles.addTankButton} onClick={configToFingerprint}>
+                    <span>Add tank</span>
+                    <span className={styles.defaultConfigText}>(default config)</span>
+                </div>
+                <div className={styles.editConfigButton} onClick={() => setOpenEditor(!openEditor)}>Edit config</div>
+
             </div>
+            { openEditor &&
+                <div>
+                    <SelectChassis chassis={tank.chassis} />
+                    <SelectEngine engines={tank.engines} />
+                    <SelectTurret turrets={tank.turrets} />
+                    {/* Select Gun */}
+                    {/* Select Ammo */}
+                    {/* <button onClick={configToFingerprint}>ADD THIS TANK WITH THIS CONFIG</button> */}
+                </div>
+            }
             {/* { tank.user_string } */}
         </div>
     )
