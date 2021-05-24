@@ -6,7 +6,7 @@ Something along the lines of [BlitzStars](https://www.blitzstars.com)' [Tank Com
 
 This is an in development web-app to handle vehicle comparisons for World of Tanks: Console, as an accompaniment to [WoTStars.com](https://www.wotstars.com)
 
-CRA bootstrapped with TypeScript; ES2021; Yarn.
+CRA bootstrapped with TypeScript; Redux, ES2021; Yarn.
 
 
 ## F.A.Q.

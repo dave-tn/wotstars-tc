@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import { useQuery, gql } from '@apollo/client'
 
-import { TankTypeSlug } from '../typesStuff/Tank'
-
 import { SelectTankIndividual } from './SelectTankIndividual'
 
+import { useSelector } from 'react-redux'
+import { AddTankOptionsState } from './../reduxStore'
+
 interface Tanks {
-    filteredTanks: GQLTank[]
+    tanks: GQLTank[]
 }
 
 export interface GQLTank {
@@ -105,8 +106,8 @@ interface GQLShot {
 }
 
 const GET_TANKS_QUERY = gql`
-    query GetTanks($forNation: String, $excludeTypes: [String], $excludeTiers: [Int]) {
-        filteredTanks(forNation: $forNation, excludeTypes: $excludeTypes, excludeTiers: $excludeTiers) {
+    query GetTanks($tiers: [Int], $types: [String], $nations: [String]) {
+        tanks(tiers: $tiers, types: $types, nations: $nations) {
             id
             user_string
             nation
@@ -152,19 +153,17 @@ const GET_TANKS_QUERY = gql`
     }
 `
 
-export const SelectTankList: FC<{
-    nation: string
-    disabledTypes: TankTypeSlug[]
-    disabledTiers: number[]
-    // setSelectedNation: React.Dispatch<React.SetStateAction<string>>
-}> = ({
-    nation,
-    disabledTypes,
-    disabledTiers
-}) => {
+const selectAddTankStuff = (state: AddTankOptionsState) => ({
+    selectedType: state.selectedType,
+    selectedTier: state.selectedTier
+})
+
+export const SelectTankList: FC = () => {
+
+    const { selectedType, selectedTier } = useSelector(selectAddTankStuff)
 
     const { loading, error, data } = useQuery<Tanks>(GET_TANKS_QUERY, {
-        variables: { forNation: nation, excludeTypes: disabledTypes, excludeTiers: disabledTiers },
+        variables: { tiers: [selectedTier], types: [selectedType], nations: undefined },
         // onCompleted: ({ nations }) => setSelectedNation(nations[0])        
     })
     // TODO: FIXME
@@ -174,7 +173,10 @@ export const SelectTankList: FC<{
     return (
         <div style={{ overflowY: 'scroll' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                { data?.filteredTanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
+                {/* <div>Filtered nations: { ...selectedNations } </div> */}
+                <div>Selected tier: { selectedTier }</div>
+                <div>Selected type: { selectedType }</div>
+                { data?.tanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
             </div>
         </div>
     )
