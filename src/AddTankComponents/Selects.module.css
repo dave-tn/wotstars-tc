@@ -30,17 +30,26 @@
     color: grey;
 }
 
-.tankSelectionItemWrap {
-    /* min-width: 220px; */
+
+.tanksListWrap {
     display: flex;
-    margin: .5em;
-    padding: .5em;
+    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: .5em;
+}
+
+.tankSelectionItemWrap {
+    min-width: 200px;
+    display: flex;
     border: 1px solid rgba(245, 245, 245, 0.35);
 }
 
 .tankSelectionButtonsWrap {
     display: flex;
     flex-direction: column;
+
+    flex-grow: 1;
 }
 
 .addTankButton {

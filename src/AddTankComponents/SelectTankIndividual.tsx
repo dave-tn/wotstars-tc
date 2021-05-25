@@ -68,15 +68,16 @@ export const SelectTankIndividual: FC<{
     }
 
     return (
-        <div className={styles.tankSelectionItemWrap} style={{ minWidth: '220px', display: 'flex' }}>
-            <TankIntro tank={tank} />
+        <div className={styles.tankSelectionItemWrap}>
+            <div style={{ padding: '5px' }}>
+                <TankIntro tank={tank} />
+            </div>
             <div className={styles.tankSelectionButtonsWrap}>
                 <div className={styles.addTankButton} onClick={configToFingerprint}>
                     <span>Add tank</span>
                     <span className={styles.defaultConfigText}>(default config)</span>
                 </div>
                 <div className={styles.editConfigButton} onClick={() => setOpenEditor(!openEditor)}>Edit config</div>
-
             </div>
             { openEditor &&
                 <div>

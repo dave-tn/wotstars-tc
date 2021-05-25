@@ -6,6 +6,8 @@ import { SelectTankIndividual } from './SelectTankIndividual'
 import { useSelector } from 'react-redux'
 import { getAddTankOptions } from '../reduxSlices/addTankSlice'
 
+import styles from './Selects.module.css'
+
 interface Tanks {
     tanks: GQLTank[]
 }
@@ -168,7 +170,7 @@ export const SelectTankList: FC = () => {
 
     return (
         <div style={{ overflowY: 'scroll' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div className={styles.tanksListWrap}>
                 { data?.tanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
             </div>
         </div>
