@@ -1,43 +1,14 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
+import { addTankOptionsReducer } from './reduxSlices/addTankSlice'
 
-export interface AddTankOptionsState {
-    selectedNations: string[]
-    selectedTier: number
-    selectedType: string
-}
-type AddTankOptionsAction = {
-    type: 'SELECT_TIER'
-    payload: number
-} | {
-    type: 'SELECT_TYPE'
-    payload: string
-}
+const combinedReducers = combineReducers({
+    addTankOptions: addTankOptionsReducer
+})
 
-const addTankOptionsState: AddTankOptionsState = {
-    selectedNations: [],
-    selectedTier: 10,
-    selectedType: 'mediumTank'
-}
-function addTankOptionsReducer(state: AddTankOptionsState = addTankOptionsState, action: AddTankOptionsAction) {
+const store = createStore(combinedReducers)
 
-    switch (action.type) {
-        case 'SELECT_TIER': return {
-            ...state,
-            selectedTier: action.payload
-        }
-        case 'SELECT_TYPE': return {
-            ...state,
-            selectedType: action.payload
-        }
-        // we do need this as redux bootstraps the initial state without using one of the actions above
-        default: return state
-    }
-
-}
-
-const store = createStore(addTankOptionsReducer)
-
+export type MainStore = ReturnType<typeof store.getState>;
 export {
     store
 }

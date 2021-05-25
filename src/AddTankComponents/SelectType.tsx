@@ -2,14 +2,14 @@ import { FC } from 'react'
 import { VEHICLE_TYPES } from './../utils/tankTypes'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { AddTankOptionsState } from './../reduxStore'
+import { getSelectedType, setSelectedType } from '../reduxSlices/addTankSlice'
 
 import styles from './Selects.module.css'
 
 export const SelectType:FC = () => {
 
     const dispatch = useDispatch()
-    const selectedType = useSelector((state: AddTankOptionsState) => state.selectedType)
+    const selectedType = useSelector(getSelectedType)
 
     return (
         <div style={{ display: 'flex' }}>
@@ -20,12 +20,15 @@ export const SelectType:FC = () => {
                     classes = `${classes} ${styles.buttonDisabled}`
                 }
 
-                return <div className={classes} key={slug} onClick={() => {
-                    dispatch({
-                        type: 'SELECT_TYPE',
-                        payload: slug
-                    })
-                }}>{ name }</div>
+                return (
+                    <div
+                        key={slug}
+                        className={classes}
+                        onClick={() => dispatch(setSelectedType(slug))}
+                    >
+                        { name }
+                    </div>
+                )
 
             } )}
 

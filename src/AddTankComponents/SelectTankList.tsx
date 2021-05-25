@@ -4,7 +4,7 @@ import { useQuery, gql } from '@apollo/client'
 import { SelectTankIndividual } from './SelectTankIndividual'
 
 import { useSelector } from 'react-redux'
-import { AddTankOptionsState } from './../reduxStore'
+import { getAddTankOptions } from '../reduxSlices/addTankSlice'
 
 interface Tanks {
     tanks: GQLTank[]
@@ -153,14 +153,10 @@ const GET_TANKS_QUERY = gql`
     }
 `
 
-const selectAddTankStuff = (state: AddTankOptionsState) => ({
-    selectedType: state.selectedType,
-    selectedTier: state.selectedTier
-})
 
 export const SelectTankList: FC = () => {
 
-    const { selectedType, selectedTier } = useSelector(selectAddTankStuff)
+    const { selectedType, selectedTier } = useSelector(getAddTankOptions)
 
     const { loading, error, data } = useQuery<Tanks>(GET_TANKS_QUERY, {
         variables: { tiers: [selectedTier], types: [selectedType], nations: undefined },
