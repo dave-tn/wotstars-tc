@@ -169,9 +169,6 @@ export const SelectTankList: FC = () => {
     return (
         <div style={{ overflowY: 'scroll' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {/* <div>Filtered nations: { ...selectedNations } </div> */}
-                <div>Selected tier: { selectedTier }</div>
-                <div>Selected type: { selectedType }</div>
                 { data?.tanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
             </div>
         </div>
