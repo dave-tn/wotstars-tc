@@ -20,7 +20,7 @@ export const SelectTier:FC = () => {
 
                 let classes = styles.button
                 if (selectedTier === t) {
-                    classes = `${classes} ${styles.buttonDisabled}`
+                    classes = `${classes} ${styles.buttonActive}`
                 }
 
                 return (

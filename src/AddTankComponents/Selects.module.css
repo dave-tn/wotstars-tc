@@ -4,13 +4,31 @@
     user-select: none;
     cursor: pointer;
     background-color: inherit;
+
+    min-width: 3em;
+    padding: .75em .25em;
+    text-align: center;
+
 }
 
-.buttonDisabled {
-    background-color: blue;
+.button img {
+    height: 1.5em;
+}
+.button img svg path {
+    fill: #c0c0c0;
+}
+
+.buttonActive {
+    box-shadow: rgb(0 0 0 / 13%) 0px 3px 5px inset;
+    color: rgb(255, 255, 255);
+    background-color: rgb(146, 146, 146);
     cursor: default;
 }
 
+.button:hover:not(.buttonActive) {
+    background-color: #d1d1d1;
+    color: grey;
+}
 
 .tankSelectionItemWrap {
     /* min-width: 220px; */
