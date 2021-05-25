@@ -65,6 +65,7 @@ const GET_TANK_Q = gql`
                     rate_of_fire
                     weight
                     aiming_time
+                    shots_per_clip
                     shot_dispersion_radius
                     elevation
                     depression
@@ -131,12 +132,12 @@ export const TankColumn: FC<{
             <div><MakeCell val={tank.turret.gun.shot.piercing_power} compVal={firstTank?.turret.gun.shot.piercing_power} roundTo={0} suffix="mm" /></div>
             <div><MakeCell val={tank.turret.gun.shot.damage} compVal={firstTank?.turret.gun.shot.damage} roundTo={0} /></div>
             <div>
-                <MakeCell val={tank.turret.gun.rate_of_fire} compVal={firstTank?.turret.gun.rate_of_fire} roundTo={2} suffix="/min" />
+                <MakeCell val={tank.turret.gun.rate_of_fire * (tank.turret.gun.shots_per_clip || 1)} compVal={(firstTank?.turret.gun.rate_of_fire || 0) * (firstTank?.turret.gun.shots_per_clip || 1)} roundTo={2} suffix="/min" />
             </div>
             <div>
                 <MakeCell val={tank.turret.gun.reload_time} compVal={firstTank?.turret.gun.reload_time} biggerIsBetter={false} roundTo={2} suffix="s" />
             </div>
-            <div><MakeCell val={tank.turret.gun.shots_per_clip} compVal={firstTank?.turret.gun.shots_per_clip} />{}</div>
+            <div><MakeCell val={tank.turret.gun.shots_per_clip} compVal={firstTank?.turret.gun.shots_per_clip} /></div>
             <div><MakeCell val={tank.turret.gun.shot.caliber} compVal={firstTank?.turret.gun.shot.caliber} roundTo={0} suffix="mm" /></div>
 
 {/* WEAPON HANDLING */}
