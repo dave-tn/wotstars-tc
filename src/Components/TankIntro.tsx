@@ -6,10 +6,13 @@ import { toRoman } from '../utils/tankTiers'
 import { toNation } from './../utils/tankNations'
 import { toType } from './../utils/tankTypes'
 
-import { TankInfo } from '../typesStuff/Tank'
+// import { TankInfo } from '../typesStuff/Tank'
+
+import { GQLTank } from './../AddTankComponents/SelectTankList'
+import { TankTypeSlug } from '../typesStuff/Tank'
 
 
-const TankIntro: FC<{ tank: TankInfo }> = ({ tank }) => {
+const TankIntro: FC<{ tank: GQLTank }> = ({ tank }) => {
     if (!tank) return <div>Missing tank data... 😱</div>
 
     return (
@@ -23,8 +26,8 @@ const TankIntro: FC<{ tank: TankInfo }> = ({ tank }) => {
 
             <div className={styles.textWrap}>
                 <span className={`${styles.name}${tank.is_premium? ` ${styles.premiumTextColour}` : ''}`}>{tank.user_string}</span>
-                <span>{toType(tank.type_slug)}</span>
-                <span>{toNation(tank.nation)} | {toRoman(tank.level)}</span>
+                <span>{toType(tank.type_slug as TankTypeSlug)}</span>
+                <span>{toNation(tank.nation)} | {toRoman(tank.tier)}</span>
             </div>
 
         </div>

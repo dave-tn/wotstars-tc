@@ -5,8 +5,8 @@ import { MakeCell } from './_MakeCell'
 
 
 interface MakeRow {
-    uid: number
-    [key: string]: number | number[] | undefined
+    fingerprint: string
+    [key: string]: number | number[] | string | undefined
 }
 
 const MakeRowFromProperty: FC<{
@@ -23,7 +23,7 @@ const MakeRowFromProperty: FC<{
             <td className={styles.cellRowsTitle}>{title}</td>
             { data.map(rowData => {
 
-                if (rowData[para] === undefined) return <td key={rowData.uid}>🤷‍♂️</td>
+                if (rowData[para] === undefined) return <td key={rowData.fingerprint}>🤷‍♂️</td>
 
                 let cellPrimaryData: number[] = []
                 let cellComparisonData: number[] = []
@@ -45,11 +45,11 @@ const MakeRowFromProperty: FC<{
                 }
 
                 return (
-                    <td key={rowData.uid}>
+                    <td key={rowData.fingerprint}>
                         <div className={styles.cellWrap}>
                         { cellPrimaryData.map((val, idx) => (
                                 <MakeCell
-                                    key={`${rowData.uid}${idx}`}
+                                    key={`${rowData.fingerprint}${idx}`}
                                     val={val}
                                     compVal={cellComparisonData[idx]}
                                     suffix={suffix}

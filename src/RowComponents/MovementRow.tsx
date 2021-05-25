@@ -2,33 +2,28 @@ import { FC } from 'react'
 
 import styles from './RowComponentStyles.module.css'
 
-import { TankConfig } from '../utils/comparisonConfigUtils/getTankConfig'
 import { MakeRowFromProperty } from './_MakeRowFromProperty'
+import { GQLTank } from '../AddTankComponents/SelectTankList'
 
 interface Movement {
-    uid: number
-    [key: string]: number | number[] | undefined
+    fingerprint: string
+    [key: string]: number | number[] | string | undefined
 }
 
-const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
+const MovementRow:FC<{ data: GQLTank[] }> = ({ data }) => {
 
     const movementData: Movement[] = data.map(tc => {
-        if (!tc.selectedChassis || !tc.selectedEngine || !tc.selectedTurret || !tc.selectedGun || !tc.rawData) return { uid: tc.uid }
-        const { data } = tc.rawData
-
-        const hullRotation = tc.selectedChassis.rotation_speed
-        const turretRotation = tc.selectedTurret.rotation_speed
-
-        const totalWeight = tc.selectedChassis.weight + tc.selectedEngine.weight + tc.selectedTurret.weight + tc.selectedGun.weight
-        const hpPer = tc.selectedEngine.power / (totalWeight / 1000)
+        const totalWeight = tc.chassi.weight + tc.engine.weight + tc.turret.weight + tc.turret.gun.weight
+        const hpPer = tc.engine.power / (totalWeight / 1000)
 
         return {
-            uid: tc.uid,
-            speed: [ data.speed.forward, data.speed.backward ],
-            rotations: [ hullRotation, turretRotation ],
-            power: [ tc.selectedEngine.power, hpPer ],
-            terrainResistance: tc.selectedChassis.terrain_resistance,
-            camo: [tc.rawData.data.invisibility.still, tc.rawData.data.invisibility.moving]
+            fingerprint: tc.fingerprint,
+            speed: tc.speeds,
+            rotations: [ tc.chassi.rotation_speed, tc.turret.rotation_speed ],
+            power: [ tc.engine.power, hpPer ],
+            terrainResistance: tc.chassi.terrain_resistance,
+            camo: tc.camo,
+            viewRange: tc.turret.vision_radius
         }
     })
 
@@ -42,6 +37,7 @@ const MovementRow:FC<{ data: TankConfig[] }> = ({ data }) => {
         <MakeRowFromProperty title="Engine Power / per tonne" data={movementData} para="power" suffix="hp" roundTo={0} />
         <MakeRowFromProperty title="Terrain [hard/med/soft]" data={movementData} para="terrainResistance" biggerIsBetter={false} />
         <MakeRowFromProperty title="Camo [still/moving]" data={movementData} para="camo" />
+        <MakeRowFromProperty title="View range" data={movementData} para="viewRange" suffix="m" />
         </>
     )
 }
