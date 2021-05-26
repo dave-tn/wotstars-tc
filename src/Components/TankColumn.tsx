@@ -10,6 +10,9 @@ import { MakeCell } from './../RowComponents/_MakeCell'
 import { useRemoveTank } from '../hooks/useTankState'
 import { objFromFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
 
+import { useDispatch } from 'react-redux'
+import { setUuidToEdit } from './../reduxSlices/editorSlice'
+
 import styles from './TankColumn.module.css'
 
 interface TankQueryVars {
@@ -88,6 +91,8 @@ export const TankColumn: FC<{
     setFirstTank: React.Dispatch<React.SetStateAction<GQLTank | undefined>> | undefined
 }> = ({ fingerprint, firstTank, setFirstTank }) => {
 
+    const dispatch = useDispatch()
+
     const removeTank = useRemoveTank()
     const tankConfigObj = objFromFingerprint(fingerprint)
 
@@ -111,7 +116,10 @@ export const TankColumn: FC<{
         <>
 {/* INTRO */}
             <div style={{ position: 'relative' }}>
-                <div className={styles.headerRemoveTankButton} onClick={() => removeTank(tankConfigObj.uuid)}>-</div>
+                <div className={styles.headerButtonsWrap}>
+                    <div className={styles.headerRemoveTankButton} onClick={() => removeTank(tankConfigObj.uuid)}>-</div>
+                    <div className={styles.headerEditTankButton} onClick={() => dispatch(setUuidToEdit(tankConfigObj.uuid))}>🔧</div>
+                </div>
                 <TankIntro tank={tank} />
             </div>
 

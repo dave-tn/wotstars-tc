@@ -6,10 +6,20 @@
     background-color: rgb(255 255 255 / 5%);
 }
 
-.headerRemoveTankButton {
+.headerButtonsWrap {
     position: absolute;
     top: 0;
     right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+}
+
+.headerRemoveTankButton {
     cursor: pointer;
     user-select: none;
 
@@ -22,6 +32,14 @@
 }
 .headerRemoveTankButton:hover {
     background-color: rgba(255, 0, 0, .5);
+}
+
+.headerEditTankButton {
+    composes: headerRemoveTankButton;
+    background-color: rgba(255, 166, 0, 0.2);
+}
+.headerEditTankButton:hover {
+    background-color: rgba(255, 166, 0, 0.5);
 }
 
 .cellWrap {

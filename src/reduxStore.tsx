@@ -1,9 +1,11 @@
 import { createStore, combineReducers } from 'redux'
 
 import { addTankOptionsReducer } from './reduxSlices/addTankSlice'
+import { editTankConfigReducer } from './reduxSlices/editorSlice'
 
 const combinedReducers = combineReducers({
-    addTankOptions: addTankOptionsReducer
+    addTankOptions: addTankOptionsReducer,
+    editTankConfig: editTankConfigReducer
 })
 
 const store = createStore(combinedReducers)
