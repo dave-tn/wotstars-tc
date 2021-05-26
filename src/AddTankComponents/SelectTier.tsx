@@ -12,11 +12,9 @@ export const SelectTier:FC = () => {
     const dispatch = useDispatch()
     const selectedTier = useSelector(getSelectedTier)
 
-    const tiers = KNOWN_TIERS
-
     return (
         <div style={{ display: 'flex' }}>
-            { tiers.map(t => {
+            { KNOWN_TIERS.map(t => {
 
                 let classes = styles.button
                 if (selectedTier === t) {
