@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from 'react'
 
 import { Tank } from './../typesStuff/Tank'
-import { Fingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
+import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 import { TankConfig, getTankConfigs } from './../utils/comparisonConfigUtils/getTankConfig'
 
 
@@ -24,7 +24,7 @@ export function useTankState(tanks: Tank[]): [ TankConfig[], Fingerprint[] ] {
             const searchParams = new URLSearchParams(history.location.search)
             const tanksString = searchParams.get('c')
             if (!tanksString) return setTankCompData([])
-            const individualFingerprints = tanksString.split('~') as Fingerprint[]
+            const individualFingerprints = fingerprintsFromString(tanksString)
             setTankCompData(
                 getTankConfigs(individualFingerprints, tanks)
             )
@@ -47,7 +47,11 @@ export function useAddTank() {
     function addTank(fp: Fingerprint) {
         const searchParams = new URLSearchParams(history.location.search)
         const currentState = searchParams.get('c')
-        if (currentState) searchParams.set('c', currentState + '~' + fp)
+        if (currentState) {
+            const currentFingerprints = fingerprintsFromString(currentState)
+            currentFingerprints.push(fp)
+            searchParams.set('c', fingerprintsToString(currentFingerprints))
+        }
         else searchParams.set('c', fp)
         history.push({
             pathname: history.location.pathname,
@@ -72,19 +76,17 @@ export function useRemoveTank() {
             return
         }
 
-        const tankFingerprints = tanksString.split('~') as Fingerprint[]
-        const tankUids = tankFingerprints.map(fp => {
-            // FIXME: TODO: This code shouldn't need to know about how the fingerprints work...
-            const parts = fp.split('.').map(p => parseInt(p))
-            return parts[parts.length - 1]
-        })
-        const matchingFingerprintIndex = tankUids.findIndex(f => f === uid)
+        const tankFingerprints = fingerprintsFromString(tanksString)
+        const tankUuids = tankFingerprints.map(fp => objFromFingerprint(fp))
+            .map(fpObj => fpObj.uuid)
+
+        const matchingFingerprintIndex = tankUuids.findIndex(f => f === uid)
         if (matchingFingerprintIndex < 0) {
             console.warn(`useRemoveTank: Call to remove a tank that doesn't seem to exists... ${uid}`)
             return
         }
         tankFingerprints.splice(matchingFingerprintIndex, 1)
-        searchParams.set('c', tankFingerprints.join('~'))
+        searchParams.set('c', fingerprintsToString(tankFingerprints))
         history.push({
             pathname: history.location.pathname,
             search: '?' + searchParams.toString()
