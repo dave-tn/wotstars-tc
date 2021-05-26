@@ -46,7 +46,16 @@ function objFromFingerprint(fp: Fingerprint) {
     }
 }
 
+function fingerprintsToString(fingerprints: Fingerprint[]) {
+    return fingerprints.join('~')
+}
+function fingerprintsFromString(stringOfFingerprints: string) {
+    return stringOfFingerprints.split('~') as Fingerprint[]
+}
+
 export {
     generateTankFingerprint,
-    objFromFingerprint
+    objFromFingerprint,
+    fingerprintsToString,
+    fingerprintsFromString
 }
