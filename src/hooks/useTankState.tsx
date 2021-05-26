@@ -61,6 +61,32 @@ export function useAddTank() {
     return addTank
 }
 
+export function useUpdateFingerprint() {
+    const history = useHistory()
+
+    function updateAFingerprint(fp: Fingerprint, uuidToReplace: number) {
+        const searchParams = new URLSearchParams(history.location.search)
+        const tanksString = searchParams.get('c')
+        if (!tanksString) return
+        const individualFingerprints = fingerprintsFromString(tanksString)
+
+        const fingerprintToUpdateIndex = individualFingerprints
+            .map(fp => objFromFingerprint(fp))
+            .findIndex(f => f.uuid === uuidToReplace)
+
+        individualFingerprints[fingerprintToUpdateIndex] = fp
+
+        searchParams.set('c', fingerprintsToString(individualFingerprints))
+        history.push({
+            pathname: history.location.pathname,
+            search: '?' + searchParams.toString()
+        })
+
+    }
+
+    return updateAFingerprint
+}
+
 export function useRemoveTank() {
     const history = useHistory()
 
