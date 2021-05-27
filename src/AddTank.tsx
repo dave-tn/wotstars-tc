@@ -23,11 +23,6 @@ export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>>
 
             <SelectTankList />
 
-            { /*
-            { tank &&
-            <AddTankEditor tank={tank} setShow={setShow} />
-            } */}
-
         </div>
     )
 }
