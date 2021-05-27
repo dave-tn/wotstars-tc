@@ -13,13 +13,13 @@ const MakeCell:FC<{
 
     let compStyle
 
-    if (val === undefined) return <div data-testid="empty"></div>
+    if (val == null) return <div data-testid="empty"></div>
 
     /**
      * If we have a comparison value, we shade the cell backgrounds based
      * on how the cell value (val) compares to the 'first' tank's stat for the cell (the compVal)
      */
-    if (compVal !== undefined && val !== compVal) {
+    if (compVal != null && val !== compVal) {
         const diff = val / compVal
         // Set the background opacity percentage based on the difference percentage
         const opacity = diff > 1 ? Math.min(.75, diff-1) : Math.min(.75, 1-diff)
