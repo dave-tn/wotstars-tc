@@ -5,6 +5,7 @@
 
 .tankImage {
     max-height: 7.5em;
+    min-height: 90px;
 }
 
 .textWrap {
