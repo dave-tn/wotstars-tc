@@ -67,7 +67,7 @@ export interface GQLTurret extends GQLTankModule {
     gun: GQLGun
     guns: GQLGun[]
 }
-interface GQLGun extends GQLTankModule {
+export interface GQLGun extends GQLTankModule {
     max_ammo: number
     elevation: number
     depression: number
@@ -90,7 +90,7 @@ interface GQLGun extends GQLTankModule {
 
 }
 
-interface GQLShot {
+export interface GQLShot {
     index: number
     caliber: number
 
@@ -119,34 +119,21 @@ const GET_TANKS_QUERY = gql`
             is_premium
 
             chassis {
-                user_string
-                level
-                rotation_speed
+                index
             }
 
             engines {
-                user_string
-                level
-                power
+                index
             }
 
             turrets {
-                user_string
-                level
-                vision_radius
-                rotation_speed
+                index
 
                 guns {
-                    user_string
-                    level
-                    reload_time
-                    rate_of_fire
+                    index
 
                     shots {
-                        user_string
-                        damage
-                        piercing_power
-                        dpm
+                        index
                     }
                 }
             }
