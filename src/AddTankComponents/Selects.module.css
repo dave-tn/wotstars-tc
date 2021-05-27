@@ -79,3 +79,22 @@
     flex-grow: .5;
     background-color: rgb(211, 120, 0);
 }
+
+.tankSelectionButton {
+    min-width: 1.5em;
+    font-size: 1.5em;
+    background-color: lightgoldenrodyellow;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+}
+
+.tankSelectionButton.add {
+    background-color: green;
+    padding-bottom: 7px;
+    font-size: 2em;
+}
+.tankSelectionButton.edit {
+    background-color: rgb(211, 120, 0);
+}

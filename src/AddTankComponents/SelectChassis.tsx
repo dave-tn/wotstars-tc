@@ -1,9 +1,11 @@
-import { FC } from 'react'
-import Select, { ActionMeta, components } from 'react-select'
+import { FC, Dispatch } from 'react'
+import Select, { components } from 'react-select'
 
 import { toRoman } from './../utils/tankTiers'
 
 import { GQLChassis } from '../AddTankComponents/SelectTankList'
+
+import { TankConfigAction } from './../Components/TankConfigEditor'
 
 
 const Option = (props: any) => (
@@ -21,22 +23,31 @@ const Option = (props: any) => (
 
 export const SelectChassis:FC<{
     chassis: GQLChassis[]
+    currentChassisIndex: number
+    onSelect: Dispatch<TankConfigAction>
  }> = ({
-    chassis
+    chassis,
+    currentChassisIndex,
+    onSelect
 }) => {
 
     const options = chassis.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
+    const currentlySelected = options.find(c => c.info.index === currentChassisIndex)
 
-    function handleSelection(val: typeof options[number] | null, action: ActionMeta<typeof options[number]>) {
-        console.log('Chassis selection:')
-        console.log(val, action)
+    function handleSelection(val: typeof options[number] | null) {
+        if (val?.info.index !== undefined) {
+            onSelect({
+                type: 'SET_CHASSIS',
+                payload: val.info.index
+            })
+        }
     }
 
     return (
         <Select
             options={options}
             components={{ Option }}
-            defaultValue={options[0]}
+            defaultValue={currentlySelected}
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}

@@ -1,0 +1,54 @@
+
+.editorBackgroundClose {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    /* filter: blur(4px); */
+    backdrop-filter: blur(3px);
+    z-index: 1;
+}
+
+
+.editorBackgroundWrap {
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    background-color: rgb(75, 75, 75);
+    padding: 1em;
+    border-radius: .25em;
+    box-shadow: 0 0 14px 2px black;
+    z-index: 1;
+}
+
+.mainTitle {
+    margin-top: 0;
+    margin-right: 2.5em;
+    color: white;
+}
+
+/** Some basic overrides for the TankInfo component being re-used in the Edit Tank Config component **/
+.infoWrap {
+    font-size: 16px;
+    margin-bottom: 1em;
+}
+.infoWrap > div:first-of-type {
+    text-align: center;
+}
+.infoWrap > div > div {
+    text-align: left;
+}
+
+
+.selectLabel {
+    margin: .5em 0 .25em;
+    color: var(--main-text-colour);
+}
+
+.optionsButtonsWrap {
+    margin: 1.5em 0 0;
+    display: flex;
+    justify-content: space-between;
+}

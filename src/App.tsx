@@ -4,6 +4,7 @@ import styles from './App.module.css'
 
 import { AddTank } from './AddTank'
 import { TanksTable } from './TanksTable'
+import { TankConfigEditor } from './Components/TankConfigEditor'
 
 const App:FC = () => {
 
@@ -18,6 +19,7 @@ const App:FC = () => {
       <div className={styles.appBody}>
         { showTankEditor && <AddTank setShow={setShowTankEditor} /> }
         <TanksTable tanks={[]} showTankEditor={setShowTankEditor} />
+        <TankConfigEditor />
       </div>
     </div>
   )

@@ -1,9 +1,10 @@
-import { FC } from 'react'
-import Select, { ActionMeta, components } from 'react-select'
+import { FC, Dispatch } from 'react'
+import Select, { components } from 'react-select'
 
 import { toRoman } from './../utils/tankTiers'
 
 import { GQLTurret } from '../AddTankComponents/SelectTankList'
+import { TankConfigAction } from './../Components/TankConfigEditor'
 
 
 const Option:FC = (props: any) => (
@@ -21,22 +22,31 @@ const Option:FC = (props: any) => (
 
 export const SelectTurret:FC<{
     turrets: GQLTurret[]
+    currentTurretIndex: number
+    onSelect: Dispatch<TankConfigAction>
  }> = ({
-    turrets
+    turrets,
+    currentTurretIndex,
+    onSelect
 }) => {
 
     const options = turrets.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
+    const currentlySelected = options.find(c => c.info.index === currentTurretIndex)
 
-    function handleSelection(val: typeof options[number] | null, action: ActionMeta<typeof options[number]>) {
-        console.log('Turret selection:')
-        console.log(val, action)
+    function handleSelection(val: typeof options[number] | null) {
+        if (val?.info.index !== undefined) {
+            onSelect({
+                type: 'SET_TURRET',
+                payload: val.info.index
+            })
+        }
     }
 
     return (
         <Select
             options={options}
             components={{ Option }}
-            defaultValue={options[0]}
+            defaultValue={currentlySelected}
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
