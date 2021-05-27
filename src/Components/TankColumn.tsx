@@ -11,7 +11,7 @@ import { useRemoveTank } from '../hooks/useTankState'
 import { objFromFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import { useDispatch } from 'react-redux'
-import { setUuidToEdit } from './../reduxSlices/editorSlice'
+import { setFingerprintToEdit } from './../reduxSlices/editorSlice'
 
 import styles from './TankColumn.module.css'
 
@@ -118,7 +118,7 @@ export const TankColumn: FC<{
             <div style={{ position: 'relative' }}>
                 <div className={styles.headerButtonsWrap}>
                     <div className={styles.headerRemoveTankButton} onClick={() => removeTank(tankConfigObj.uuid)}>-</div>
-                    <div className={styles.headerEditTankButton} onClick={() => dispatch(setUuidToEdit(tankConfigObj.uuid))}>🔧</div>
+                    <div className={styles.headerEditTankButton} onClick={() => dispatch(setFingerprintToEdit(fingerprint))}>🔧</div>
                 </div>
                 <TankIntro tank={tank} />
             </div>

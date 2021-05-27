@@ -1,24 +1,25 @@
 import { MainStore } from '../reduxStore'
 
+import { Fingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
 export interface EditTankConfigState {
-    uuid: number | undefined
+    fingerprint: Fingerprint | undefined
 }
 
 type EditTankConfigAction = {
-    type: 'editTank/SET_UUID'
-    payload: number | undefined
+    type: 'editTank/SET_FINGERPRINT'
+    payload: Fingerprint | undefined
 }
 
 const editTankConfigState: EditTankConfigState = {
-    uuid: undefined
+    fingerprint: undefined
 } 
-export function editTankConfigReducer(state = editTankConfigState, action: EditTankConfigAction) {
+export function editTankConfigReducer(state = editTankConfigState, action: EditTankConfigAction): EditTankConfigState {
 
     switch (action.type) {
-        case 'editTank/SET_UUID': return {
+        case 'editTank/SET_FINGERPRINT': return {
             ...state,
-            selectedTier: action.payload
+            fingerprint: action.payload
         }
         // we need this as redux bootstraps the initial state without using one of the actions above
         default: return state
@@ -27,10 +28,10 @@ export function editTankConfigReducer(state = editTankConfigState, action: EditT
 }
 
 // selectors
-export const getUuid = (({ editTankConfig }: MainStore) => editTankConfig.uuid)
+export const getFingerprintToEdit = (({ editTankConfig }: MainStore) => editTankConfig.fingerprint)
 
 // action creators
-export const setUuidToEdit = (uuid: number | undefined): EditTankConfigAction => ({
-    type: 'editTank/SET_UUID',
-    payload: uuid
+export const setFingerprintToEdit = (fingerprint: Fingerprint | undefined): EditTankConfigAction => ({
+    type: 'editTank/SET_FINGERPRINT',
+    payload: fingerprint
 })
