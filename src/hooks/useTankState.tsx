@@ -1,19 +1,15 @@
 
 import { useState, useEffect, useContext } from 'react'
 
-import { Tank } from './../typesStuff/Tank'
-import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
-import { TankConfig, getTankConfigs } from './../utils/comparisonConfigUtils/getTankConfig'
-
-
 import { HistoryContext, useHistory } from './../HistoryProvider'
 
+import { Tank } from './../typesStuff/Tank'
+import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
-export function useTankState(tanks: Tank[]): [ TankConfig[], Fingerprint[] ] {
+
+export function useTankState(tanks: Tank[]): [ Fingerprint[] ] {
 
     const history = useContext(HistoryContext)
-    const [ tankCompData, setTankCompData ] = useState<TankConfig[]>([])
-
     const [ fingerprints, setFingerprints ] = useState<Fingerprint[]>([])
 
     /**
@@ -23,11 +19,8 @@ export function useTankState(tanks: Tank[]): [ TankConfig[], Fingerprint[] ] {
         function handleHistoryChange() {
             const searchParams = new URLSearchParams(history.location.search)
             const tanksString = searchParams.get('c')
-            if (!tanksString) return setTankCompData([])
+            if (!tanksString) return setFingerprints([])
             const individualFingerprints = fingerprintsFromString(tanksString)
-            setTankCompData(
-                getTankConfigs(individualFingerprints, tanks)
-            )
             setFingerprints(individualFingerprints)
         }
         // Call here so we trigger on first load
@@ -37,7 +30,7 @@ export function useTankState(tanks: Tank[]): [ TankConfig[], Fingerprint[] ] {
         return () => unlisten()
     }, [ history, tanks ])
 
-    return [ tankCompData, fingerprints ]
+    return [ fingerprints ]
 }
 
 

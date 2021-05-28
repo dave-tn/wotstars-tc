@@ -14,7 +14,7 @@ export const TanksTable:FC<{
     showTankEditor: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ tanks, showTankEditor }) => {
 
-    const [ , fingerprints ] = useTankState(tanks)
+    const [ fingerprints ] = useTankState(tanks)
     const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
 
     return (
