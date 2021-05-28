@@ -13,7 +13,7 @@ export const SelectTier:FC = () => {
     const selectedTier = useSelector(getSelectedTier)
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={styles.tiersWrap}>
             { KNOWN_TIERS.map(t => {
 
                 let classes = styles.button

@@ -26,7 +26,7 @@ export const SelectType:FC = () => {
     const selectedType = useSelector(getSelectedType)
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={styles.tiersWrap}>
             { VEHICLE_TYPES.map(([slug, name]) => {
 
                 let classes = styles.button

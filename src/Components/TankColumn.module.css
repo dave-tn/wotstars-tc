@@ -42,6 +42,20 @@
     background-color: rgba(255, 166, 0, 0.5);
 }
 
+/* For the tank selection interface */
+.headerAddTankButton {
+    composes: headerRemoveTankButton;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3em;
+    min-width: 2em;
+    background-color: rgba(0, 128, 0, 0.4);
+}
+.headerAddTankButton:hover {
+    background-color: rgba(0, 128, 0, 0.85);
+}
+
 .cellWrap {
     display: flex;
     flex-wrap: nowrap;

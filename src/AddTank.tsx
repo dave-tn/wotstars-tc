@@ -18,8 +18,10 @@ export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>>
             <h2 className={styles.header}>Select a Tank</h2>
             <p className={styles.subHeader}>& the modules</p>
 
-            <SelectTier />
-            <SelectType />
+            <div style={{ margin: '1em' }}>
+                <SelectTier />
+                <SelectType />
+            </div>
 
             <SelectTankList />
 

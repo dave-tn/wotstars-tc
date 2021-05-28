@@ -1,4 +1,12 @@
 
+.tiersWrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: .25em;
+}
+
 .button {
     padding: 0 .25em;
     user-select: none;
@@ -35,66 +43,10 @@
     display: flex;
     flex-wrap: wrap;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
     gap: .5em;
 }
 
 .tankSelectionItemWrap {
-    min-width: 200px;
-    display: flex;
     border: 1px solid rgba(245, 245, 245, 0.35);
-}
-
-.tankSelectionButtonsWrap {
-    display: flex;
-    flex-direction: column;
-
-    flex-grow: 1;
-}
-
-.addTankButton {
-    /* composes: headerAddTankButton; */
-    flex-grow: 2;
-    padding: .5em .5em;
-    background-color: green;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    will-change: color;
-    transition: color 200ms ease-out;
-}
-.addTankButton:hover {
-    color: white;
-}
-.defaultConfigText {
-    font-size: .75em;
-    opacity: .75;
-}
-
-.editConfigButton {
-    composes: addTankButton;
-    flex-grow: .5;
-    background-color: rgb(211, 120, 0);
-}
-
-.tankSelectionButton {
-    min-width: 1.5em;
-    font-size: 1.5em;
-    background-color: lightgoldenrodyellow;
-    padding: 5px;
-    cursor: pointer;
-    user-select: none;
-    text-align: center;
-}
-
-.tankSelectionButton.add {
-    background-color: green;
-    padding-bottom: 7px;
-    font-size: 2em;
-}
-.tankSelectionButton.edit {
-    background-color: rgb(211, 120, 0);
 }
