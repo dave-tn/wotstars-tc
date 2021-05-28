@@ -18,8 +18,7 @@ export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>>
     return (
         <div className={styles.mainWrap}>
             <CloseButton toggle={setShow} />
-            <h2 className={styles.header}>Select a Tank</h2>
-            <p className={styles.subHeader}>& the modules</p>
+            <h1 className={styles.header}>Select a Tank</h1>
 
             <div style={{ margin: '1em' }}>
                 <SelectTier />
