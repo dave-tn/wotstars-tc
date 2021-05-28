@@ -38,8 +38,8 @@ export const TanksTable:FC<{
                 >
                     Bonuses
                 </div>
-                <div>Silver / Base XP</div>
-                <div>Free XP / Crew XP</div>
+                <div className={styles.cell}>Silver / Base XP</div>
+                <div className={styles.cell}>Free XP / Crew XP</div>
 
 
                 <div
@@ -52,13 +52,13 @@ export const TanksTable:FC<{
                 >
                     Firepower
                 </div>
-                <div>DPM</div>
-                <div>Penetration</div>
-                <div>Damage</div>
-                <div>Rate of Fire</div>
-                <div>Reload</div>
-                <div>Clip</div>
-                <div>Caliber</div>
+                <div className={styles.cell}>DPM</div>
+                <div className={styles.cell}>Penetration</div>
+                <div className={styles.cell}>Damage</div>
+                <div className={styles.cell}>Rate of Fire</div>
+                <div className={styles.cell}>Reload</div>
+                <div className={styles.cell}>Clip</div>
+                <div className={styles.cell}>Caliber</div>
 
 
                 <div
@@ -71,9 +71,9 @@ export const TanksTable:FC<{
                 >
                     Weapon Handling
                 </div>
-                <div>Aim Time</div>
-                <div>Dispersion (at 100m)</div>
-                <div>Elevation / Depression</div>
+                <div className={styles.cell}>Aim Time</div>
+                <div className={styles.cell}>Dispersion (at 100m)</div>
+                <div className={styles.cell}>Elevation / Depression</div>
 
                 <div
                     className={styles.header} 
@@ -85,12 +85,12 @@ export const TanksTable:FC<{
                 >
                     Movement / Mobility
                 </div>
-                <div>Speed [forward/reverse]</div>
-                <div>Traverse [hull/turret]</div>
-                <div>Engine Power / per tonne</div>
-                <div>Terrain [hard/med/soft]</div>
-                <div>Camo [still/moving]</div>
-                <div>View Range</div>
+                <div className={styles.cell}>Speed [forward/reverse]</div>
+                <div className={styles.cell}>Traverse [hull/turret]</div>
+                <div className={styles.cell}>Engine Power / per tonne</div>
+                <div className={styles.cell}>Terrain [hard/med/soft]</div>
+                <div className={styles.cell}>Camo [still/moving]</div>
+                <div className={styles.cell}>View Range</div>
 
 
                 { fingerprints.map((fp, index) => <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} /> )}
