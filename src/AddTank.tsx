@@ -6,15 +6,18 @@ import { SelectTankList } from './AddTankComponents/SelectTankList'
 
 import styles from './AddTank.module.css'
 
+const CloseButton:FC<{
+    toggle: React.Dispatch<React.SetStateAction<boolean>>
+}> = ({toggle}) => <div className={styles.closeButton} onClick={() => toggle(false)}>X</div>
+
+
 export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>> }> = ({
     setShow
 }) => {
 
     return (
         <div className={styles.mainWrap}>
-            <div className={styles.closeButton} onClick={() => setShow(false)}>
-                X
-            </div>
+            <CloseButton toggle={setShow} />
             <h2 className={styles.header}>Select a Tank</h2>
             <p className={styles.subHeader}>& the modules</p>
 
