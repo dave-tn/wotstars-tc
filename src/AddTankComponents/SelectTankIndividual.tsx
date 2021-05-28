@@ -21,6 +21,7 @@ export const SelectTankIndividual: FC<{
 
     function configToFingerprint() {
         const tankId = tank.id
+        // The 'final' modules - the last to unlock - are assumed to be the best, and seem to be ordered by index value by WG; so...
         const chassisIndex = tank.chassis.reduce(highestIndexFinder, 0)
         const engineIndex = tank.engines.reduce(highestIndexFinder, 0)
         const turretIndex = tank.turrets.reduce(highestIndexFinder, 0)
