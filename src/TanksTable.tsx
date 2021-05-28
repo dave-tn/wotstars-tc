@@ -18,14 +18,14 @@ export const TanksTable:FC<{
     const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
 
     return (
-        <div className="xxxxxxMain-grid">
+        <div>
 
-            <div style={{
-                display: 'grid',
-                // use this to hackily force our column layout for a vertical table type effect
-                gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto',
-                width: 'max-content',
-                gridAutoFlow: 'column'
+            <div
+                className={styles.mainGrid}
+                style={{
+                    // use this to hackily force our column layout for a vertical table type effect
+                    // TODO: Ideally we calculate this automatically somehow...
+                    gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto'
             }}>
                 <div></div>{/* Empty top left grid item */}
                 <div

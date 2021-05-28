@@ -5,6 +5,16 @@
     background-color: rgb(255 255 255 / 5%);
 }
 
+.mainGrid {
+    margin: 2em;
+    padding: 1em;
+    background-color: #3a3a3a;
+    
+    display: grid;
+    width: max-content;
+    grid-auto-flow: column;
+}
+
 .cellRowsTitle {
     padding-right: 1.5em;
     white-space: nowrap;
