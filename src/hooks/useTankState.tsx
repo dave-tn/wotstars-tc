@@ -3,11 +3,10 @@ import { useState, useEffect, useContext } from 'react'
 
 import { HistoryContext, useHistory } from './../HistoryProvider'
 
-import { Tank } from './../typesStuff/Tank'
 import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
 
-export function useTankState(tanks: Tank[]): [ Fingerprint[] ] {
+export function useTankState(): [ Fingerprint[] ] {
 
     const history = useContext(HistoryContext)
     const [ fingerprints, setFingerprints ] = useState<Fingerprint[]>([])
@@ -28,7 +27,7 @@ export function useTankState(tanks: Tank[]): [ Fingerprint[] ] {
         // Set listener so we trigger on any changes to the query params
         const unlisten = history.listen(handleHistoryChange)
         return () => unlisten()
-    }, [ history, tanks ])
+    }, [ history ])
 
     return [ fingerprints ]
 }

@@ -18,7 +18,7 @@ const App:FC = () => {
       </header>
       <div className={styles.appBody}>
         { showTankEditor && <AddTank setShow={setShowTankEditor} /> }
-        <TanksTable tanks={[]} showTankEditor={setShowTankEditor} />
+        <TanksTable showTankEditor={setShowTankEditor} />
         <TankConfigEditor />
       </div>
     </div>

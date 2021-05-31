@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 
-import { Tank } from './typesStuff/Tank'
 import { GQLTank } from './AddTankComponents/SelectTankList'
 
 import { TankColumn } from './Components/TankColumn'
@@ -10,11 +9,10 @@ import styles from './RowComponents/RowComponentStyles.module.css'
 
 
 export const TanksTable:FC<{
-    tanks: Tank[]
     showTankEditor: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ tanks, showTankEditor }) => {
+}> = ({ showTankEditor }) => {
 
-    const [ fingerprints ] = useTankState(tanks)
+    const [ fingerprints ] = useTankState()
     const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
 
     return (
