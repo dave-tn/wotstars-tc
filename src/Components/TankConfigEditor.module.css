@@ -23,7 +23,7 @@
     box-shadow: 0 0 14px 2px black;
     z-index: 1;
 
-    min-width: calc(360px - 4em);
+    min-width: calc(320px - 4em);
 }
 
 @media screen and (min-width: 550px) {
