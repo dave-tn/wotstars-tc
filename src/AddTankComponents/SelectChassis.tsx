@@ -51,6 +51,7 @@ export const SelectChassis:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
+            isDisabled={chassis.length < 2}
         />
     )
 

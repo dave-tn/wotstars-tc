@@ -74,6 +74,7 @@ export const SelectShot:FC<{
             isSearchable={false}
             onChange={handleSelection}
             styles={colourStyles}
+            isDisabled={shots.length < 2}
         />
     )
 

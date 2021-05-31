@@ -49,6 +49,7 @@ export const SelectEngine:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
+            isDisabled={engines.length < 2}
         />
     )
 

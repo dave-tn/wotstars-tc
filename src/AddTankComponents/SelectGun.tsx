@@ -50,6 +50,7 @@ export const SelectGun:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
+            isDisabled={guns.length < 2}
         />
     )
 

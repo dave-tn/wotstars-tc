@@ -50,6 +50,7 @@ export const SelectTurret:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
+            isDisabled={turrets.length < 2}
         />
     )
 
