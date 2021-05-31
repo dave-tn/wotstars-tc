@@ -14,18 +14,35 @@
 
 .editorBackgroundWrap {
     position: fixed;
-    top: 20%;
-    left: 20%;
+    top: 1em;
+    left: 1em;
+    right: 1em;
     background-color: rgb(75, 75, 75);
     padding: 1em;
     border-radius: .25em;
     box-shadow: 0 0 14px 2px black;
     z-index: 1;
+
+    min-width: calc(360px - 4em);
+}
+
+@media screen and (min-width: 550px) {
+    .editorBackgroundWrap {
+        top: 20%;
+        left: 20%;
+        right: auto;
+    }
+}
+@media screen and (min-height: 700px) {
+    .editorBackgroundWrap {
+        top: 20%;
+    }
 }
 
 .mainTitle {
     margin-top: 0;
     margin-right: 2.5em;
+    font-size: 1.5em;
     color: white;
 }
 
