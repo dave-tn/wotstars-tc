@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux'
 import { getAddTankOptions } from '../reduxSlices/addTankSlice'
 
 import styles from './Selects.module.css'
+import { useTankState } from '../hooks/useTankState'
+import { objFromFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
 
 interface Tanks {
     tanks: GQLTank[]
@@ -142,8 +144,22 @@ const GET_TANKS_QUERY = gql`
     }
 `
 
+interface CountMap {
+    [key:number]: number
+}
 
 export const SelectTankList: FC = () => {
+
+    /**
+     * Provides a count for the number of times a particular tank ID already appears in the main comparison table
+     */
+    const [ fingerprints ] = useTankState()
+    const tankIdsCountMap = fingerprints.reduce((countMap, fingerprint) => {
+        const fpObj = objFromFingerprint(fingerprint)
+        if (!countMap[fpObj.id]) countMap[fpObj.id] = 0
+        countMap[fpObj.id]++
+        return countMap
+    }, {} as CountMap)
 
     const { selectedType, selectedTier } = useSelector(getAddTankOptions)
 
@@ -158,7 +174,7 @@ export const SelectTankList: FC = () => {
     return (
         <div style={{ overflowY: 'scroll' }}>
             <div className={styles.tanksListWrap}>
-                { data?.tanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} />)}
+                { data?.tanks?.map(tank => <SelectTankIndividual tank={tank} key={tank.id} count={tankIdsCountMap[tank.id]} />)}
             </div>
         </div>
     )

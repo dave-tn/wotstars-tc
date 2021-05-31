@@ -49,6 +49,22 @@
     gap: .5em;
 }
 
+
+/**
+    For the SelectTankIndividual component...
+**/
 .tankSelectionItemWrap {
     border: 1px solid rgba(245, 245, 245, 0.35);
+}
+.tankSelectionInnerWrap {
+    padding: 5px;
+    position: relative;
+}
+.tankSelectionCount {
+    position: absolute;
+     top: .5em;
+     left: .5em;
+     font-weight: bolder;
+     font-size: 1.25em;
+     color: white
 }

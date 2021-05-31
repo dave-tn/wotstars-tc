@@ -14,8 +14,9 @@ const highestIndexFinder = (best: number, mod: { index: number }) => best > mod.
 
 export const SelectTankIndividual: FC<{
     tank: GQLTank
+    count: number
 }> = ({
-    tank
+    tank, count
 }) => {
     const addTank = useAddTank()
 
@@ -39,9 +40,10 @@ export const SelectTankIndividual: FC<{
     }
 
     return (
-        <div className={styles.tankSelectionItemWrap}>
+        <div className={styles.tankSelectionItemWrap} style={{ borderStyle: count > 0 ? 'dashed' : 'solid', opacity: count > 0 ? 0.55 : 1  }}>
 
-            <div style={{ padding: '5px', position: 'relative' }}>
+            <div className={styles.tankSelectionInnerWrap}>
+                <div className={styles.tankSelectionCount}>{ count }</div>
                 <div className={tankColumnStyles.headerButtonsWrap}>
                     <div className={tankColumnStyles.headerAddTankButton} onClick={configToFingerprint}>+</div>
                 </div>
