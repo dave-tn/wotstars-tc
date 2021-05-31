@@ -44,7 +44,60 @@ export interface GQLTank {
     chassis: GQLChassis[]
     engines: GQLEngine[]
     turrets: GQLTurret[]
+
+    topPlayers: GQLPlayers[]
 }
+
+export interface GQLPlayers {
+    account_id: string
+    platform: 'xbox' | 'ps'
+    playerinfo: {
+        nickname: string
+        clan?: {
+            clan_id: number
+            name: string
+            tag: string
+        }
+    }
+    p90: GQLPlayerStats
+}
+export interface GQLPlayerStats {
+    // Assisted damage per battle
+    adpb: number
+    // Number of battles used for the stats calculation
+    battles: number
+    // Percentage of incoming shots that boucned off player's armour
+    bounce: number
+    // Damage per battle
+    dpb: number
+    // Damage ratio
+    dr: number
+    // How many capture points the player removed from enemies
+    droppedCapturePointsPerBattle: number
+    // Average of how many of player's shots hit the target per battle
+    hpb: number
+    // Player's kills to deaths ratio
+    kdr: number
+    // Player's avergae kills per battle
+    kpb: number
+    // Percentage of player's shots that penetrated the enemy's armour
+    penetration: number
+    // Average number of enemy tanks spotted by player
+    spb: number
+    // Percentage of battles survived by player
+    survival: number
+    // Average combined damage - that is assisted and direct - done by player per battle
+    tdpb: number
+    // Percentage of battles won by player
+    winrate: number
+    // WN7 rating for the player
+    wn7: number
+    // WN8 rating for the player
+    wn8: number
+    // Average XP player earned per battle (doesn't include bonuses except premium time)
+    xp: number
+}
+
 interface GQLTankModule {
     index: number
     user_string: string

@@ -23,7 +23,7 @@ export const TanksTable:FC<{
                 style={{
                     // use this to hackily force our column layout for a vertical table type effect
                     // TODO: Ideally we calculate this automatically somehow...
-                    gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto'
+                    gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto'
             }}>
                 <div></div>{/* Empty top left grid item */}
                 <div
@@ -44,7 +44,6 @@ export const TanksTable:FC<{
                     className={styles.header} 
                     style={{
                         gridRow: '5',
-                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
                         gridColumn: `1/${fingerprints.length + 2}`
                     }}
                 >
@@ -63,7 +62,6 @@ export const TanksTable:FC<{
                     className={styles.header} 
                     style={{
                         gridRow: '13',
-                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
                         gridColumn: `1/${fingerprints.length + 2}`
                     }}
                 >
@@ -77,7 +75,6 @@ export const TanksTable:FC<{
                     className={styles.header} 
                     style={{
                         gridRow: '17',
-                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
                         gridColumn: `1/${fingerprints.length + 2}`
                     }}
                 >
@@ -91,6 +88,18 @@ export const TanksTable:FC<{
                 <div className={styles.cell}>Camo [still/moving]</div>
                 <div className={styles.cell}>View Range</div>
 
+                <div
+                    className={styles.header} 
+                    style={{
+                        gridRow: '25',
+                        gridColumn: `1/${fingerprints.length + 2}`
+                    }}
+                >
+                    Top Players <small style={{ fontWeight: 'lighter', fontSize: '.65em' }}>(last 90 days, by WN8; [Battles | <b>WN8</b> | Combined Damage])</small>
+                </div>
+                <div className={styles.cell}>#1</div>
+                <div className={styles.cell}>#2</div>
+                <div className={styles.cell}>#3</div>
 
                 { fingerprints.map((fp, index) => <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} /> )}
 
