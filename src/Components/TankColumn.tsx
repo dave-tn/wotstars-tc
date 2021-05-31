@@ -46,6 +46,8 @@ const GET_TANK_Q = gql`
             speeds
             camo
 
+            weight
+
             chassi(index: $chassisIndex) {
                 weight
                 rotation_speed
@@ -112,6 +114,13 @@ export const TankColumn: FC<{
 
     const tank = data.tank
 
+    const tankWeight = ((tank.weight + tank.chassi.weight + tank.engine.weight + tank.turret.weight + tank.turret.gun.weight) / 1000)
+    const enginePowerPerTonne = tank.engine.power / tankWeight
+
+    const firstTankWeight = firstTank ? ((firstTank.weight + firstTank.chassi.weight + firstTank.engine.weight + firstTank.turret.weight + firstTank.turret.gun.weight) / 1000) : 0
+    const firstTankEnginePowerPerTonne = firstTank ? firstTank.engine.power / firstTankWeight : 0
+
+
     return (
         <>
 {/* INTRO */}
@@ -165,9 +174,10 @@ export const TankColumn: FC<{
                 <MakeCell val={tank.chassi.rotation_speed} compVal={firstTank?.chassi.rotation_speed} suffix="°/s" />
                 <MakeCell val={tank.turret.rotation_speed} compVal={firstTank?.turret.rotation_speed} suffix="°/s" />
             </div>
+            <div><MakeCell val={tankWeight} compVal={firstTankWeight} roundTo={2} suffix="t" /></div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.engine.power} compVal={firstTank?.engine.power} suffix="hp" />
-                <MakeCell val={tank.engine.power} compVal={firstTank?.engine.power} suffix="hp/t" /> XX 
+                <MakeCell val={enginePowerPerTonne} compVal={firstTankEnginePowerPerTonne} suffix="hp/t" roundTo={2} />
             </div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.chassi.terrain_resistance[0]} compVal={firstTank?.chassi.terrain_resistance[0]} biggerIsBetter={false} />
