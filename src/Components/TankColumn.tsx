@@ -174,7 +174,7 @@ export const TankColumn: FC<{
                 <MakeCell val={tank.chassi.rotation_speed} compVal={firstTank?.chassi.rotation_speed} suffix="°/s" />
                 <MakeCell val={tank.turret.rotation_speed} compVal={firstTank?.turret.rotation_speed} suffix="°/s" />
             </div>
-            <div><MakeCell val={tankWeight} compVal={firstTankWeight} roundTo={2} suffix="t" /></div>
+            <div><MakeCell val={tankWeight} compVal={firstTankWeight} roundTo={2} suffix="t" biggerIsBetter={false} /></div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.engine.power} compVal={firstTank?.engine.power} suffix="hp" />
                 <MakeCell val={enginePowerPerTonne} compVal={firstTankEnginePowerPerTonne} suffix="hp/t" roundTo={2} />
