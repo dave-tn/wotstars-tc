@@ -16,7 +16,7 @@ export const TanksTable:FC<{
     const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
 
     return (
-        <div>
+        <div style={{ overflow: 'scroll' }}>
 
             <div
                 className={styles.mainGrid}
