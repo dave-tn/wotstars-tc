@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { SelectType } from './AddTankComponents/SelectType'
 import { SelectTier } from './AddTankComponents/SelectTier'
@@ -14,6 +14,12 @@ const CloseButton:FC<{
 export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>> }> = ({
     setShow
 }) => {
+
+    useEffect(() => {
+        const closeFn = (e: KeyboardEvent) => (e.key === 'Escape' && setShow(false))
+        window.addEventListener('keyup', closeFn)
+        return () => window.removeEventListener('keyup', closeFn)
+    })
 
     return (
         <div className={styles.mainWrap}>

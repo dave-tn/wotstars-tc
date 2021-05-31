@@ -1,5 +1,5 @@
 
-import { FC, useReducer } from 'react'
+import { FC, useReducer, useEffect } from 'react'
 
 import { useQuery, gql } from '@apollo/client'
 import { GQLTank } from './../AddTankComponents/SelectTankList'
@@ -161,6 +161,12 @@ const Editor:FC<{
     function close() {
         dispatch(setFingerprintToEdit(undefined))
     }
+
+    useEffect(() => {
+        const closeFn = (e: KeyboardEvent) => (e.key === 'Escape' && close())
+        window.addEventListener('keyup', closeFn)
+        return () => window.removeEventListener('keyup', closeFn)
+    })
 
     const tank = data?.tank
 
