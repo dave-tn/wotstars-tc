@@ -95,7 +95,8 @@ export const TanksTable:FC<{
                         gridColumn: `1/${fingerprints.length + 2}`
                     }}
                 >
-                    Top Players <small style={{ fontWeight: 'lighter', fontSize: '.65em' }}>(last 90 days, by WN8; [Battles | <b>WN8</b> | Combined Damage])</small>
+                    Top Players
+                    <small style={{ fontWeight: 'lighter', fontSize: '.65em', display: 'block' }}>(last 90 days, by WN8; [Battles | <b>WN8</b> | Combined Damage])</small>
                 </div>
                 <div className={styles.cell}>#1</div>
                 <div className={styles.cell}>#2</div>
