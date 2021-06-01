@@ -17,6 +17,7 @@ const App:FC = () => {
       <header className={styles.header}>
         WoTStars' Tank Compare
         <img src={tankyMcPew} alt="site logo" className={styles.headerLogo}></img>
+        <span><a className={styles.returnLink} href="https://www.wotstars.com">&lt; back to WoTStars</a></span>
       </header>
       <div className={styles.appBody}>
         { showAddTankView && <AddTank setShow={setShowAddTankView} /> }

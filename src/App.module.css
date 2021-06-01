@@ -19,3 +19,9 @@
 
 }
 
+.returnLink {
+  display: block;
+  color: white;
+  font-size: 10px;
+  margin-top: 7px;
+}
