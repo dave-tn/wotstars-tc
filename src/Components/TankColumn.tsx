@@ -16,6 +16,8 @@ import { GET_TANK_Q } from './tankColumnGQLQuery'
 import { useDispatch } from 'react-redux'
 import { setFingerprintToEdit } from './../reduxSlices/editorSlice'
 
+import gtagHelper from './../utils/gtagHelper'
+
 import styles from './TankColumn.module.css'
 
 
@@ -67,7 +69,11 @@ export const TankColumn: FC<{
             <div style={{ position: 'relative' }}>
                 <div className={styles.headerButtonsWrap}>
                     <div className={styles.headerRemoveTankButton} onClick={() => removeTank(tankConfigObj.uuid)}>-</div>
-                    <div className={styles.headerEditTankButton} onClick={() => dispatch(setFingerprintToEdit(fingerprint))}>🔧</div>
+                    <div className={styles.headerEditTankButton} onClick={() => {
+                        dispatch(setFingerprintToEdit(fingerprint))
+                        gtagHelper({ 'event': 'open_tank_config_editor' })
+                    }
+                        }>🔧</div>
                 </div>
                 <TankIntro tank={tank} />
             </div>

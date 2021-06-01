@@ -4,6 +4,8 @@ import { VEHICLE_TYPES } from './../utils/tankTypes'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSelectedType, setSelectedType } from '../reduxSlices/addTankSlice'
 
+import gtagHelper from './../utils/gtagHelper'
+
 import lightTank from './../images/type-light-icon.svg'
 import mediumTank from './../images/type-med-icon.svg'
 import heavyTank from './../images/type-heavy-icon.svg'
@@ -38,7 +40,13 @@ export const SelectType:FC = () => {
                     <div
                         key={slug}
                         className={classes}
-                        onClick={() => dispatch(setSelectedType(slug))}
+                        onClick={() => {
+                            dispatch(setSelectedType(slug))
+                            gtagHelper({
+                                'event': 'tank_add_view_select_type',
+                                'selected_type': slug
+                            })
+                        }}
                     >
                         <img alt={`${name} filter`} src={typeIconsMap[slug]} />
                     </div>

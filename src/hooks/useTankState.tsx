@@ -5,6 +5,8 @@ import { HistoryContext, useHistory } from './../HistoryProvider'
 
 import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
+import gtagHelper from './../utils/gtagHelper'
+
 
 export function useTankState(): [ Fingerprint[] ] {
 
@@ -49,6 +51,7 @@ export function useAddTank() {
             pathname: history.location.pathname,
             search: '?' + searchParams.toString()
         })
+        gtagHelper({ 'event': 'add_tank' })
     }
     return addTank
 }
@@ -109,6 +112,7 @@ export function useRemoveTank() {
             pathname: history.location.pathname,
             search: '?' + searchParams.toString()
         })
+        gtagHelper({ 'event': 'remove_tank' })
 
     }
 

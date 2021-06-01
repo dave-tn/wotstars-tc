@@ -20,6 +20,8 @@ import { getFingerprintToEdit, setFingerprintToEdit } from './../reduxSlices/edi
 
 import { useUpdateFingerprint } from './../hooks/useTankState'
 
+import gtagHelper from './../utils/gtagHelper'
+
 import styles from './TankConfigEditor.module.css'
 
 interface TankQueryVars {
@@ -108,13 +110,29 @@ export interface TankConfigAction {
     payload: number
 }
 
+// TODO: Move side effects somewhere else...
 function configReducer(state: TankConfig, action: TankConfigAction) {
     switch (action.type) {
-        case 'SET_CHASSIS': return { ...state, chassisIndex: action.payload }
-        case 'SET_ENGINE': return { ...state, engineIndex: action.payload }
-        case 'SET_TURRET': return { ...state, turretIndex: action.payload }
-        case 'SET_GUN': return { ...state, gunIndex: action.payload }
-        case 'SET_SHOT': return { ...state, shotIndex: action.payload }
+        case 'SET_CHASSIS': {
+            gtagHelper({ 'event': 'tank_config_editor_change_chassis' })
+            return { ...state, chassisIndex: action.payload }
+        }
+        case 'SET_ENGINE': {
+            gtagHelper({ 'event': 'tank_config_editor_change_engine' })
+            return { ...state, engineIndex: action.payload }
+        }
+        case 'SET_TURRET': {
+            gtagHelper({ 'event': 'tank_config_editor_change_turret' })
+            return { ...state, turretIndex: action.payload }
+        }
+        case 'SET_GUN': {
+            gtagHelper({ 'event': 'tank_config_editor_change_gun' })
+            return { ...state, gunIndex: action.payload }
+        }
+        case 'SET_SHOT': {
+            gtagHelper({ 'event': 'tank_config_editor_change_shot' })
+            return { ...state, shotIndex: action.payload }
+        }
         default: return state
     }
 }
@@ -155,11 +173,13 @@ const Editor:FC<{
         console.log(config)
         console.log('Updating fingerprint to:', fp)
         updateFingerprint(fp, tankConfigObj.uuid)
+        gtagHelper({ 'event': 'close_tank_config_editor_via_save' })
         close()
     }
 
     function close() {
         dispatch(setFingerprintToEdit(undefined))
+        gtagHelper({ 'event': 'close_tank_config_editor' })
     }
 
     useEffect(() => {
