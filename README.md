@@ -1,24 +1,19 @@
 
-### Might one day be...
+### a tool for WoTStars
 # A Tank Comparator Web App for WoT: Console
 
-Something along the lines of [BlitzStars](https://www.blitzstars.com)' [Tank Compare](https://tank-compare.blitzstars.com) web app.
+[WoTStars' Tank Compare](https://www.wotstars.com/tank-compare)
 
-This is an in development web-app to handle vehicle comparisons for World of Tanks: Console, as an accompaniment to [WoTStars.com](https://www.wotstars.com)
+A web-app to handle vehicle comparisons for World of Tanks: Console, as an accompaniment to [WoTStars.com](https://www.wotstars.com) stat tracking.
 
-React with TypeScript; Redux; GraphQL; ES2021; Yarn.
+React with TypeScript; Redux; GraphQL (AWS backend); ES2021; Yarn.
 
 
 ## F.A.Q.
 
-### Why isn't this live yet?
-A quick look at the code should answer that!
-
-### When will it be live?
-When an MVP is ready.
-
-### When will that be?
-Weeks? Months? Years? 🤷‍♂️
+### Why?
+Created in order to use TypeScript and GraphQL for the first time. Also to brush up on Redux.
+Oh, and to provide a little tool for the WoT:C community...
 
 ### Is this open source?
 Yes.
