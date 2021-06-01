@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { GQLTank } from './AddTankComponents/SelectTankList'
+import { GQLTank } from './Components/AddTankComponents/SelectTankList'
 
 import { TankColumn } from './Components/TankColumn'
 import { useTankState } from './hooks/useTankState'

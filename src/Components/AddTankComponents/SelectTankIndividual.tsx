@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
 import { GQLTank } from './SelectTankList'
-import { TankIntro } from '../Components/TankIntro'
+import { TankIntro } from '../TankIntro'
 
-import { useAddTank } from '../hooks/useTankState'
-import { generateTankFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
+import { useAddTank } from '../../hooks/useTankState'
+import { generateTankFingerprint } from '../../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import styles from './Selects.module.css'
-import tankColumnStyles from './../Components/TankColumn.module.css'
+import tankColumnStyles from '../../Components/TankColumn.module.css'
 
 
 const highestIndexFinder = (best: number, mod: { index: number }) => best > mod.index ? best : mod.index

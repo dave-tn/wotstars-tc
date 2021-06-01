@@ -1,42 +1,43 @@
 import { FC, Dispatch } from 'react'
 import Select, { components } from 'react-select'
 
-import { toRoman } from './../utils/tankTiers'
+import { toRoman } from '../../utils/tankTiers'
 
-import { GQLGun } from '../AddTankComponents/SelectTankList'
-import { TankConfigAction } from './../Components/TankConfigEditor'
+import { GQLChassis } from './SelectTankList'
+
+import { TankConfigAction } from '../TankConfigEditor'
 
 
-const Option:FC = (props: any) => (
+const Option = (props: any) => (
     <div>
         <components.Option {...props} >
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    Reload: { props.data.info.reload_time }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m | Tier: { toRoman(props.data.info.level) }
+                    { props.data.info.rotation_speed }° | Tier: { toRoman(props.data.info.level) }
                 </span>
             </div>
         </components.Option>
     </div>
 )
 
-export const SelectGun:FC<{
-    guns: GQLGun[]
-    currentGunIndex: number
+export const SelectChassis:FC<{
+    chassis: GQLChassis[]
+    currentChassisIndex: number
     onSelect: Dispatch<TankConfigAction>
  }> = ({
-    guns,
-    currentGunIndex,
+    chassis,
+    currentChassisIndex,
     onSelect
 }) => {
 
-    const options = guns.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
-    const currentlySelected = options.find(c => c.info.index === currentGunIndex)
+    const options = chassis.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
+    const currentlySelected = options.find(c => c.info.index === currentChassisIndex)
 
     function handleSelection(val: typeof options[number] | null) {
         if (val?.info.index !== undefined) {
             onSelect({
-                type: 'SET_GUN',
+                type: 'SET_CHASSIS',
                 payload: val.info.index
             })
         }
@@ -50,7 +51,7 @@ export const SelectGun:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
-            isDisabled={guns.length < 2}
+            isDisabled={chassis.length < 2}
         />
     )
 

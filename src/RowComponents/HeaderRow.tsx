@@ -3,7 +3,7 @@ import { FC } from 'react'
 import styles from './RowComponentStyles.module.css'
 import { TankIntro } from '../Components/TankIntro'
 import { useRemoveTank } from '../hooks/useTankState'
-import { GQLTank } from '../AddTankComponents/SelectTankList'
+import { GQLTank } from '../Components/AddTankComponents/SelectTankList'
 
 const HeaderRow: FC<{
     data: GQLTank[],

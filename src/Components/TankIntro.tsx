@@ -8,8 +8,8 @@ import { toType } from './../utils/tankTypes'
 
 // import { TankInfo } from '../typesStuff/Tank'
 
-import { GQLTank } from './../AddTankComponents/SelectTankList'
-import { TankTypeSlug } from '../typesStuff/Tank'
+import { GQLTank } from './AddTankComponents/SelectTankList'
+import { TankTypeSlug } from './../utils/tankTypes'
 
 
 const TankIntro: FC<{ tank: GQLTank }> = ({ tank }) => {

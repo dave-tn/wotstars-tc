@@ -1,10 +1,11 @@
 import { FC, Dispatch } from 'react'
 import Select, { components } from 'react-select'
 
-import { toRoman } from './../utils/tankTiers'
+import { toRoman } from '../../utils/tankTiers'
 
-import { GQLEngine } from '../AddTankComponents/SelectTankList'
-import { TankConfigAction } from './../Components/TankConfigEditor'
+import { GQLGun } from './SelectTankList'
+import { TankConfigAction } from '../TankConfigEditor'
+
 
 const Option:FC = (props: any) => (
     <div>
@@ -12,30 +13,30 @@ const Option:FC = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    { props.data.info.power }hp | Tier: { toRoman(props.data.info.level) }
+                    Reload: { props.data.info.reload_time }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m | Tier: { toRoman(props.data.info.level) }
                 </span>
             </div>
         </components.Option>
     </div>
 )
 
-export const SelectEngine:FC<{
-    engines: GQLEngine[]
-    currentEngineIndex: number
+export const SelectGun:FC<{
+    guns: GQLGun[]
+    currentGunIndex: number
     onSelect: Dispatch<TankConfigAction>
  }> = ({
-    engines,
-    currentEngineIndex,
+    guns,
+    currentGunIndex,
     onSelect
 }) => {
 
-    const options = engines.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
-    const currentlySelected = options.find(c => c.info.index === currentEngineIndex)
+    const options = guns.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
+    const currentlySelected = options.find(c => c.info.index === currentGunIndex)
 
     function handleSelection(val: typeof options[number] | null) {
         if (val?.info.index !== undefined) {
             onSelect({
-                type: 'SET_ENGINE',
+                type: 'SET_GUN',
                 payload: val.info.index
             })
         }
@@ -49,7 +50,7 @@ export const SelectEngine:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
-            isDisabled={engines.length < 2}
+            isDisabled={guns.length < 2}
         />
     )
 

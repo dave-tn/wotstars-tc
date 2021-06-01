@@ -1,4 +1,4 @@
-import { GQLPlayers } from './../AddTankComponents/SelectTankList'
+import { GQLPlayers } from './AddTankComponents/SelectTankList'
 import styles from './TankColumn.module.css'
 
 import { rounder } from '../utils/rounder'

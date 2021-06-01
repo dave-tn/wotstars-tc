@@ -1,5 +1,5 @@
 import { MainStore } from '../reduxStore'
-import { TankTypeSlug } from '../typesStuff/Tank'
+import { TankTypeSlug } from './../utils/tankTypes'
 
 
 export interface AddTankOptionsState {

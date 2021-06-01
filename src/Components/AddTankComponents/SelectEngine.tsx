@@ -1,11 +1,10 @@
 import { FC, Dispatch } from 'react'
 import Select, { components } from 'react-select'
 
-import { toRoman } from './../utils/tankTiers'
+import { toRoman } from '../../utils/tankTiers'
 
-import { GQLTurret } from '../AddTankComponents/SelectTankList'
-import { TankConfigAction } from './../Components/TankConfigEditor'
-
+import { GQLEngine } from './SelectTankList'
+import { TankConfigAction } from '../TankConfigEditor'
 
 const Option:FC = (props: any) => (
     <div>
@@ -13,30 +12,30 @@ const Option:FC = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    { props.data.info.vision_radius }👁 { props.data.info.rotation_speed }° | Tier: { toRoman(props.data.info.level) }
+                    { props.data.info.power }hp | Tier: { toRoman(props.data.info.level) }
                 </span>
             </div>
         </components.Option>
     </div>
 )
 
-export const SelectTurret:FC<{
-    turrets: GQLTurret[]
-    currentTurretIndex: number
+export const SelectEngine:FC<{
+    engines: GQLEngine[]
+    currentEngineIndex: number
     onSelect: Dispatch<TankConfigAction>
  }> = ({
-    turrets,
-    currentTurretIndex,
+    engines,
+    currentEngineIndex,
     onSelect
 }) => {
 
-    const options = turrets.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
-    const currentlySelected = options.find(c => c.info.index === currentTurretIndex)
+    const options = engines.map(c => ({ value: c.user_string, label: c.user_string, info: { ...c } }))
+    const currentlySelected = options.find(c => c.info.index === currentEngineIndex)
 
     function handleSelection(val: typeof options[number] | null) {
         if (val?.info.index !== undefined) {
             onSelect({
-                type: 'SET_TURRET',
+                type: 'SET_ENGINE',
                 payload: val.info.index
             })
         }
@@ -50,7 +49,7 @@ export const SelectTurret:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
-            isDisabled={turrets.length < 2}
+            isDisabled={engines.length < 2}
         />
     )
 

@@ -4,7 +4,7 @@ import { SelectType } from './AddTankComponents/SelectType'
 import { SelectTier } from './AddTankComponents/SelectTier'
 import { SelectTankList } from './AddTankComponents/SelectTankList'
 
-import gtagHelper from './utils/gtagHelper'
+import gtagHelper from './../utils/gtagHelper'
 
 import styles from './AddTank.module.css'
 

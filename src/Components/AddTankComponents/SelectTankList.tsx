@@ -4,11 +4,11 @@ import { useQuery, gql } from '@apollo/client'
 import { SelectTankIndividual } from './SelectTankIndividual'
 
 import { useSelector } from 'react-redux'
-import { getAddTankOptions } from '../reduxSlices/addTankSlice'
+import { getAddTankOptions } from '../../reduxSlices/addTankSlice'
 
 import styles from './Selects.module.css'
-import { useTankState } from '../hooks/useTankState'
-import { objFromFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
+import { useTankState } from '../../hooks/useTankState'
+import { objFromFingerprint } from '../../utils/comparisonConfigUtils/generateTankFingerprint'
 
 interface Tanks {
     tanks: GQLTank[]

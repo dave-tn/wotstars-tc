@@ -2,16 +2,16 @@
 import { FC, useReducer, useEffect } from 'react'
 
 import { useQuery, gql } from '@apollo/client'
-import { GQLTank } from './../AddTankComponents/SelectTankList'
+import { GQLTank } from './AddTankComponents/SelectTankList'
 import { Fingerprint, generateTankFingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import { TankIntro } from './../Components/TankIntro'
 
-import { SelectChassis } from './../AddTankComponents/SelectChassis'
-import { SelectEngine } from './../AddTankComponents/SelectEngine'
-import { SelectTurret } from './../AddTankComponents/SelectTurret'
-import { SelectGun } from '../AddTankComponents/SelectGun'
-import { SelectShot } from '../AddTankComponents/SelectShot'
+import { SelectChassis } from './AddTankComponents/SelectChassis'
+import { SelectEngine } from './AddTankComponents/SelectEngine'
+import { SelectTurret } from './AddTankComponents/SelectTurret'
+import { SelectGun } from './AddTankComponents/SelectGun'
+import { SelectShot } from './AddTankComponents/SelectShot'
 
 import { objFromFingerprint } from '../utils/comparisonConfigUtils/generateTankFingerprint'
 

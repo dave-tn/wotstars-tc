@@ -1,16 +1,16 @@
 import { FC } from 'react'
-import { VEHICLE_TYPES } from './../utils/tankTypes'
+import { VEHICLE_TYPES } from '../../utils/tankTypes'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedType, setSelectedType } from '../reduxSlices/addTankSlice'
+import { getSelectedType, setSelectedType } from '../../reduxSlices/addTankSlice'
 
-import gtagHelper from './../utils/gtagHelper'
+import gtagHelper from '../../utils/gtagHelper'
 
-import lightTank from './../images/type-light-icon.svg'
-import mediumTank from './../images/type-med-icon.svg'
-import heavyTank from './../images/type-heavy-icon.svg'
-import atSpg from './../images/type-td-icon.svg'
-import spg from './../images/type-spg-icon.svg'
+import lightTank from './../../images/type-light-icon.svg'
+import mediumTank from './../../images/type-med-icon.svg'
+import heavyTank from './../../images/type-heavy-icon.svg'
+import atSpg from './../../images/type-td-icon.svg'
+import spg from './../../images/type-spg-icon.svg'
 
 import styles from './Selects.module.css'
 

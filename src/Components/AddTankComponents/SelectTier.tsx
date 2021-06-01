@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { toRoman, KNOWN_TIERS } from './../utils/tankTiers'
+import { toRoman, KNOWN_TIERS } from '../../utils/tankTiers'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedTier, setSelectedTier } from '../reduxSlices/addTankSlice'
+import { getSelectedTier, setSelectedTier } from '../../reduxSlices/addTankSlice'
 
-import gtagHelper from './../utils/gtagHelper'
+import gtagHelper from '../../utils/gtagHelper'
 
 import styles from './Selects.module.css'
 

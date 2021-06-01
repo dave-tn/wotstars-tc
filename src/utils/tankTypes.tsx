@@ -1,6 +1,5 @@
 
-import { TankTypeSlug } from './../typesStuff/Tank'
-
+export type TankTypeSlug = 'lightTank'|'mediumTank'|'heavyTank'|'AT-SPG'|'SPG' // string
 type TypesTuple = [
     /** The WG tank type slug */
     TankTypeSlug,

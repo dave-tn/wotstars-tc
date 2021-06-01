@@ -2,7 +2,7 @@
 import { FC, useEffect } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GQLTank } from './../AddTankComponents/SelectTankList'
+import { GQLTank } from './AddTankComponents/SelectTankList'
 import { Fingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import { TankIntro } from './TankIntro'

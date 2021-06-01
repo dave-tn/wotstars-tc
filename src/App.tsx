@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 
 import styles from './App.module.css'
 
-import { AddTank } from './AddTank'
+import { AddTank } from './Components/AddTank'
 import { TanksTable } from './TanksTable'
 import { TankConfigEditor } from './Components/TankConfigEditor'
 

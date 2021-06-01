@@ -1,8 +1,8 @@
 import { FC, Dispatch } from 'react'
 import Select, { components } from 'react-select'
 
-import { GQLShot } from '../AddTankComponents/SelectTankList'
-import { TankConfigAction } from './../Components/TankConfigEditor'
+import { GQLShot } from './SelectTankList'
+import { TankConfigAction } from '../TankConfigEditor'
 
 
 const Option:FC = (props: any) => (
