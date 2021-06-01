@@ -222,7 +222,12 @@ export const SelectTankList: FC = () => {
     })
     // TODO: FIXME
     if (loading) return <div>Loading list of tanks data...</div>
-    if (error) return <div>There was an error loading the list of tanks data. Maybe try refreshing 🤷‍♂️</div>
+    if (error) return <div style={{ textAlign: 'center' }}>There was an error loading the list of tanks data. Maybe try refreshing 🤷‍♂️</div>
+
+    if (data?.tanks?.length === 0) {
+        return <div style={{ textAlign: 'center' }}>There were no vehicles found that match the selected tier and type.</div>
+    }
+
 
     return (
         <div style={{ overflowY: 'scroll' }}>
