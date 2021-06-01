@@ -6,6 +6,8 @@ import { AddTank } from './AddTank'
 import { TanksTable } from './TanksTable'
 import { TankConfigEditor } from './Components/TankConfigEditor'
 
+import tankyMcPew from './images/TankyMcPewpew-TC.png'
+
 const App:FC = () => {
 
   const [ showTankEditor, setShowTankEditor ] = useState(false)
@@ -14,7 +16,7 @@ const App:FC = () => {
     <div className={styles.wrap}>
       <header className={styles.header}>
         WoTStars' Tank Compare
-        <img src="/TankyMcPewPew-TC.png" alt="site logo" className={styles.headerLogo}></img>
+        <img src={tankyMcPew} alt="site logo" className={styles.headerLogo}></img>
       </header>
       <div className={styles.appBody}>
         { showTankEditor && <AddTank setShow={setShowTankEditor} /> }
