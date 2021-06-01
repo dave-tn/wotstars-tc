@@ -10,7 +10,7 @@ import tankyMcPew from './images/TankyMcPewpew-TC.png'
 
 const App:FC = () => {
 
-  const [ showTankEditor, setShowTankEditor ] = useState(false)
+  const [ showAddTankView, setShowAddTankView ] = useState(false)
 
   return (
     <div className={styles.wrap}>
@@ -19,8 +19,8 @@ const App:FC = () => {
         <img src={tankyMcPew} alt="site logo" className={styles.headerLogo}></img>
       </header>
       <div className={styles.appBody}>
-        { showTankEditor && <AddTank setShow={setShowTankEditor} /> }
-        <TanksTable showTankEditor={setShowTankEditor} />
+        { showAddTankView && <AddTank setShow={setShowAddTankView} /> }
+        <TanksTable showAddTankView={setShowAddTankView} />
         <TankConfigEditor />
       </div>
     </div>

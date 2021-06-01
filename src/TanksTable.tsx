@@ -9,8 +9,8 @@ import styles from './RowComponents/RowComponentStyles.module.css'
 
 
 export const TanksTable:FC<{
-    showTankEditor: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ showTankEditor }) => {
+    showAddTankView: React.Dispatch<React.SetStateAction<boolean>>
+}> = ({ showAddTankView }) => {
 
     const [ fingerprints ] = useTankState()
     const [ firstTank, setFirstTank ] = useState<GQLTank | undefined>()
@@ -103,7 +103,7 @@ export const TanksTable:FC<{
 
                 { fingerprints.map((fp, index) => <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} /> )}
 
-                <div className={styles.headerAddTankButton} onClick={() => showTankEditor(true)}>
+                <div className={styles.headerAddTankButton} onClick={() => showAddTankView(true)}>
                     ADD TANK
                 </div>
 
