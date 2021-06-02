@@ -5,6 +5,7 @@ import { useQuery, gql } from '@apollo/client'
 import { GQLTank } from './AddTankComponents/SelectTankList'
 import { Fingerprint, generateTankFingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
+import { CenteredSpinnerWithText } from './Spinner'
 import { TankIntro } from './../Components/TankIntro'
 
 import { SelectChassis } from './AddTankComponents/SelectChassis'
@@ -197,7 +198,7 @@ const Editor:FC<{
             <h1 className={styles.mainTitle}>Edit Tank Configuration</h1>
             {/* <div onClick={() => dispatch(setFingerprintToEdit(undefined))}>Close X</div> */}
             { loading &&
-                <div>Loading tank modules...</div>
+                <CenteredSpinnerWithText text="Loading tank modules..." />
             }
             { error &&
                 <div>There was an error loading the tank configuration data. :(</div>

@@ -2,13 +2,15 @@ import { FC } from 'react'
 import { useQuery, gql } from '@apollo/client'
 
 import { SelectTankIndividual } from './SelectTankIndividual'
+import { CenteredSpinnerWithText } from './../Spinner'
 
 import { useSelector } from 'react-redux'
+import { useTankState } from '../../hooks/useTankState'
 import { getAddTankOptions } from '../../reduxSlices/addTankSlice'
 
-import styles from './Selects.module.css'
-import { useTankState } from '../../hooks/useTankState'
 import { objFromFingerprint } from '../../utils/comparisonConfigUtils/generateTankFingerprint'
+
+import styles from './Selects.module.css'
 
 interface Tanks {
     tanks: GQLTank[]
@@ -221,7 +223,8 @@ export const SelectTankList: FC = () => {
         // onCompleted: ({ nations }) => setSelectedNation(nations[0])        
     })
     // TODO: FIXME
-    if (loading) return <div>Loading list of tanks data...</div>
+    if (loading) return <CenteredSpinnerWithText />
+    // </Spinner><div>Loading list of tanks data...</div>
     if (error) return <div style={{ textAlign: 'center' }}>There was an error loading the list of tanks data. Maybe try refreshing 🤷‍♂️</div>
 
     if (data?.tanks?.length === 0) {
