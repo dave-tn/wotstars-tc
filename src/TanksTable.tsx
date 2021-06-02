@@ -23,7 +23,7 @@ export const TanksTable:FC<{
                 style={{
                     // use this to hackily force our column layout for a vertical table type effect
                     // TODO: Ideally we calculate this automatically somehow...
-                    gridTemplateRows: 'auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto'
+                    gridTemplateRows: `repeat(28, auto)`
             }}>
                 <div></div>{/* Empty top left grid item */}
                 <div
