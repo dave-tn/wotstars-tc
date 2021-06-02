@@ -20,6 +20,7 @@ const GET_TANK_Q = gql`
             speeds
             camo
 
+            max_health
             weight
 
             chassi(index: $chassisIndex) {

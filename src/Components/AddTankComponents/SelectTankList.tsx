@@ -39,6 +39,8 @@ export interface GQLTank {
     is_fake_turrets: boolean
     primary_armor: number[]
 
+    max_health: number
+
     chassi: GQLChassis
     engine: GQLEngine
     turret: GQLTurret

@@ -130,6 +130,9 @@ export const TankColumn: FC<{
                 <MakeCell val={tank.chassi.terrain_resistance[1]} compVal={firstTank?.chassi.terrain_resistance[1]} biggerIsBetter={false} />
                 <MakeCell val={tank.chassi.terrain_resistance[2]} compVal={firstTank?.chassi.terrain_resistance[2]} biggerIsBetter={false} />
             </div>
+
+{/* Misc / other */}
+            <div className={styles.cellwrap}><MakeCell val={tank.max_health} compVal={firstTank?.max_health} suffix="hp" /></div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.camo[0]} compVal={firstTank?.camo[0]} />
                 <MakeCell val={tank.camo[1]} compVal={firstTank?.camo[1]} />
