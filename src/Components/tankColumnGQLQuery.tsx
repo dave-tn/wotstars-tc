@@ -53,7 +53,6 @@ const GET_TANK_Q = gql`
                         user_string
                         damage
                         piercing_power
-                        dpm
                         caliber
                     }
                 }
