@@ -2,6 +2,7 @@ import { FC, Dispatch } from 'react'
 import Select, { components } from 'react-select'
 
 import { toRoman } from '../../utils/tankTiers'
+import { rounder } from './../../utils/rounder'
 
 import { GQLGun } from './SelectTankList'
 import { TankConfigAction } from '../TankConfigEditor'
@@ -13,7 +14,7 @@ const Option:FC = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    Reload: { props.data.info.reload_time }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m | Tier: { toRoman(props.data.info.level) }
+                    Reload: { rounder(props.data.info.reload_time, 2) }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m | Tier: { toRoman(props.data.info.level) }
                 </span>
             </div>
         </components.Option>
