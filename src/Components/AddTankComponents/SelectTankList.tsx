@@ -130,10 +130,8 @@ export interface GQLGun extends GQLTankModule {
     max_ammo: number
     elevation: number
     depression: number
-    /* Reload time in s */
+    /* Reload time; but only kinda. Cos WG... (is the number of reloads in a minute) */
     reload_time: number
-    /* Rounds per minute */
-    rate_of_fire: number
     shots_per_clip: number
     /* Shot dispersion at 100m */
     shot_dispersion_radius: number
@@ -141,6 +139,7 @@ export interface GQLGun extends GQLTankModule {
     /* Aiming time in s */
     aiming_time: number
 
+    /* The rate of fire / how fast a gun can shot (interval between shots), best case */
     gun_rate: number
     gun_rate_mod: number
 

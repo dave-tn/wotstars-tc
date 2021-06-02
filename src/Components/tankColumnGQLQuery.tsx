@@ -42,7 +42,7 @@ const GET_TANK_Q = gql`
                 gun(index: $gunIndex) {
                     user_string
                     reload_time
-                    rate_of_fire
+                    gun_rate
                     weight
                     aiming_time
                     shots_per_clip

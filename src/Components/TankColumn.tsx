@@ -90,15 +90,18 @@ export const TankColumn: FC<{
 
 {/* FIREPOWER */}
             <div>
-                <MakeCell val={tank.turret.gun.shot.dpm} compVal={firstTank?.turret.gun.shot.dpm} roundTo={0} />
+                {/* <MakeCell val={tank.turret.gun.shot.dpm} compVal={firstTank?.turret.gun.shot.dpm} roundTo={0} /> */}
+                <MakeCell val={tank.turret.gun.gun_rate * tank.turret.gun.shot.damage} compVal={(firstTank?.turret.gun.gun_rate ?? 0) * (firstTank?.turret.gun.shot.damage ?? 0)} roundTo={0} />
             </div>
             <div><MakeCell val={tank.turret.gun.shot.piercing_power} compVal={firstTank?.turret.gun.shot.piercing_power} roundTo={0} suffix="mm" /></div>
             <div><MakeCell val={tank.turret.gun.shot.damage} compVal={firstTank?.turret.gun.shot.damage} roundTo={0} /></div>
             <div>
-                <MakeCell val={tank.turret.gun.rate_of_fire * (tank.turret.gun.shots_per_clip || 1)} compVal={(firstTank?.turret.gun.rate_of_fire || 0) * (firstTank?.turret.gun.shots_per_clip || 1)} roundTo={2} suffix="/min" />
+                {/* Rate of Fire */}
+                <MakeCell val={tank.turret.gun.gun_rate} compVal={firstTank?.turret.gun.gun_rate} roundTo={2} suffix="/min" />
             </div>
             <div>
-                <MakeCell val={tank.turret.gun.reload_time} compVal={firstTank?.turret.gun.reload_time} biggerIsBetter={false} roundTo={2} suffix="s" />
+                {/* Reload time */}
+                <MakeCell val={(60 / tank.turret.gun.reload_time)} compVal={firstTank ? (60 / firstTank.turret.gun.reload_time) : undefined} roundTo={2} suffix="s" biggerIsBetter={false} />
             </div>
             <div><MakeCell val={tank.turret.gun.shots_per_clip} compVal={firstTank?.turret.gun.shots_per_clip} /></div>
             <div><MakeCell val={tank.turret.gun.shot.caliber} compVal={firstTank?.turret.gun.shot.caliber} roundTo={0} suffix="mm" /></div>
