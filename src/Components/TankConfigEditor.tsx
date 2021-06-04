@@ -36,21 +36,12 @@ const GET_TANK_Q = gql`
     query tank($id: ID!) {
         tank(id: $id) {
             id
-            fingerprint
             user_string
             nation
             tier
             type_slug
             is_premium
             image_preview_url
-
-            silver_bonus
-            xp_bonus
-            free_xp_bonus
-            crew_bonus
-
-            speeds
-            camo
 
             chassis {
                 index
@@ -84,11 +75,9 @@ const GET_TANK_Q = gql`
                     shots {
                         index
                         user_string
-                        # level
                         damage
                         piercing_power
                         is_premium
-                        # dpm
                     }
                 }
             }
