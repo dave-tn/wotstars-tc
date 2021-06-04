@@ -10,7 +10,7 @@ import styles from './Selects.module.css'
 import tankColumnStyles from '../../Components/TankColumn.module.css'
 
 
-const highestIndexFinder = (best: number, mod: { index: number }) => best > mod.index ? best : mod.index
+export const highestIndexFinder = (best: number, mod: { index: number }) => best > mod.index ? best : mod.index
 
 export const SelectTankIndividual: FC<{
     tank: GQLTank

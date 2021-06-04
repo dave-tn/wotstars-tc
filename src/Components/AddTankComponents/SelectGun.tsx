@@ -45,9 +45,9 @@ export const SelectGun:FC<{
 
     return (
         <Select
+            value={currentlySelected}
             options={options}
             components={{ Option }}
-            defaultValue={currentlySelected}
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}

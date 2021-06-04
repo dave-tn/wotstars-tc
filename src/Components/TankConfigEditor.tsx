@@ -4,6 +4,7 @@ import { FC, useReducer, useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { GQLTank } from './AddTankComponents/SelectTankList'
 import { Fingerprint, generateTankFingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
+import { highestIndexFinder } from './AddTankComponents/SelectTankIndividual'
 
 import { CenteredSpinnerWithText } from './Spinner'
 import { TankIntro } from './../Components/TankIntro'
@@ -103,12 +104,16 @@ interface TankConfig {
     turretIndex: number
     gunIndex: number
     shotIndex: number
+    tankData: GQLTank | undefined
 }
 
 type ReducerActions = 'SET_CHASSIS' | 'SET_ENGINE' | 'SET_TURRET' | 'SET_GUN' | 'SET_SHOT'
-export interface TankConfigAction {
+export type TankConfigAction = {
     type: ReducerActions
     payload: number
+} | {
+    type: 'SET_TANK_DATA'
+    payload: GQLTank | undefined
 }
 
 // TODO: Move side effects somewhere else...
@@ -124,15 +129,34 @@ function configReducer(state: TankConfig, action: TankConfigAction) {
         }
         case 'SET_TURRET': {
             gtagHelper({ 'event': 'tank_config_editor_change_turret' })
-            return { ...state, turretIndex: action.payload }
+
+            // When we change the turret, we also want to pick the best 'default' gun available to that turret
+            const gunIndex = state.tankData?.turrets
+                .find(t => t.index === action.payload)
+                ?.guns.reduce(highestIndexFinder, 0) ?? 0
+
+            return { ...state,
+                turretIndex: action.payload,
+                gunIndex,
+                shotIndex: 0
+            }
         }
         case 'SET_GUN': {
             gtagHelper({ 'event': 'tank_config_editor_change_gun' })
-            return { ...state, gunIndex: action.payload }
+            return { ...state,
+                gunIndex: action.payload,
+                shotIndex: 0
+            }
         }
         case 'SET_SHOT': {
             gtagHelper({ 'event': 'tank_config_editor_change_shot' })
             return { ...state, shotIndex: action.payload }
+        }
+        case 'SET_TANK_DATA': {
+            return {
+                ...state,
+                tankData: action.payload
+            }
         }
         default: return state
     }
@@ -149,18 +173,21 @@ const Editor:FC<{
     const updateFingerprint = useUpdateFingerprint()
 
     const tankConfigObj = objFromFingerprint(fingerprint)
-    const { data, loading, error } = useQuery<TankQueryRes, TankQueryVars>(GET_TANK_Q, {
-        variables: { id: tankConfigObj.id },
-        // onCompleted: ({ tankTiers }) => setAvailableTiers(tankTiers)
-    })
-
     const [ config, configDispatcher ] = useReducer(configReducer, {
         tankId: tankConfigObj.id,
         chassisIndex: tankConfigObj.chassisIndex,
         engineIndex: tankConfigObj.engineIndex,
         turretIndex: tankConfigObj.turretIndex,
         gunIndex: tankConfigObj.gunIndex,
-        shotIndex: tankConfigObj.shotIndex
+        shotIndex: tankConfigObj.shotIndex,
+        tankData: undefined
+    })
+    const { data, loading, error } = useQuery<TankQueryRes, TankQueryVars>(GET_TANK_Q, {
+        variables: { id: tankConfigObj.id },
+        onCompleted: ({ tank }) => configDispatcher({
+            type: 'SET_TANK_DATA',
+            payload: tank
+        })
     })
 
     function dispatchUpdatedFingerprint() {

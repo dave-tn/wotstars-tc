@@ -59,12 +59,12 @@ export const SelectShot:FC<{
 
     return (
         <Select
+            value={currentlySelected}
             options={options}
             components={{
                 Option,
                 // ValueContainer
             }}
-            defaultValue={currentlySelected}
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
