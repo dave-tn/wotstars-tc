@@ -57,11 +57,6 @@ export const SelectShot:FC<{
         }
     }
 
-    const colourStyles = {
-        control: (styles: any) => ({ ...styles, color: 'white' }),
-        option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => ({ ...styles, color: isSelected ? 'white' : '#5A5F5A' })
-    }
-
     return (
         <Select
             options={options}
@@ -73,7 +68,6 @@ export const SelectShot:FC<{
             isClearable={false}
             isSearchable={false}
             onChange={handleSelection}
-            styles={colourStyles}
             isDisabled={shots.length < 2}
         />
     )
