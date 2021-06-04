@@ -135,7 +135,7 @@ export const TankColumn: FC<{
             </div>
 
 {/* Misc / other */}
-            <div className={styles.cellwrap}><MakeCell val={tank.max_health} compVal={firstTank?.max_health} suffix="hp" /></div>
+            <div className={styles.cellwrap}><MakeCell val={tank.max_health + tank.turret.max_health} compVal={firstTank ? firstTank.max_health + firstTank.turret.max_health : undefined} suffix="hp" /></div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.camo[0]} compVal={firstTank?.camo[0]} />
                 <MakeCell val={tank.camo[1]} compVal={firstTank?.camo[1]} />

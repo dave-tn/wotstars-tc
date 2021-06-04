@@ -39,6 +39,7 @@ const GET_TANK_Q = gql`
                 rotation_speed
                 weight
                 vision_radius
+                max_health
                 gun(index: $gunIndex) {
                     user_string
                     reload_time
