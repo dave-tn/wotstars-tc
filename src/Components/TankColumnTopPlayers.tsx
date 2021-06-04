@@ -13,7 +13,7 @@ function TopPlayersRows({ players }: { players: GQLPlayers[] }) {
         else {
             const player = players[i]
             items.push((
-                <div className={`${styles.playerCell}`}>
+                <div key={player.account_id} className={`${styles.playerCell}`}>
                     <div className={styles.playerTopRow}>
                         <div className={`${player.platform === 'xbox' ? styles.platformXbox : styles.platformPs}`}></div>
                         <a
