@@ -23,7 +23,12 @@ export const AddTank:FC<{ setShow: React.Dispatch<React.SetStateAction<boolean>>
     }
 
     useEffect(() => {
-        const closeFn = (e: KeyboardEvent) => (e.key === 'Escape' && setShow(false) && gtagHelper({ 'event': 'tank_add_view_closed' }))
+        const closeFn = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setShow(false)
+                gtagHelper({ 'event': 'tank_add_view_closed' })
+            }
+        }
         window.addEventListener('keyup', closeFn)
         return () => window.removeEventListener('keyup', closeFn)
     }, [ setShow ])
