@@ -11,8 +11,9 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './reduxStore'
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:4000', // for now...
-  uri: 'https://mhjlm8bnja.execute-api.eu-west-2.amazonaws.com/production/graphql',
+  // uri: 'http://localhost:4002',
+  // uri: 'https://mhjlm8bnja.execute-api.eu-west-2.amazonaws.com/production/graphql',
+  uri: 'https://www.wotstars.com/tc',
   cache: new InMemoryCache()
 })
 
