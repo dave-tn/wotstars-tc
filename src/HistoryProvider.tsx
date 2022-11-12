@@ -9,9 +9,8 @@ import { createHashHistory } from 'history'
 const history = createHashHistory()
 const HistoryContext = createContext(history)
 
-const HistoryProvider:FC = ({ children }) => {
-    return <HistoryContext.Provider value={history}>{ children }</HistoryContext.Provider>
-}
+const HistoryProvider:FC = ({ children }) =>
+    <HistoryContext.Provider value={history}>{ children }</HistoryContext.Provider>
 
 const useHistory = () => useContext(HistoryContext)
 
