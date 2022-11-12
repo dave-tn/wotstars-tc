@@ -1,9 +1,9 @@
 
 import { useState, useEffect, useContext } from 'react'
 
-import { HistoryContext, useHistory } from './../HistoryProvider'
+import { HistoryContext, useHistory } from '../HistoryProvider'
 
-import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from './../utils/comparisonConfigUtils/generateTankFingerprint'
+import { Fingerprint, objFromFingerprint, fingerprintsToString, fingerprintsFromString } from '../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import gtagHelper from './../utils/gtagHelper'
 
