@@ -9,7 +9,7 @@ import { rounder } from '../utils/rounder'
 function TopPlayersRows({ players }: { players: GQLPlayers[] }) {
     const items = []
     for (let i = 0; i < 3; i++) {
-        if (!players[i]) items.push(<div> none ... </div>)
+        if (!players?.[i]) items.push(<div> none ... </div>)
         else {
             const player = players[i]
             items.push((
