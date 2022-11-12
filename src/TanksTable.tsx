@@ -23,7 +23,7 @@ export const TanksTable:FC<{
                 style={{
                     // use this to hackily force our column layout for a vertical table type effect
                     // TODO: Ideally we calculate this automatically somehow...
-                    gridTemplateRows: `repeat(30, auto)`
+                    gridTemplateRows: `repeat(31, auto)`
             }}>
                 <div></div>{/* Empty top left grid item */}
                 <div
@@ -54,9 +54,8 @@ export const TanksTable:FC<{
                 <div className={styles.cell}>Damage</div>
                 <div className={styles.cell}>Rate of Fire</div>
                 <div className={styles.cell}>Reload</div>
-                <div className={styles.cell}>Clip</div>
-                <div className={styles.cell}>Caliber</div>
-
+                <div className={styles.cell}>Clip / Intra</div>
+                <div className={styles.cell}>Burst [dmg/time]</div>
 
                 <div
                     className={styles.header} 
@@ -97,12 +96,13 @@ export const TanksTable:FC<{
                 </div>
                 <div className={styles.cell}>Health (hit points)</div>
                 <div className={styles.cell}>Camo [still/moving]</div>
+                <div className={styles.cell}>Visibility [still/moving]</div>
                 <div className={styles.cell}>View Range</div>
 
                 <div
                     className={styles.header} 
                     style={{
-                        gridRow: '27',
+                        gridRow: '28',
                         gridColumn: `1/${fingerprints.length + 2}`
                     }}
                 >

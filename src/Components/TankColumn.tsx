@@ -2,7 +2,7 @@
 import { FC, useEffect } from 'react'
 
 import { useQuery } from '@apollo/client'
-import { GQLTank } from './AddTankComponents/SelectTankList'
+import { GQLGun, GQLTank } from './AddTankComponents/SelectTankList'
 import { Fingerprint } from './../utils/comparisonConfigUtils/generateTankFingerprint'
 
 import { TankIntro } from './TankIntro'
@@ -62,6 +62,20 @@ export const TankColumn: FC<{
     const firstTankWeight = firstTank ? ((firstTank.weight + firstTank.chassi.weight + firstTank.engine.weight + firstTank.turret.weight + firstTank.turret.gun.weight) / 1000) : 0
     const firstTankEnginePowerPerTonne = firstTank ? firstTank.engine.power / firstTankWeight : 0
 
+    // Tank DPM can vary in cases of auto-reloading tanks, so use our little helper fn to calcuate
+    const firstTankDpm = firstTank ? calcDpm(firstTank.turret.gun) : []
+    const gunDpm = calcDpm(tank.turret.gun)
+
+    // Reload times, taking in to account variances due to auto-reloaders
+    const firstTankReloads = firstTank?.turret.gun.shell_autoreloading_time ?? [firstTank ? 60 / firstTank?.turret.gun.reload_time : undefined ]
+    const gunReload = tank.turret.gun.shell_autoreloading_time ?? [60 / tank.turret.gun.reload_time]
+
+    // Should we have a 'burst potential' row?
+    // it could show the total amount of burst damage and how long it takes to deliver 🤔
+    const firstTankBurstDmg = firstTank?.turret.gun.intra_clip_reload ? firstTank.turret.gun.shots_per_clip * firstTank.turret.gun.shot.damage : undefined
+    const firstTankBurstTime = firstTank?.turret.gun.intra_clip_reload ? firstTank?.turret.gun.intra_clip_reload * firstTank?.turret.gun.shots_per_clip : undefined
+    const gunBurstDmg = tank.turret.gun.intra_clip_reload ? tank.turret.gun.shots_per_clip * tank.turret.gun.shot.damage : undefined
+    const gunBurstTime = tank.turret.gun.intra_clip_reload ? tank.turret.gun.intra_clip_reload * tank.turret.gun.shots_per_clip : undefined
 
     return (
         <>
@@ -89,9 +103,10 @@ export const TankColumn: FC<{
             </div>
 
 {/* FIREPOWER */}
-            <div>
-                {/* <MakeCell val={tank.turret.gun.shot.dpm} compVal={firstTank?.turret.gun.shot.dpm} roundTo={0} /> */}
-                <MakeCell val={tank.turret.gun.gun_rate * tank.turret.gun.shot.damage} compVal={(firstTank?.turret.gun.gun_rate ?? 0) * (firstTank?.turret.gun.shot.damage ?? 0)} roundTo={0} />
+            <div className={styles.cellWrap}>
+                { gunDpm.map((dpmVal, index) => (
+                    <MakeCell val={dpmVal} compVal={firstTankDpm[index]} roundTo={0} />
+                ))}
             </div>
             <div><MakeCell val={tank.turret.gun.shot.piercing_power} compVal={firstTank?.turret.gun.shot.piercing_power} roundTo={0} suffix="mm" /></div>
             <div><MakeCell val={tank.turret.gun.shot.damage} compVal={firstTank?.turret.gun.shot.damage} roundTo={0} /></div>
@@ -99,12 +114,26 @@ export const TankColumn: FC<{
                 {/* Rate of Fire */}
                 <MakeCell val={tank.turret.gun.gun_rate} compVal={firstTank?.turret.gun.gun_rate} roundTo={2} suffix="/min" />
             </div>
-            <div>
+            <div className={styles.cellWrap}>
                 {/* Reload time */}
-                <MakeCell val={(60 / tank.turret.gun.reload_time)} compVal={firstTank ? (60 / firstTank.turret.gun.reload_time) : undefined} roundTo={2} suffix="s" biggerIsBetter={false} />
+                { gunReload.map((reloadVal, index) => (
+                    <MakeCell val={reloadVal} compVal={firstTankReloads[index]} roundTo={1} suffix="s" biggerIsBetter={false} />
+                ))}
             </div>
-            <div><MakeCell val={tank.turret.gun.shots_per_clip} compVal={firstTank?.turret.gun.shots_per_clip} /></div>
-            <div><MakeCell val={tank.turret.gun.shot.caliber} compVal={firstTank?.turret.gun.shot.caliber} roundTo={0} suffix="mm" /></div>
+                {/* Reload time */}
+            {/* <div>
+                <MakeCell val={(60 / tank.turret.gun.reload_time)} compVal={firstTank ? (60 / firstTank.turret.gun.reload_time) : undefined} roundTo={2} suffix="s" biggerIsBetter={false} />
+            </div> */}
+            <div className={styles.cellWrap}>
+                <MakeCell val={tank.turret.gun.shots_per_clip} compVal={firstTank?.turret.gun.shots_per_clip} />
+                <MakeCell val={tank.turret.gun.intra_clip_reload} compVal={firstTank?.turret.gun.intra_clip_reload} suffix="s" biggerIsBetter={false} />
+            </div>
+            {/* Burst info */}
+            <div className={styles.cellWrap}>
+                <MakeCell val={gunBurstDmg} compVal={firstTankBurstDmg} />
+                <MakeCell val={gunBurstTime} compVal={firstTankBurstTime} suffix="s" biggerIsBetter={false} />
+            </div>
+            {/* <div><MakeCell val={tank.turret.gun.shot.caliber} compVal={firstTank?.turret.gun.shot.caliber} roundTo={0} suffix="mm" /></div> */}
 
 {/* WEAPON HANDLING */}
             <div><MakeCell val={tank.turret.gun.aiming_time} compVal={firstTank?.turret.gun.aiming_time} suffix="s" biggerIsBetter={false} /></div>
@@ -116,8 +145,8 @@ export const TankColumn: FC<{
 
 {/* MOVEMENT / MOBILITY */}
             <div className={styles.cellWrap}>
-                <MakeCell val={tank.speeds[0]} compVal={firstTank?.speeds[0]} suffix="kph" />
-                <MakeCell val={tank.speeds[1]} compVal={firstTank?.speeds[1]} suffix="kph" />
+                <MakeCell val={tank.engine.forward_max} compVal={firstTank?.engine.forward_max} suffix="kph" />
+                <MakeCell val={tank.engine.backward_max} compVal={firstTank?.engine.backward_max} suffix="kph" />
             </div>
             <div className={styles.cellWrap}>
                 <MakeCell val={tank.chassi.rotation_speed} compVal={firstTank?.chassi.rotation_speed} suffix="°/s" />
@@ -137,8 +166,12 @@ export const TankColumn: FC<{
 {/* Misc / other */}
             <div className={styles.cellwrap}><MakeCell val={tank.max_health + tank.turret.max_health} compVal={firstTank ? firstTank.max_health + firstTank.turret.max_health : undefined} suffix="hp" /></div>
             <div className={styles.cellWrap}>
-                <MakeCell val={tank.camo[0]} compVal={firstTank?.camo[0]} />
-                <MakeCell val={tank.camo[1]} compVal={firstTank?.camo[1]} />
+                <MakeCell val={tank.invisibility.still} compVal={firstTank?.invisibility.still} />
+                <MakeCell val={tank.invisibility.moving} compVal={firstTank?.invisibility.moving} />
+            </div>
+            <div className={styles.cellWrap}>
+                <MakeCell val={tank.invisibility.still_range} compVal={firstTank?.invisibility.still_range} roundTo={0} suffix="m" />
+                <MakeCell val={tank.invisibility.moving_range} compVal={firstTank?.invisibility.moving_range} roundTo={0} suffix="m" />
             </div>
             <div><MakeCell val={tank.turret.vision_radius} compVal={firstTank?.turret.vision_radius} suffix="m" /></div>
             
@@ -150,3 +183,19 @@ export const TankColumn: FC<{
     )
 }
 
+
+const calcDpm = (gun: GQLGun) => {
+    // For auto-reloaders, there are different DPMs depending on when a player decides to use their rounds...
+    if (gun.shell_autoreloading_time) {
+        // const intraClipReload = gun.intra_clip_reload ?? 0
+        const dpmVals: number[] = []
+        gun.shell_autoreloading_time.forEach(reloadTime => {
+            // TODO: Need to find out if the intra is included in the reload time.
+            // It must be, else the already very low DPM is even lower....?
+            const dpm = (60 / (reloadTime /*+ intraClipReload*/)) * gun.shot.damage
+            dpmVals.push(dpm)
+        })
+        return dpmVals
+    }
+    return [gun.gun_rate * gun.shot.damage]
+}
