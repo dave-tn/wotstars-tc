@@ -27,7 +27,7 @@ const TankIntro: FC<{ tank: GQLTank }> = ({ tank }) => {
             <div className={styles.textWrap}>
                 <span className={`${styles.name}${tank.is_premium? ` ${styles.premiumTextColour}` : ''}`}>{tank.user_string}</span>
                 <span>{toType(tank.type_slug as TankTypeSlug)}</span>
-                <span>{toNation(tank.nation)} | {toRoman(tank.tier)}</span>
+                <span>{toNation(tank.nation)} | {toRoman(tank.level)}</span>
             </div>
 
         </div>

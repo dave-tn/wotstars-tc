@@ -14,7 +14,7 @@ const Option = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    { props.data.info.rotation_speed }° | Tier: { toRoman(props.data.info.level) }
+                    { props.data.info.rotation_speed }°
                 </span>
             </div>
         </components.Option>

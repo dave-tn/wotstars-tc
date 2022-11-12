@@ -12,7 +12,7 @@ const Option:FC = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    { props.data.info.power }hp | Tier: { toRoman(props.data.info.level) }
+                    { props.data.info.power }hp
                 </span>
             </div>
         </components.Option>

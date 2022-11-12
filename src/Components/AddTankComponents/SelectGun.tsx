@@ -14,7 +14,7 @@ const Option:FC = (props: any) => (
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                 <span>{ props.data.label }</span>
                 <span>
-                    Reload: { rounder((60 / props.data.info.reload_time), 2) }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m | Tier: { toRoman(props.data.info.level) }
+                    Reload: { rounder((60 / props.data.info.reload_time), 2) }s Aim: { props.data.info.aiming_time }s 	&#9678;{ props.data.info.shot_dispersion_radius }m
                 </span>
             </div>
         </components.Option>
