@@ -7,7 +7,7 @@ const GET_TANK_Q = gql`
             fingerprint
             user_string
             nation
-            tier
+            level
             type_slug
             is_premium
             image_preview_url
@@ -17,8 +17,12 @@ const GET_TANK_Q = gql`
             free_xp_bonus
             crew_bonus
 
-            speeds
-            camo
+            invisibility {
+                still
+                moving
+                still_range
+                moving_range
+            }
 
             max_health
             weight
@@ -32,6 +36,8 @@ const GET_TANK_Q = gql`
             engine(index: $engineIndex) {
                 power
                 weight
+                forward_max
+                backward_max
             }
 
             turret(index: $turretIndex) {
@@ -47,6 +53,8 @@ const GET_TANK_Q = gql`
                     weight
                     aiming_time
                     shots_per_clip
+                    intra_clip_reload
+                    shell_autoreloading_time
                     shot_dispersion_radius
                     elevation
                     depression
@@ -54,7 +62,6 @@ const GET_TANK_Q = gql`
                         user_string
                         damage
                         piercing_power
-                        caliber
                     }
                 }
             }

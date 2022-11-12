@@ -38,7 +38,7 @@ const GET_TANK_Q = gql`
             id
             user_string
             nation
-            tier
+            level
             type_slug
             is_premium
             image_preview_url
@@ -46,28 +46,24 @@ const GET_TANK_Q = gql`
             chassis {
                 index
                 user_string
-                level
                 rotation_speed
             }
 
             engines {
                 index
                 user_string
-                level
                 power
             }
 
             turrets {
                 index
                 user_string
-                level
                 vision_radius
                 rotation_speed
 
                 guns {
                     index
                     user_string
-                    level
                     reload_time
                     aiming_time
                     shot_dispersion_radius
@@ -77,7 +73,6 @@ const GET_TANK_Q = gql`
                         user_string
                         damage
                         piercing_power
-                        is_premium
                     }
                 }
             }

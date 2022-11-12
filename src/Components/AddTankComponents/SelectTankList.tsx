@@ -21,7 +21,7 @@ export interface GQLTank {
     fingerprint: string
     user_string: string
     nation: string
-    tier: number
+    level: number
     type_slug: string
     description: string
     image_preview_url: string
@@ -34,7 +34,12 @@ export interface GQLTank {
     free_xp_bonus: number
     crew_bonus: number
     camo: number[]
-    speeds: number[]
+    invisibility: {
+        still: number
+        moving: number
+        still_range: number
+        moving_range: number
+    }
     battle_level_max: number
     is_fake_turrets: boolean
     primary_armor: number[]
@@ -114,6 +119,14 @@ interface GQLTankModule {
 export interface GQLEngine extends GQLTankModule {
     power: number
     fire_chance: number
+    forward_max: number
+    backward_max: number
+    forward_rapid?: number
+    backward_rapid?: number
+    forward_siege?: number
+    backward_siege?: number
+    forward_turbo?: number
+    backward_turbo?: number
 }
 export interface GQLChassis extends GQLTankModule {
     rotation_speed: number
@@ -133,6 +146,8 @@ export interface GQLGun extends GQLTankModule {
     /* Reload time; but only kinda. Cos WG... (is the number of reloads in a minute) */
     reload_time: number
     shots_per_clip: number
+    intra_clip_reload: number
+    shell_autoreloading_time?: number[]
     /* Shot dispersion at 100m */
     shot_dispersion_radius: number
     rotation_speed: number
@@ -150,7 +165,6 @@ export interface GQLGun extends GQLTankModule {
 
 export interface GQLShot {
     index: number
-    caliber: number
 
     //   # Price, seemingly in gold or credits depending on whether ammo is premium
     price: number
@@ -171,7 +185,7 @@ const GET_TANKS_QUERY = gql`
             id
             user_string
             nation
-            tier
+            level
             type_slug
             image_preview_url
             is_premium
