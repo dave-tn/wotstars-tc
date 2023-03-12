@@ -30,7 +30,7 @@ export const TanksTable:FC<{
                     className={styles.header} 
                     style={{
                         gridRow: '2',
-                        // To stretch all the way horixontally we have to set this to compute based on the number of items...
+                        // To stretch all the way horizontally we have to set this to compute based on the number of items
                         gridColumn: `1/${fingerprints.length + 2}`,
                     }}
                 >
@@ -107,13 +107,17 @@ export const TanksTable:FC<{
                     }}
                 >
                     Top Players
-                    <small style={{ fontWeight: 'lighter', fontSize: '.65em', display: 'block' }}>(last 90 days, by WN8; [Battles | <b>WN8</b> | Combined Damage])</small>
+                    <small style={{ fontWeight: 'lighter', fontSize: '.65em', display: 'block' }}>
+                      (last 90 days, by WN8; [Battles | <b>WN8</b> | Combined Damage])
+                    </small>
                 </div>
                 <div className={styles.cell}>#1</div>
                 <div className={styles.cell}>#2</div>
                 <div className={styles.cell}>#3</div>
 
-                { fingerprints.map((fp, index) => <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} /> )}
+                { fingerprints.map((fp, index) => 
+                    <TankColumn fingerprint={fp} key={fp} firstTank={firstTank} setFirstTank={index === 0 ? setFirstTank : undefined} />
+                )}
 
                 <div className={styles.headerAddTankButton} onClick={() => showAddTankView(true)}>
                     ADD TANK
